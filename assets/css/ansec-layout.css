@@ -1,0 +1,655 @@
+/*
+ * ansec-layout.css
+ * ─────────────────────────────────────────────────────────────
+ * Shared styles for the ANSEC header and footer.
+ * ALL classes are prefixed  al-  (ansec-layout) so they never
+ * clash with styles declared by individual pages.
+ *
+ * CSS custom properties use  --al-  prefix for the same reason.
+ * The shared design-system tokens (--accent, --serif, etc.) that
+ * pages already declare are NOT re-declared here — pages own them.
+ * ─────────────────────────────────────────────────────────────
+ */
+
+
+/* ═══════════════════════════════════════════════════════════
+   LAYOUT-ONLY TOKENS  (--al-* prefix, no page conflicts)
+═══════════════════════════════════════════════════════════ */
+:root {
+  --al-topbar-h:    56px;
+  --al-navbar-h:    64px;
+  --al-total-h:     calc(var(--al-topbar-h) + var(--al-navbar-h));
+
+  --al-navy:        #071222;
+  --al-navy2:       #0e2340;
+  --al-red:         #7a0000;       /* presby red — deeper than crimson  */
+  --al-red-h:       #920000;
+  --al-red-glow:    rgba(122, 0, 0, 0.30);
+  --al-gold:        #d4af37;
+  --al-gold-lit:    #ddc356;
+  --al-blue:        #0071e3;
+  --al-blue-soft:   rgba(0, 113, 227, 0.08);
+  --al-white:       #ffffff;
+  --al-page:        #f5f5f5;
+  --al-body-txt:    #3a4a5c;
+  --al-muted:       #7a8fa6;
+  --al-line:        rgba(0, 0, 0, 0.07);
+
+  --al-sans:        'DM Sans', system-ui, sans-serif;
+  --al-serif:       'Playfair Display', Georgia, serif;
+
+  --al-ease:        cubic-bezier(0.22, 1, 0.36, 1);
+  --al-tr:          0.28s cubic-bezier(0.22, 1, 0.36, 1);
+  --al-tr-slow:     0.45s cubic-bezier(0.22, 1, 0.36, 1);
+
+  --al-shadow-md:   rgba(10, 25, 41, 0.14);
+  --al-shadow-hv:   rgba(10, 25, 41, 0.25);
+
+  --al-z-topbar:    1000;
+  --al-z-navbar:    999;
+  --al-z-drop:      998;
+  --al-z-overlay:   997;
+  --al-z-menu:      1001;
+}
+
+
+/* ═══════════════════════════════════════════════════════════
+   SCOPED BOX-MODEL RESET
+═══════════════════════════════════════════════════════════ */
+.al-topbar, .al-topbar *,
+.al-navbar,  .al-navbar *,
+.al-overlay, .al-overlay *,
+.al-menu,    .al-menu * {
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+}
+
+
+/* ═══════════════════════════════════════════════════════════
+   BODY OFFSET & LOCK  (unique names — no page uses these)
+═══════════════════════════════════════════════════════════ */
+/* body.al-offset { padding-top: var(--al-total-h) !important; }  */
+body.al-locked { overflow: hidden !important; }
+
+
+/* ═══════════════════════════════════════════════════════════
+   TOPBAR  (56px fixed dark navy)
+═══════════════════════════════════════════════════════════ */
+.al-topbar {
+  position: fixed;
+  top: 0; left: 0; width: 100%;
+  height: var(--al-topbar-h);
+  background: linear-gradient(135deg, var(--al-navy2), var(--al-navy));
+  border-bottom: 1px solid rgba(0, 113, 227, 0.22);
+  z-index: var(--al-z-topbar);
+}
+
+.al-topbar-inner {
+  max-width: 1400px;
+  margin-inline: auto;
+  padding-inline: 1.5rem;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+/* Brand */
+.al-brand {
+  display: flex; align-items: center; gap: 0.75rem;
+  text-decoration: none; flex-shrink: 0;
+}
+.al-logo {
+  width: 40px; height: 40px; border-radius: 50%;
+  object-fit: cover; object-position: center;
+  border: 2px solid var(--al-blue);
+  box-shadow: 0 0 0 3px rgba(0, 113, 227, 0.18);
+  flex-shrink: 0;
+  transition: transform var(--al-tr), box-shadow var(--al-tr);
+}
+.al-brand:hover .al-logo {
+  transform: rotate(-5deg) scale(1.07);
+  box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.38);
+}
+.al-school-name {
+  font-family: var(--al-sans);
+  font-size: 0.88rem; font-weight: 700;
+  color: #fff; letter-spacing: 0.01em; line-height: 1.2;
+}
+.al-school-name .al-sub {
+  display: block;
+  font-size: 0.58rem; font-weight: 400;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: rgba(180, 210, 240, 0.5); margin-top: 2px;
+}
+@media (max-width: 400px) { .al-school-name .al-sub { display: none; } }
+
+/* Topbar right actions */
+.al-topbar-actions {
+  display: flex; align-items: center; gap: 0.25rem;
+}
+.al-sep {
+  width: 1px; height: 16px;
+  background: rgba(255, 255, 255, 0.14);
+  flex-shrink: 0; margin-inline: 0.15rem;
+}
+
+.al-alumni {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  color: rgba(200, 220, 245, 0.65);
+  font-family: var(--al-sans); font-size: 0.8rem; font-weight: 600;
+  padding: 0.38rem 0.72rem; border-radius: 6px;
+  text-decoration: none; letter-spacing: 0.02em;
+  transition: color var(--al-tr), background var(--al-tr);
+}
+.al-alumni i { font-size: 1rem; }
+.al-alumni:hover { color: var(--al-gold-lit); background: rgba(255, 255, 255, 0.07); }
+
+.al-donate {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  background: var(--al-red);
+  color: #fff;
+  font-family: var(--al-sans); font-size: 0.8rem; font-weight: 700;
+  padding: 0.42rem 1.05rem; border-radius: 999px;
+  letter-spacing: 0.02em; text-decoration: none; flex-shrink: 0;
+  box-shadow: 0 2px 10px var(--al-red-glow);
+  transition: background var(--al-tr), transform var(--al-tr), box-shadow var(--al-tr);
+  position: relative; overflow: hidden;
+}
+.al-donate::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.1), transparent);
+  border-radius: inherit;
+  pointer-events: none;
+}
+.al-donate i { font-size: 0.95rem; }
+.al-donate:hover {
+  background: var(--al-red-h);
+  transform: translateY(-1px);
+  box-shadow: 0 5px 18px var(--al-red-glow);
+}
+.al-donate:active { transform: translateY(0); }
+
+/* Admissions CTA button — topbar right */
+.al-admissions {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  background: var(--al-blue);
+  color: #fff;
+  font-family: var(--al-sans); font-size: 0.8rem; font-weight: 700;
+  padding: 0.42rem 1.05rem; border-radius: 999px;
+  letter-spacing: 0.02em; text-decoration: none; flex-shrink: 0;
+  box-shadow: 0 2px 10px rgba(0, 113, 227, 0.28);
+  transition: background var(--al-tr), transform var(--al-tr), box-shadow var(--al-tr);
+  position: relative; overflow: hidden;
+}
+.al-admissions::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.12), transparent);
+  border-radius: inherit; pointer-events: none;
+}
+.al-admissions i { font-size: 0.95rem; }
+.al-admissions:hover {
+  background: #0062c9;
+  transform: translateY(-1px);
+  box-shadow: 0 5px 18px rgba(0, 113, 227, 0.42);
+}
+.al-admissions:active { transform: translateY(0); }
+
+@media (max-width: 600px) {
+  .al-tb-text { display: none; }
+  .al-sep     { display: none; }
+  .al-alumni  { padding: 0.38rem 0.5rem; }
+}
+
+
+/* ═══════════════════════════════════════════════════════════
+   NAVBAR  (64px fixed white)
+═══════════════════════════════════════════════════════════ */
+.al-navbar {
+  position: fixed;
+  top: var(--al-topbar-h); left: 0; width: 100%;
+  height: var(--al-navbar-h);
+  background: rgba(255, 255, 255, 0.97);
+  border-bottom: 1px solid var(--al-line);
+  box-shadow: 0 1px 4px rgba(10, 25, 41, 0.07);
+  z-index: var(--al-z-navbar);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: box-shadow var(--al-tr), background var(--al-tr);
+}
+.al-navbar.al-scrolled {
+  background: rgba(255, 255, 255, 0.99);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 4px 24px var(--al-shadow-md);
+}
+
+.al-navbar-inner {
+  max-width: 1400px;
+  margin-inline: auto;
+  padding-inline: 1.5rem;
+  height: 100%;
+  display: flex; align-items: center; gap: 1rem;
+}
+
+/* Wordmark */
+.al-wordmark {
+  font-family: var(--al-serif);
+  font-size: 1.5rem; font-weight: 900;
+  color: var(--al-navy); letter-spacing: -0.01em;
+  white-space: nowrap; flex-shrink: 0;
+  text-decoration: none; line-height: 1;
+  transition: color var(--al-tr);
+}
+.al-wordmark em { font-style: normal; color: var(--al-red); }
+.al-wordmark:hover { color: var(--al-blue); }
+
+/* Desktop nav list */
+.al-nav-list {
+  display: flex; align-items: center;
+  gap: 0.05rem; list-style: none;
+  padding: 0; margin: 0 0 0 auto;
+}
+@media (max-width: 992px) { .al-nav-list { display: none; } }
+
+.al-ni { position: relative; }
+
+/* Both plain links and dropdown triggers inherit this */
+.al-nl {
+  display: inline-flex; align-items: center; gap: 0.35rem;
+  padding: 0.52rem 0.78rem; border-radius: 8px;
+  font-family: var(--al-sans); font-size: 0.84rem; font-weight: 500;
+  color: var(--al-body-txt); white-space: nowrap;
+  text-decoration: none; background: none; border: none;
+  cursor: pointer; line-height: 1;
+  transition: color var(--al-tr), background var(--al-tr);
+}
+.al-nl i        { font-size: 1rem; flex-shrink: 0; color: var(--al-muted); transition: color var(--al-tr); }
+.al-nl:hover    { color: var(--al-navy); background: #f5f5f5; }
+.al-nl:hover i  { color: var(--al-blue); }
+
+/* Active page */
+.al-ni.al-active > .al-nl { color: var(--al-blue); background: var(--al-blue-soft); }
+.al-ni.al-active > .al-nl i { color: var(--al-blue); }
+
+/* Dropdown caret */
+.al-caret {
+  font-size: 0.9rem; color: var(--al-muted);
+  margin-left: 0.05rem; flex-shrink: 0;
+  transition: transform var(--al-tr), color var(--al-tr);
+}
+.al-ni.al-open > .al-nl          { color: var(--al-blue); background: var(--al-blue-soft); }
+.al-ni.al-open > .al-nl i        { color: var(--al-blue); }
+.al-ni.al-open > .al-nl .al-caret { transform: rotate(180deg); color: var(--al-blue); }
+
+
+/* ═══════════════════════════════════════════════════════════
+   DROPDOWN PANEL
+═══════════════════════════════════════════════════════════ */
+.al-drop {
+  position: absolute;
+  top: calc(100% + 8px); left: 50%;
+  transform: translateX(-50%) translateY(-6px);
+  min-width: 256px;
+  background: var(--al-white);
+  border: 1px solid rgba(0, 0, 0, 0.07);
+  border-radius: 14px; padding: 0.45rem;
+  box-shadow: 0 12px 40px var(--al-shadow-md), 0 2px 8px rgba(10,25,41,0.07);
+  opacity: 0; visibility: hidden; pointer-events: none;
+  transition: opacity var(--al-tr), transform var(--al-tr), visibility var(--al-tr);
+  z-index: var(--al-z-drop);
+  list-style: none; margin: 0;
+}
+/* notch */
+.al-drop::before {
+  content: '';
+  position: absolute; top: -6px; left: 50%;
+  transform: translateX(-50%);
+  width: 12px; height: 6px;
+  background: var(--al-white);
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+  filter: drop-shadow(0 -1px 1px rgba(0,0,0,0.04));
+}
+/* last 2 items: right-align panel so it doesn't clip viewport */
+.al-ni:nth-last-child(-n+2) .al-drop {
+  left: auto; right: 0;
+  transform: translateY(-6px);
+}
+.al-ni:nth-last-child(-n+2) .al-drop::before {
+  left: auto; right: 1.4rem; transform: none;
+}
+/* open states */
+.al-ni.al-open .al-drop {
+  opacity: 1; visibility: visible; pointer-events: auto;
+  transform: translateX(-50%) translateY(0);
+}
+.al-ni:nth-last-child(-n+2).al-open .al-drop {
+  transform: translateY(0);
+}
+/* hover on non-touch desktop */
+.al-no-touch .al-ni[data-drop]:hover .al-drop {
+  opacity: 1; visibility: visible; pointer-events: auto;
+  transform: translateX(-50%) translateY(0);
+}
+.al-no-touch .al-ni:nth-last-child(-n+2)[data-drop]:hover .al-drop {
+  transform: translateY(0);
+}
+
+/* Dropdown items */
+.al-di {
+  display: flex; align-items: center; gap: 0.72rem;
+  padding: 0.65rem 0.95rem; border-radius: 9px;
+  font-family: var(--al-sans); font-size: 0.845rem; font-weight: 500;
+  color: var(--al-body-txt); text-decoration: none;
+  transition: background var(--al-tr), color var(--al-tr);
+}
+.al-di i {
+  font-size: 0.95rem; color: var(--al-blue);
+  width: 18px; text-align: center; flex-shrink: 0;
+  transition: transform var(--al-tr);
+}
+.al-di:hover { background: var(--al-blue-soft); color: var(--al-navy); }
+.al-di:hover i { transform: translateX(2px); }
+
+.al-drop-rule { height: 1px; background: rgba(0,0,0,0.06); margin: 0.3rem 0.6rem; }
+
+
+/* ═══════════════════════════════════════════════════════════
+   HAMBURGER  (mobile only)
+═══════════════════════════════════════════════════════════ */
+.al-burger {
+  display: none;
+  width: 44px; height: 44px;
+  align-items: center; justify-content: center;
+  border-radius: 8px; flex-shrink: 0; margin-left: auto;
+  background: none; border: none; cursor: pointer;
+  transition: background var(--al-tr);
+  position: relative; z-index: var(--al-z-menu);
+}
+.al-burger:hover { background: #f5f5f5; }
+.al-hb { width: 22px; display: flex; flex-direction: column; gap: 5px; }
+.al-hb span {
+  display: block; height: 2px; border-radius: 2px;
+  background: var(--al-navy);
+  transition: transform var(--al-tr), opacity var(--al-tr), width var(--al-tr);
+  transform-origin: center;
+}
+.al-hb span:nth-child(2) { width: 75%; align-self: flex-end; }
+@media (max-width: 992px) { .al-burger { display: flex; } }
+.al-burger[aria-expanded="true"] .al-hb span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.al-burger[aria-expanded="true"] .al-hb span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.al-burger[aria-expanded="true"] .al-hb span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+
+/* ═══════════════════════════════════════════════════════════
+   OVERLAY  (darkens page behind mobile menu)
+═══════════════════════════════════════════════════════════ */
+.al-overlay {
+  display: none;
+  position: fixed; inset: 0;
+  background: rgba(4, 10, 22, 0.52);
+  backdrop-filter: blur(3px); -webkit-backdrop-filter: blur(3px);
+  z-index: var(--al-z-overlay);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--al-tr-slow);
+}
+
+
+/* ═══════════════════════════════════════════════════════════
+   MOBILE MENU PANEL  (slides from right on ≤992px)
+═══════════════════════════════════════════════════════════ */
+@media (max-width: 992px) {
+
+  .al-menu {
+    position: fixed;
+    top: 0; right: 0;
+    width: min(340px, 90vw);
+    height: 100%;
+    height: 100dvh;
+    background: var(--al-white);
+    z-index: var(--al-z-menu);
+    display: flex; flex-direction: column;
+    transform: translateX(110%);
+    transition: transform var(--al-tr-slow);
+    overflow-y: auto; -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+    box-shadow: -8px 0 40px var(--al-shadow-hv);
+    padding-top: var((--al-total-h)-25px);
+  }
+  .al-menu.al-open { transform: translateX(0); }
+
+  /* Overlay: only display inside mobile breakpoint, pointer-events off when hidden */
+  .al-overlay { display: block; pointer-events: none; }
+  .al-overlay.al-vis { opacity: 1; pointer-events: auto; }
+
+  .al-nav-list { display: none; } /* hidden on mobile — menu panel takes over */
+
+  /* mobile nav inside the panel */
+  .al-mob-nav {
+    display: flex; flex-direction: column;
+    align-items: stretch; gap: 0;
+    list-style: none; padding: 0.5rem 0.75rem 0.75rem;
+    flex: 1; margin: 0;
+  }
+
+  /* full-width links inside mobile panel */
+  .al-mob-nav .al-nl {
+    padding: 0.85rem 1rem;
+    border-radius: 9px; font-size: 0.9rem;
+    width: 100%; justify-content: flex-start;
+  }
+
+  /* mobile accordions */
+  .al-mob-drop {
+    border-radius: 9px;
+    background: rgba(0, 113, 227, 0.04);
+    padding: 0.3rem 0.3rem 0.3rem 0.6rem;
+    margin-top: 0.2rem;
+    list-style: none; display: none;
+  }
+  .al-ni.al-open .al-mob-drop { display: block; }
+
+  .al-mob-di {
+    display: flex; align-items: center; gap: 0.65rem;
+    padding: 0.62rem 0.85rem; border-radius: 8px;
+    font-family: var(--al-sans); font-size: 0.84rem; font-weight: 500;
+    color: var(--al-body-txt); text-decoration: none;
+    transition: background var(--al-tr), color var(--al-tr);
+  }
+  .al-mob-di i { font-size: 0.9rem; color: var(--al-blue); width: 16px; text-align: center; flex-shrink: 0; }
+  .al-mob-di:hover { background: var(--al-blue-soft); color: var(--al-navy); }
+}
+
+/* Panel header (mobile only) */
+.al-panel-head {
+  display: none;
+  align-items: center; justify-content: space-between;
+  padding: 1.1rem 1.5rem 0.9rem;
+  border-bottom: 1px solid #e5e5e5; flex-shrink: 0;
+}
+.al-panel-label {
+  font-family: var(--al-serif);
+  font-size: 1.05rem; font-weight: 700; color: #0d1b2a;
+}
+.al-panel-close {
+  width: 36px; height: 36px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 7px; background: none; border: none;
+  cursor: pointer; font-size: 1.25rem; color: #3a4a5c;
+  transition: background var(--al-tr), color var(--al-tr);
+}
+.al-panel-close:hover { background: #f5f5f5; color: var(--al-red); }
+@media (max-width: 992px) { .al-panel-head { display: flex; } }
+
+/* Panel footer CTAs (mobile only) */
+.al-panel-foot {
+  display: none;
+  padding: 1.2rem 1.5rem 1.5rem;
+  border-top: 1px solid #e5e5e5;
+  flex-direction: column; gap: 0.65rem; flex-shrink: 0;
+}
+@media (max-width: 992px) { .al-panel-foot { display: flex; } }
+.al-pf-donate {
+  display: flex; align-items: center; justify-content: center; gap: 0.4rem;
+  background: var(--al-red); color: #fff;
+  font-family: var(--al-sans); font-size: 0.88rem; font-weight: 700;
+  padding: 0.78rem 1rem; border-radius: 10px; text-decoration: none;
+  transition: background var(--al-tr);
+}
+.al-pf-donate:hover { background: var(--al-red-h); }
+.al-pf-alumni {
+  display: flex; align-items: center; justify-content: center; gap: 0.4rem;
+  background: #f5f5f5; color: var(--al-navy);
+  font-family: var(--al-sans); font-size: 0.88rem; font-weight: 600;
+  padding: 0.78rem 1rem; border-radius: 10px; text-decoration: none;
+  transition: background var(--al-tr);
+}
+.al-pf-alumni:hover { background: #e5e5e5; }
+.al-pf-donate i, .al-pf-alumni i { font-size: 1rem; }
+
+/* Panel footer — Admissions CTA (mobile) */
+.al-pf-admissions {
+  display: flex; align-items: center; justify-content: center; gap: 0.4rem;
+  background: var(--al-blue); color: #fff;
+  font-family: var(--al-sans); font-size: 0.88rem; font-weight: 700;
+  padding: 0.78rem 1rem; border-radius: 10px; text-decoration: none;
+  transition: background var(--al-tr);
+}
+.al-pf-admissions:hover { background: #0062c9; }
+.al-pf-admissions i { font-size: 1rem; }
+
+/* Hide panel-only chrome on desktop */
+@media (min-width: 993px) {
+  .al-panel-head, .al-panel-foot, .al-mob-nav { display: none; }
+  .al-menu { display: contents; } /* panel invisible on desktop — nav list shows instead */
+}
+
+
+/* ═══════════════════════════════════════════════════════════
+   FOOTER  (dark navy — .contact-strip keeps original name
+   since it lives inside #ansec-footer and doesn't conflict)
+═══════════════════════════════════════════════════════════ */
+.contact-strip {
+  background: #071222;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  padding-block: 3rem;
+}
+.contact-strip .wrap {
+  max-width: 1400px;
+  padding-inline: 1.5rem;
+  margin-inline: auto;
+}
+.cs-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+}
+@media (max-width: 960px) { .cs-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 700px) {
+  .cs-grid { grid-template-columns: 1fr; }
+  .cs-col { align-items: center; text-align: center; }
+  .cs-col-h { justify-content: center; }
+  .cs-col-crest { align-items: center; text-align: center; }
+  /* Bigger crest on mobile for better visibility */
+  .cs-crest, .cs-crest-placeholder { width: 108px; height: 108px; }
+  .cs-crest-placeholder i { font-size: 2.8rem; }
+  /* Centre the social icons flex row inside Connect column */
+  .cs-col .cs-social-icons { justify-content: center; }
+  .cs-footer-row { flex-direction: column; align-items: center; text-align: center; }
+  .cs-links { justify-content: center; }
+}
+.cs-col { display: flex; flex-direction: column; gap: 0.5rem; }
+.cs-col-h {
+  display: flex; align-items: center; gap: 0.5rem;
+  font-family: var(--al-sans); font-size: 0.65rem; font-weight: 700;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  color: rgba(0, 180, 255, 0.6); margin-bottom: 0.3rem;
+}
+.cs-col-h i { font-size: 0.9rem; }
+.cs-col-v { font-family: var(--al-sans); font-size: 0.88rem; font-weight: 500; color: rgba(220,235,255,.75); }
+.cs-col-s { font-family: var(--al-sans); font-size: 0.77rem; font-weight: 300; color: rgba(140,175,220,.45); }
+.cs-divider { height: 1px; background: rgba(255,255,255,.06); margin-top: 2rem; }
+.cs-footer-row {
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 1rem; padding-top: 1.5rem;
+}
+.cs-copy { font-family: var(--al-sans); font-size: 0.72rem; color: rgba(140,175,220,.4); }
+.cs-links { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+.cs-link {
+  font-family: var(--al-sans); font-size: 0.72rem;
+  color: rgba(140,175,220,.5); text-decoration: none;
+  transition: color var(--al-tr);
+}
+.cs-link:hover { color: rgba(0,180,255,.75); }
+
+
+/* ═══════════════════════════════════════════════════════════
+   FOOTER CREST COLUMN  (4th column inside cs-grid)
+═══════════════════════════════════════════════════════════ */
+.cs-col-crest {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.55rem;
+}
+
+/* The crest image */
+.cs-crest {
+  width: 88px; height: 88px;
+  border-radius: 50%;
+  object-fit: cover; object-position: center;
+  display: block;
+  border: 2px solid rgba(0, 113, 227, 0.45);
+  box-shadow:
+    0 0 0 3px rgba(0, 113, 227, 0.1),
+    0 6px 24px rgba(0, 0, 0, 0.40);
+  margin-bottom: 0.2rem;
+}
+
+/* Fallback placeholder shown if image fails */
+.cs-crest-placeholder {
+  width: 88px; height: 88px; border-radius: 50%;
+  background: rgba(0, 113, 227, 0.1);
+  border: 2px solid rgba(0, 113, 227, 0.35);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  margin-bottom: 0.2rem;
+}
+.cs-crest-placeholder i {
+  font-size: 1.75rem;
+  color: rgba(0, 113, 227, 0.45);
+}
+
+.cs-crest-name {
+  font-family: var(--al-sans);
+  font-size: 0.8rem; font-weight: 700;
+  color: rgba(220, 235, 255, 0.82);
+  line-height: 1.35;
+}
+.cs-crest-sub {
+  font-family: var(--al-sans);
+  font-size: 0.65rem; font-weight: 400;
+  letter-spacing: 0.06em;
+  color: rgba(0, 180, 255, 0.5);
+  line-height: 1.5;
+}
+.cs-crest-motto {
+  font-family: 'Lora', Georgia, serif;
+  font-style: italic;
+  font-size: 0.73rem;
+  color: rgba(140, 175, 220, 0.38);
+  letter-spacing: 0.03em;
+  margin-top: 0.1rem;
+}
+
+/* Footer centering on medium/small screens */
+@media (max-width: 960px) {
+  .cs-col { align-items: center; text-align: center; }
+  .cs-col-h { justify-content: center; }
+  .cs-col-crest { align-items: center; text-align: center; }
+  .cs-social-icons { justify-content: center; }
+}
