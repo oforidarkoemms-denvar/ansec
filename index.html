@@ -1,0 +1,1439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ANSEC — Anum Presbyterian Senior High School</title>
+  <meta name="description" content="Welcome to Anum Presbyterian Senior High School — Est. 1937. Shaping lives, building character, and nurturing excellence in Eastern Region, Ghana."/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;0,900;1,400;1,600&family=Lora:ital,wght@0,400;0,500;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet"/>
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet"/>
+  <style>
+    /* ═══ DESIGN SYSTEM ═══ */
+    :root {
+      --accent:#0071e3; --accent-soft:rgba(0,113,227,.08); --accent-mid:rgba(0,113,227,.18);
+      --grad-btn:linear-gradient(to right,#00b4ff,#6a00ff);
+      --navy-900:#0a1929; --navy-800:#0f2744; --navy-700:#1a3a5c; --navy-600:#2d5278;
+      /* gold removed — ANSEC colours: presby-red + navy + accent blue only */
+      --presby-red:#8b0000; --presby-red-h:#a50000; --presby-red-glow:rgba(139,0,0,.28);
+      --bg-page:#f5f7fa; --bg-white:#fff; --bg-dark:#060f1e; --bg-darkblue:#071428;
+      --text-primary:#0d1b2a; --text-body:#3a4a5c; --text-muted:#7a8fa6;
+      --neutral-50:#fafafa; --neutral-100:#f5f5f5; --neutral-200:#e5e5e5; --neutral-300:#d4d4d4;
+      --neutral-500:#737373; --neutral-700:#404040;
+      --serif:'Playfair Display',Georgia,serif; --lora:'Lora',Georgia,serif; --sans:'DM Sans',system-ui,sans-serif;
+      --container-pad:1.5rem;
+      --al-topbar-h:56px; --al-navbar-h:64px; --al-total-h:120px;
+      --radius:12px; --radius-sm:8px; --radius-xs:6px;
+      --shadow-light:rgba(10,25,41,.07); --shadow-medium:rgba(10,25,41,.14); --shadow-heavy:rgba(10,25,41,.25);
+      --shadow-card:0 2px 12px rgba(0,0,0,.05),0 6px 28px rgba(0,0,0,.05);
+      --shadow-lift:0 8px 32px rgba(0,0,0,.10);
+      --tr:.28s cubic-bezier(.22,1,.36,1); --tr-slow:.45s cubic-bezier(.22,1,.36,1);
+      --z-topbar:1000; --z-navbar:999; --z-dropdown:998; --z-overlay:997; --z-mobilemenu:1001;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth;overflow-x:hidden}
+    body{font-family:var(--sans);color:var(--text-primary);background:var(--bg-page);-webkit-font-smoothing:antialiased;line-height:1.7;overflow-x:hidden}
+    body.menu-open{overflow:hidden}
+    a{text-decoration:none;color:inherit}
+    ul{list-style:none}
+    button{font-family:inherit;cursor:pointer;border:none;background:none}
+    img{max-width:100%;display:block}
+
+    /* ── Shared atoms ── */
+    .wrap{max-width:1400px;padding-inline:var(--container-pad);margin-inline:auto}
+    .pad{padding-block:5.5rem}
+    .pad-sm{padding-block:4rem}
+    .tag{display:flex;align-items:center;justify-content:center;gap:.5rem;font-family:var(--sans);font-size:.63rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);margin-bottom:.9rem}
+    .tag::before,.tag::after{content:'';display:block;width:32px;height:1.5px;background:var(--accent);border-radius:1px;opacity:.6}
+    .sh{font-family:var(--serif);font-size:clamp(1.85rem,3.2vw,2.9rem);font-weight:700;line-height:1.2;color:var(--text-primary)}
+    .sh em{font-style:italic;color:var(--accent)}
+    .ss{font-family:var(--sans);font-size:.97rem;font-weight:300;color:var(--text-muted);margin-top:.6rem;line-height:1.75}
+    .bt{font-family:var(--lora);font-size:.97rem;color:var(--text-body);line-height:1.88}
+    .btn-g{display:inline-flex;align-items:center;gap:.5rem;padding:.78rem 1.9rem;border-radius:999px;background:var(--grad-btn);color:#fff;font-family:var(--sans);font-size:.87rem;font-weight:600;text-decoration:none;box-shadow:0 5px 22px rgba(106,0,255,.2);transition:transform var(--tr),box-shadow var(--tr);position:relative;overflow:hidden}
+    .btn-g::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.14),transparent)}
+    .btn-g:hover{transform:translateY(-2px);box-shadow:0 10px 34px rgba(106,0,255,.3)}
+    .btn-ol{display:inline-flex;align-items:center;gap:.5rem;padding:.78rem 1.9rem;border-radius:999px;background:transparent;color:rgba(210,230,255,.7);font-family:var(--sans);font-size:.87rem;font-weight:500;text-decoration:none;border:1.5px solid rgba(0,113,227,.4);transition:all var(--tr)}
+    .btn-ol:hover{border-color:rgba(0,180,255,.6);color:#fff;background:rgba(0,113,227,.1)}
+    .btn-dk{display:inline-flex;align-items:center;gap:.5rem;padding:.72rem 1.75rem;border-radius:999px;background:transparent;color:var(--text-body);font-family:var(--sans);font-size:.87rem;font-weight:500;text-decoration:none;border:1.5px solid var(--neutral-300);transition:all var(--tr)}
+    .btn-dk:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
+    /* reveal */
+    .rv,.rv-l,.rv-r{opacity:0;transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1)}
+    .rv{transform:translateY(24px)}.rv-l{transform:translateX(-24px)}.rv-r{transform:translateX(24px)}
+    .rv.in,.rv-l.in,.rv-r.in{opacity:1;transform:none}
+
+    /* ══════════════════════════════════════════════════════
+       HERO — full-screen video background
+    ══════════════════════════════════════════════════════ */
+    .hero{position:relative;min-height:100svh;display:flex;align-items:center;overflow:hidden}
+
+    /* z-0 layers: dark base + video */
+    .hero-base{position:absolute;inset:0;z-index:0;background:var(--bg-darkblue)}
+
+    /*
+      VIDEO BACKGROUND
+      ─────────────────────────────────────────────────────
+      Replace src with your real campus video file.
+      Recommended specs:
+        • Format : MP4 (H.264) — widest browser support
+        • Resolution: 1920×1080 (1080p) or 1280×720 (720p)
+        • Duration : 15–30 seconds looping clip
+        • File size : keep under 8 MB (use HandBrake or ffmpeg)
+        • No audio  : muted attribute required for autoplay
+        • poster=   : first-frame still image for instant display
+
+      Suggested clips to use:
+        /assets/video/campus-overview.mp4         ← aerial or walkthrough
+        /assets/video/students-campus-life.mp4    ← students in action
+        /assets/video/ansec-highlights-reel.mp4   ← edited montage
+
+      The <noscript> img below is the static fallback shown when:
+        - User has "prefers-reduced-motion" set
+        - Video fails to load or autoplay is blocked
+        - JavaScript is disabled
+      ─────────────────────────────────────────────────────
+    */
+    .hero-video{
+      position:absolute;inset:0;z-index:0;
+      width:100%;height:100%;
+      object-fit:cover;object-position:center;
+      opacity:.42;
+      /* Respect user motion preference — hide video for reduced-motion */
+    }
+    @media(prefers-reduced-motion:reduce){
+      .hero-video{display:none}
+      .hero-video-poster{display:block!important}
+    }
+    /* Static poster / fallback image shown below video (visible if video hasn't loaded yet) */
+    .hero-video-poster{
+      position:absolute;inset:0;z-index:0;
+      width:100%;height:100%;
+      object-fit:cover;object-position:center;
+      opacity:.42;
+      display:none; /* shown only when video hidden or not loaded */
+    }
+
+    /* z-1: gradient overlay */
+    .hero-ov{
+      position:absolute;inset:0;z-index:1;pointer-events:none;
+      background:linear-gradient(
+        to bottom,
+        rgba(4,10,22,.62) 0%,
+        rgba(4,10,22,.22) 40%,
+        rgba(0, 46, 139, 0.08) 68%,
+        rgba(10, 39, 97, 0.82) 100%
+      )
+    }
+    /* z-2: fine grid texture */
+    .hero-grid{
+      position:absolute;inset:0;z-index:2;opacity:.025;pointer-events:none;
+      background-image:linear-gradient(rgba(255,255,255,.5) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(255,255,255,.5) 1px,transparent 1px);
+      background-size:60px 60px
+    }
+    /* z-2: red vignette sweep bottom-left */
+    .hero-red-sweep{
+      position:absolute;bottom:0;left:0;width:55%;height:55%;
+      z-index:2;pointer-events:none;
+      background:radial-gradient(ellipse at bottom left,rgba(139,0,0,.18),transparent 70%)
+    }
+
+    /* z-3: hero content — full-width centred column (no right panel) */
+    .hero-inner{
+      position:relative;z-index:3;width:100%;
+      display:flex;flex-direction:column;align-items:center;
+      text-align:center;
+      padding-top:calc(var(--al-total-h,120px) + 3rem);
+      padding-bottom:5.5rem;
+      max-width:860px;margin-inline:auto
+    }
+
+    /* Breadcrumb */
+    .hero-breadcrumb{
+      display:flex;align-items:center;justify-content:center;gap:.5rem;
+      font-family:var(--sans);font-size:.72rem;font-weight:500;
+      color:rgba(150,185,225,.5);margin-bottom:1.8rem;letter-spacing:.05em
+    }
+    .hero-breadcrumb a{color:rgba(150,185,225,.55);text-decoration:none;transition:color var(--tr)}
+    .hero-breadcrumb a:hover{color:rgba(150,200,255,.8)}
+    .hero-breadcrumb i.sep{font-size:.7rem;opacity:.4}
+    .crumb-cur{color:rgba(180,210,255,.72)}
+
+    /* Eyebrow line */
+    .hero-eyebrow{
+      display:flex;align-items:center;justify-content:center;gap:.55rem;
+      font-family:var(--sans);font-size:.63rem;font-weight:600;
+      letter-spacing:.24em;text-transform:uppercase;
+      color:rgba(255,160,160,.75);margin-bottom:1.2rem;animation:hUp .9s both
+    }
+    .hero-eyebrow::before,.hero-eyebrow::after{
+      content:'';display:block;width:28px;height:1.5px;
+      background:rgba(255,120,120,.5);border-radius:1px
+    }
+    .hero-h1{
+      font-family:var(--serif);font-size:clamp(2.6rem,5.5vw,5.2rem);
+      font-weight:700;color:#fff;line-height:1.06;animation:hUp .9s .08s both;
+      max-width:820px
+    }
+    .hero-h1 em{font-style:italic;color:#7dd3fc}
+    .hero-h1 strong{display:block;color:#fca5a5}
+    .hero-sub{
+      font-family:var(--lora);font-size:1.05rem;font-weight:400;font-style:italic;
+      color:rgba(200,220,240,.72);margin-top:1.5rem;line-height:1.82;
+      max-width:600px;animation:hUp .9s .16s both
+    }
+    .hero-acts{
+      display:flex;align-items:center;justify-content:center;gap:1rem;flex-wrap:wrap;
+      margin-top:2.2rem;animation:hUp .9s .24s both
+    }
+
+    /* Stats strip — centred, slightly wider */
+    .hero-stats-strip{
+      display:flex;flex-wrap:wrap;align-items:center;gap:0;
+      margin-top:3rem;
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:var(--radius-sm);overflow:hidden;animation:hUp .9s .34s both;
+      width:100%;max-width:640px
+    }
+    .hs{
+      display:flex;flex-direction:column;align-items:center;flex:1;min-width:100px;
+      padding:1rem .9rem;border-right:1px solid rgba(255,255,255,.08);
+      background:rgba(255,255,255,.03)
+    }
+    .hs:last-child{border-right:none}
+    .hs-n{font-family:var(--serif);font-size:1.75rem;font-weight:700;color:#fff;line-height:1}
+    .hs-n sup{font-size:.5em;color:#7dd3fc;vertical-align:super}
+    .hs-l{font-family:var(--sans);font-size:.58rem;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:rgba(150,185,225,.55);margin-top:.35rem}
+    @media(max-width:480px){
+      .hero-stats-strip{max-width:100%}
+      .hs{min-width:80px;padding:.8rem .6rem}
+      .hs-n{font-size:1.4rem}
+    }
+
+    /* Floating badge — bottom-left of hero (replaces right panel badge) */
+    .hero-float-badge{
+      position:absolute;bottom:2.8rem;left:2rem;z-index:6;
+      background:rgba(6,15,30,.82);backdrop-filter:blur(14px);
+      border:1px solid rgba(0,113,227,.28);border-radius:var(--radius-sm);
+      padding:.7rem 1rem;display:flex;align-items:center;gap:.65rem;
+      animation:hUp .9s .45s both;pointer-events:none
+    }
+    @media(max-width:600px){.hero-float-badge{display:none}}
+    .hb-icon{
+      width:30px;height:30px;border-radius:6px;
+      background:rgba(0,113,227,.12);border:1px solid rgba(0,113,227,.2);
+      display:flex;align-items:center;justify-content:center;
+      color:#7dd3fc;font-size:.95rem;flex-shrink:0
+    }
+    .hb-v{font-family:var(--serif);font-size:.93rem;font-weight:700;color:#fff;line-height:1}
+    .hb-l{font-family:var(--sans);font-size:.58rem;font-weight:400;letter-spacing:.1em;text-transform:uppercase;color:rgba(200,215,240,.5);margin-top:.1rem}
+
+    /* Scroll pip — matches academic calendar page exactly */
+    .hero-scroll{
+      position:absolute;bottom:1.2rem;right:2rem;z-index:6;
+      display:flex;flex-direction:column;align-items:center;gap:.38rem;
+      opacity:.38;animation:hUp .9s .55s both;pointer-events:none
+    }
+    .hero-scroll span{
+      font-family:var(--sans);font-size:.55rem;letter-spacing:.2em;
+      text-transform:uppercase;color:#fff
+    }
+    .scroll-pip{
+      width:4px;height:22px;border:1.5px solid rgba(255,255,255,.4);
+      border-radius:99px;overflow:hidden;position:relative
+    }
+    .scroll-pip::after{
+      content:'';position:absolute;left:50%;top:0;
+      width:2px;height:7px;background:#fff;
+      transform:translateX(-50%);border-radius:99px;
+      animation:spip 1.6s ease-in-out infinite
+    }
+    @keyframes spip{0%{top:0;opacity:1}80%{top:13px;opacity:0}100%{top:0;opacity:0}}
+    @keyframes hUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+    @media(max-width:375px){.hero-scroll{display:none}}
+
+    /* Hero accent bar */
+    .hero-bar{height:3px;background:linear-gradient(to right,var(--navy-700),var(--presby-red) 30%,var(--accent) 65%,var(--navy-700) 100%)}
+
+    /* ═══ QUICK LINKS ROW ═══ */
+    .ql-row{background:var(--bg-white);border-bottom:1px solid rgba(0,0,0,.06);padding-block:.6rem}
+    .ql-inner{display:flex;align-items:center;flex-wrap:wrap;gap:.5rem}
+    .ql-label{font-family:var(--sans);font-size:.68rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--text-muted);flex-shrink:0;margin-right:.3rem}
+    .ql{display:inline-flex;align-items:center;gap:.35rem;padding:.32rem .78rem;border-radius:999px;background:var(--neutral-50);border:1px solid var(--neutral-200);font-family:var(--sans);font-size:.75rem;font-weight:500;color:var(--text-body);transition:all var(--tr)}
+    .ql:hover{background:var(--accent-soft);border-color:rgba(0,113,227,.2);color:var(--accent)}
+    .ql i{font-size:.85rem}
+
+    /* ═══ ABOUT STRIP ═══ */
+    .about-strip{background:var(--bg-page)}
+    .about-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:5rem;align-items:center}
+    @media(max-width:860px){.about-grid{grid-template-columns:1fr;gap:3rem}}
+    .about-vis{position:relative}
+    .media-box{position:relative;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow-lift)}
+    .media-box .mb-ratio{aspect-ratio:4/3}
+    .media-box img{width:100%;height:100%;display:block;object-fit:cover;object-position:center}
+    .media-box .mb-caption{
+      position:absolute;bottom:1rem;left:1rem;
+      background:rgba(255,255,255,.92);backdrop-filter:blur(10px);
+      border:1px solid rgba(0,0,0,.06);border-radius:var(--radius-sm);
+      padding:.65rem .9rem;display:flex;align-items:center;gap:.6rem;
+      box-shadow:var(--shadow-card)
+    }
+    .mb-caption-icon{width:30px;height:30px;border-radius:6px;background:var(--accent-soft);border:1px solid var(--accent-mid);display:flex;align-items:center;justify-content:center;color:var(--accent);font-size:.95rem;flex-shrink:0}
+    .mb-caption-v{font-family:var(--serif);font-size:.9rem;font-weight:700;color:var(--text-primary);line-height:1}
+    .mb-caption-l{font-family:var(--sans);font-size:.58rem;font-weight:400;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);margin-top:.1rem}
+    .media-cor{position:absolute;width:44px;height:44px;pointer-events:none}
+    .media-cor.tl{top:-.7rem;left:-.7rem;border-top:2px solid;border-left:2px solid;border-radius:4px 0 0 0}
+    .media-cor.br{bottom:-.7rem;right:-.7rem;border-bottom:2px solid;border-right:2px solid;border-radius:0 0 4px 0}
+    .about-cnt{display:flex;flex-direction:column;gap:1.4rem}
+    .about-tag{display:inline-flex;align-items:center;gap:.5rem;font-family:var(--sans);font-size:.63rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--accent)}
+    .about-tag::before{content:'';display:inline-block;width:24px;height:1.5px;background:var(--accent);border-radius:1px}
+    .about-h{font-family:var(--serif);font-size:clamp(1.7rem,2.8vw,2.6rem);font-weight:700;line-height:1.2;color:var(--text-primary)}
+    .about-h em{font-style:italic;color:var(--accent)}
+    .about-pillars{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:.7rem;margin-top:.5rem}
+    @media(max-width:480px){.about-pillars{grid-template-columns:1fr}}
+    .pillar{display:flex;align-items:flex-start;gap:.65rem;padding:.85rem .9rem;background:var(--bg-white);border:1px solid rgba(0,0,0,.06);border-radius:var(--radius-sm);box-shadow:var(--shadow-card)}
+    .pillar-ico{width:30px;height:30px;border-radius:6px;background:var(--accent-soft);border:1px solid var(--accent-mid);display:flex;align-items:center;justify-content:center;color:var(--accent);font-size:.95rem;flex-shrink:0}
+    .pillar-t{font-family:var(--sans);font-size:.82rem;font-weight:600;color:var(--text-primary);margin-bottom:.1rem}
+    .pillar-d{font-family:var(--sans);font-size:.74rem;font-weight:300;color:var(--text-muted);line-height:1.5}
+    .about-acts{display:flex;align-items:center;gap:.85rem;flex-wrap:wrap}
+
+    /* ══════════════════════════════════════════════════════
+       STATS SECTION — parallax background photo
+    ══════════════════════════════════════════════════════ */
+    .stats-sec{background:var(--bg-darkblue);position:relative;overflow:hidden}
+    /* Parallax bg layer — driven by JS translateY */
+    .stats-parallax-bg{
+      position:absolute;inset:-40% 0;z-index:0;
+      /*
+        PARALLAX IMAGE — replace with real campus aerial / wide-angle campus photo:
+          /assets/images/campus/campus-aerial-view.jpg
+          /assets/images/campus/campus-wide-shot.jpg
+      */
+      background-image:url('/assets/images/campus-aerial-view.jpg');
+      background-size:cover;background-position:center;
+      opacity:.1;will-change:transform
+    }
+    /* Gradient tint on top of parallax photo */
+    .stats-parallax-tint{
+      position:absolute;inset:0;z-index:1;pointer-events:none;
+      background:linear-gradient(135deg,rgba(0,113,227,.08) 0%,transparent 60%),
+        radial-gradient(ellipse at 50% 50%,rgba(139,0,0,.06),transparent 70%)
+    }
+    .stats-sec .wrap{position:relative;z-index:2}
+    .stats-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.06);border-radius:var(--radius)}
+    @media(max-width:700px){.stats-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media(max-width:360px){.stats-grid{grid-template-columns:1fr}}
+    .stat-cell{padding:2.4rem 1.5rem;text-align:center;background:var(--bg-darkblue);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.4rem;transition:background var(--tr)}
+    .stat-cell:hover{background:rgba(0,113,227,.08)}
+    .stat-n{font-family:var(--serif);font-size:clamp(2rem,3.5vw,3.2rem);font-weight:700;color:#fff;line-height:1}
+    .stat-n sup{font-size:.5em;color:#7dd3fc;vertical-align:super}
+    .stat-l{font-family:var(--sans);font-size:.65rem;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:rgba(150,185,225,.55);margin-top:.2rem}
+    .stat-sub{font-family:var(--lora);font-size:.78rem;font-style:italic;color:rgba(150,185,225,.4);margin-top:.15rem}
+
+    /* ═══ HIGHLIGHTS CARDS ═══ */
+    .highlights{background:var(--bg-page)}
+    .hl-hdr{text-align:center;max-width:680px;margin-inline:auto;margin-bottom:4rem}
+    .hl-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.5rem}
+    @media(max-width:900px){.hl-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media(max-width:560px){.hl-grid{grid-template-columns:1fr}}
+    .hl-card{background:var(--bg-white);border-radius:var(--radius);border:1px solid rgba(0,0,0,.06);overflow:hidden;box-shadow:var(--shadow-card);transition:transform var(--tr),box-shadow var(--tr);display:flex;flex-direction:column;text-decoration:none}
+    .hl-card:hover{transform:translateY(-5px);box-shadow:var(--shadow-lift)}
+    .hl-media{position:relative;aspect-ratio:16/9;overflow:hidden;flex-shrink:0}
+    .hl-media img{
+      width:100%;height:100%;object-fit:cover;display:block;
+      transition:transform .5s cubic-bezier(.22,1,.36,1)
+    }
+    .hl-card:hover .hl-media img{transform:scale(1.04)}
+    /* Placeholder shown when real image not yet added */
+    .hl-media-placeholder{
+      width:100%;height:100%;display:flex;align-items:center;justify-content:center;
+      font-family:var(--sans);font-size:.7rem;color:rgba(255,255,255,.3);
+      letter-spacing:.08em;text-transform:uppercase
+    }
+    .hl-badge{position:absolute;top:.75rem;left:.75rem;padding:.2rem .6rem;border-radius:999px;font-family:var(--sans);font-size:.6rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;backdrop-filter:blur(8px);background:rgba(6,15,30,.7);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.9)}
+    .hl-body{padding:1.4rem;flex:1;display:flex;flex-direction:column;gap:.6rem}
+    .hl-meta{font-family:var(--sans);font-size:.68rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--text-muted);display:flex;align-items:center;gap:.5rem}
+    .hl-meta::before{content:'';display:inline-block;width:16px;height:1.5px;background:var(--accent);border-radius:1px}
+    .hl-title{font-family:var(--serif);font-size:1.08rem;font-weight:700;color:var(--text-primary);line-height:1.35}
+    .hl-desc{font-family:var(--sans);font-size:.81rem;font-weight:300;color:var(--text-muted);line-height:1.7;flex:1}
+    .hl-link{display:flex;align-items:center;gap:.4rem;font-family:var(--sans);font-size:.78rem;font-weight:600;color:var(--accent);margin-top:auto;padding-top:.6rem;transition:gap var(--tr)}
+    .hl-card:hover .hl-link{gap:.7rem}
+    .hl-link i{font-size:.88rem}
+
+    /* ══════════════════════════════════════════════════════
+       FAITH SECTION — parallax background
+    ══════════════════════════════════════════════════════ */
+    .faith{background:var(--bg-dark);position:relative;overflow:hidden}
+    .faith-parallax-bg{
+      position:absolute;inset:-40% 0;z-index:0;
+      /*
+        PARALLAX IMAGE — replace with real chapel exterior or evening campus photo:
+          /assets/images/campus/chapel-exterior-evening.jpg
+          /assets/images/campus/campus-night.jpg
+      */
+      background-image:url('/assets/images/campus/chapel-exterior-evening.jpg');
+      background-size:cover;background-position:center;
+      opacity:.07;will-change:transform
+    }
+    .faith-parallax-tint{
+      position:absolute;inset:0;z-index:1;pointer-events:none;
+      background:radial-gradient(ellipse at 15% 50%,rgba(139,0,0,.14) 0%,transparent 55%),
+        radial-gradient(ellipse at 85% 50%,rgba(0,113,227,.09) 0%,transparent 55%)
+    }
+    .faith-inner{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:5rem;align-items:center;position:relative;z-index:2}
+    @media(max-width:860px){.faith-inner{grid-template-columns:1fr;gap:3rem}}
+    .faith .wrap{position:relative;z-index:2}
+    .faith-media-wrap{position:relative}
+    .faith-media{
+      position:relative;border-radius:var(--radius);overflow:hidden;
+      box-shadow:0 20px 50px rgba(0,0,0,.5);border:1px solid rgba(255,255,255,.06);
+      aspect-ratio:3/4
+    }
+    @media(max-width:860px){.faith-media{aspect-ratio:16/9}}
+    .faith-media img{width:100%;height:100%;object-fit:cover;object-position:center;display:block}
+    .faith-quote{
+      position:absolute;bottom:-1.5rem;right:-1.5rem;max-width:260px;
+      background:var(--presby-red);border-radius:var(--radius-sm);
+      padding:1.1rem 1.2rem;box-shadow:0 12px 35px rgba(139,0,0,.4)
+    }
+    @media(max-width:500px){.faith-quote{position:static;margin-top:1rem;max-width:100%;right:auto;bottom:auto}}
+    .fq-text{font-family:var(--lora);font-size:.88rem;font-style:italic;color:rgba(255,255,255,.88);line-height:1.7}
+    .fq-src{font-family:var(--sans);font-size:.62rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-top:.5rem}
+    .faith-cnt{display:flex;flex-direction:column;gap:1.3rem}
+    .faith-label{display:inline-flex;align-items:center;gap:.5rem;font-family:var(--sans);font-size:.63rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:rgba(220,38,38,.7)}
+    .faith-label::before{content:'';display:inline-block;width:22px;height:1.5px;background:rgba(220,38,38,.5);border-radius:1px}
+    .faith-h{font-family:var(--serif);font-size:clamp(1.7rem,2.8vw,2.6rem);font-weight:700;color:#fff;line-height:1.2}
+    .faith-h em{font-style:italic;color:rgba(250,180,180,.8)}
+    .faith-txt{font-family:var(--lora);font-size:.95rem;color:rgba(180,205,235,.65);line-height:1.9}
+    .faith-values{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:.7rem}
+    @media(max-width:480px){.faith-values{grid-template-columns:1fr}}
+    .fv{display:flex;align-items:center;gap:.6rem;padding:.65rem .8rem;border-radius:var(--radius-xs);background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07)}
+    .fv i{font-size:1rem;color:rgba(220,38,38,.7);flex-shrink:0}
+    .fv-t{font-family:var(--sans);font-size:.8rem;font-weight:500;color:rgba(220,235,255,.75)}
+
+    /* ═══ CAMPUS PREVIEW ═══ */
+    .campus{background:var(--bg-page)}
+    .campus-hdr{text-align:center;max-width:680px;margin-inline:auto;margin-bottom:4rem}
+    .campus-mosaic{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));grid-template-rows:auto;gap:1rem}
+    .mosaic-main{grid-column:1/8;grid-row:1/3;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow-lift)}
+    .mosaic-tr{grid-column:8/13;grid-row:1/2;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow-card)}
+    .mosaic-br{grid-column:8/13;grid-row:2/3;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow-card)}
+    .mosaic-main,.mosaic-tr,.mosaic-br{position:relative}
+    .mosaic-main img,.mosaic-tr img,.mosaic-br img{width:100%;height:100%;object-fit:cover;display:block}
+    .mosaic-main{aspect-ratio:unset;min-height:340px}
+    .mosaic-tr,.mosaic-br{aspect-ratio:16/9}
+    @media(max-width:900px){
+      .campus-mosaic{grid-template-columns:minmax(0,1fr) minmax(0,1fr);grid-template-rows:auto auto auto}
+      .mosaic-main{grid-column:1/3;grid-row:1/2;aspect-ratio:16/9;min-height:unset}
+      .mosaic-tr{grid-column:1/2;grid-row:2/3}
+      .mosaic-br{grid-column:2/3;grid-row:2/3}
+    }
+    @media(max-width:560px){
+      .campus-mosaic{grid-template-columns:1fr}
+      .mosaic-main{grid-column:1/2}
+      .mosaic-tr,.mosaic-br{grid-column:1/2;grid-row:auto}
+    }
+    .mosaic-label{position:absolute;bottom:.8rem;left:.8rem;background:rgba(6,15,30,.82);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.1);border-radius:6px;padding:.35rem .7rem;font-family:var(--sans);font-size:.67rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.82)}
+    .campus-more{text-align:center;margin-top:2.5rem}
+    /* Placeholder tint for mosaic cells before real images */
+    .mosaic-ph{width:100%;height:100%;min-height:200px;display:flex;align-items:center;justify-content:center;font-family:var(--sans);font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.2)}
+    .mosaic-ph.bg1{background:linear-gradient(135deg,#0a1929,#0f2744)}
+    .mosaic-ph.bg2{background:linear-gradient(135deg,#1a0505,#2d0a0a)}
+    .mosaic-ph.bg3{background:linear-gradient(135deg,#071c10,#0a2a18)}
+
+    /* ═══ CLUBS ROW ═══ */
+    .clubs-row{background:var(--bg-darkblue);position:relative;overflow:hidden}
+    .clubs-row::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(0,113,227,.1) 0%,transparent 65%)}
+    .cr-inner{position:relative;z-index:1}
+    .cr-top{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:3rem;flex-wrap:wrap;gap:1.5rem}
+    @media(max-width:600px){.cr-top{flex-direction:column;align-items:flex-start}}
+    .cr-h{font-family:var(--serif);font-size:clamp(1.7rem,2.8vw,2.5rem);font-weight:700;color:#fff;line-height:1.2}
+    .cr-h em{font-style:italic;color:#7dd3fc}
+    .cr-sub{font-family:var(--sans);font-size:.9rem;font-weight:300;color:rgba(160,190,230,.6);margin-top:.4rem;max-width:420px}
+    .clubs-scroll{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:1rem}
+    @media(max-width:1100px){.clubs-scroll{grid-template-columns:repeat(4,minmax(0,1fr))}}
+    @media(max-width:700px){.clubs-scroll{grid-template-columns:repeat(3,minmax(0,1fr))}}
+    @media(max-width:460px){.clubs-scroll{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    .club-chip{display:flex;flex-direction:column;align-items:center;gap:.6rem;padding:1.2rem .8rem;border-radius:var(--radius);border:1.5px solid;background:rgba(255,255,255,.03);text-decoration:none;transition:all var(--tr);text-align:center}
+    .club-chip:hover{transform:translateY(-4px)}
+    .chip-ico{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;border:1.5px solid;flex-shrink:0;transition:transform var(--tr)}
+    .club-chip:hover .chip-ico{transform:scale(1.08)}
+    .chip-ico i{font-size:1.3rem}
+    .chip-name{font-family:var(--sans);font-size:.72rem;font-weight:600;color:rgba(210,225,245,.75);line-height:1.35}
+    .chip-sched{font-family:var(--sans);font-size:.62rem;font-weight:400;color:rgba(140,170,210,.4)}
+
+    /* ═══ TESTIMONIAL ═══ */
+    .testi{background:var(--bg-white);border-top:1px solid rgba(0,0,0,.06)}
+    .testi-inner{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:4rem;align-items:center}
+    @media(max-width:760px){.testi-inner{grid-template-columns:1fr;gap:2.5rem}}
+    .testi-media{position:relative;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow-lift);aspect-ratio:3/4;max-width:340px}
+    @media(max-width:760px){.testi-media{aspect-ratio:4/3;max-width:100%;width:100%;max-height:280px}}
+    @media(max-width:480px){.testi-media{aspect-ratio:unset;height:220px;max-height:220px}}
+    .testi-media img{width:100%;height:100%;object-fit:cover;object-position:top center;display:block}
+    .testi-cnt{display:flex;flex-direction:column;gap:1.5rem}
+    .testi-lbl{display:inline-flex;align-items:center;gap:.5rem;font-family:var(--sans);font-size:.63rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--accent)}
+    .testi-lbl::before{content:'';display:inline-block;width:22px;height:1.5px;background:var(--accent);border-radius:1px}
+    .testi-quote{position:relative;padding:1.8rem 2rem;background:var(--bg-page);border-radius:var(--radius);border-left:3px solid var(--accent)}
+    .tq-mark{font-family:var(--serif);font-size:4rem;color:var(--accent);opacity:.15;line-height:1;position:absolute;top:.5rem;left:1.2rem}
+    .tq-text{font-family:var(--lora);font-size:1.08rem;font-style:italic;color:var(--text-body);line-height:1.88;position:relative;z-index:1}
+    .tq-author{display:flex;align-items:center;gap:.75rem;margin-top:1.2rem}
+    .tqa-av{width:44px;height:44px;border-radius:50%;object-fit:cover;border:2px solid var(--accent-mid);flex-shrink:0;background:var(--accent-soft);display:flex;align-items:center;justify-content:center;color:var(--accent);font-size:1.1rem}
+    .tqa-name{font-family:var(--sans);font-size:.88rem;font-weight:600;color:var(--text-primary)}
+    .tqa-role{font-family:var(--sans);font-size:.73rem;font-weight:400;color:var(--text-muted);margin-top:.1rem}
+    .testi-awards{display:flex;flex-wrap:wrap;gap:.8rem}
+    .award{display:flex;align-items:center;gap:.55rem;padding:.55rem .85rem;background:var(--bg-page);border:1px solid rgba(0,0,0,.06);border-radius:var(--radius-xs);box-shadow:var(--shadow-card)}
+    .award i{font-size:1rem;color:var(--presby-red)}
+    .award-t{font-family:var(--sans);font-size:.77rem;font-weight:500;color:var(--text-body)}
+
+    /* ══════════════════════════════════════════════════════
+       CTA SECTION — parallax background
+    ══════════════════════════════════════════════════════ */
+    .cta{background:var(--bg-darkblue);position:relative;overflow:hidden}
+    .cta-parallax-bg{
+      position:absolute;inset:-40% 0;z-index:0;
+      /*
+        PARALLAX IMAGE — replace with students at graduation / assembly / speech day:
+          /assets/images/students/students-graduation.jpg
+          /assets/images/campus/assembly-hall-full.jpg
+      */
+      background-image:url('/assets/images/students-graduation.jpg');
+      background-size:cover;background-position:center;
+      opacity:.07;will-change:transform
+    }
+    .cta-parallax-tint{
+      position:absolute;inset:0;z-index:1;pointer-events:none;
+      background:radial-gradient(ellipse at 50% 50%,rgba(0,113,227,.12) 0%,transparent 65%)
+    }
+    .cta-inner{position:relative;z-index:2;text-align:center;max-width:720px;margin-inline:auto}
+    .cta .wrap{position:relative;z-index:2}
+    .cta-lbl{display:inline-flex;align-items:center;gap:.5rem;font-family:var(--sans);font-size:.63rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:rgba(0,180,255,.7);margin-bottom:1.2rem}
+    .cta-lbl::before,.cta-lbl::after{content:'';display:inline-block;width:22px;height:1.5px;background:rgba(0,180,255,.5);border-radius:1px}
+    .cta-h{font-family:var(--serif);font-size:clamp(2rem,3.5vw,3.4rem);font-weight:700;color:#fff;line-height:1.12}
+    .cta-h em{font-style:italic;color:#7dd3fc}
+    .cta-sub{font-family:var(--lora);font-size:1rem;font-style:italic;color:rgba(180,205,235,.62);margin-top:1rem;line-height:1.85}
+    .cta-acts{display:flex;align-items:center;justify-content:center;gap:1rem;flex-wrap:wrap;margin-top:2.2rem}
+    .cta-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem;margin-top:3rem}
+    @media(max-width:700px){.cta-grid{grid-template-columns:1fr}}
+    .cg-card{padding:1.4rem 1.2rem;background:rgba(255,255,255,.04);border:1px solid rgba(0,113,227,.18);border-radius:var(--radius-sm);text-align:center;transition:background var(--tr),border-color var(--tr);text-decoration:none;display:block}
+    .cg-card:hover{background:rgba(0,113,227,.1);border-color:rgba(0,180,255,.35)}
+    .cg-card i{font-size:1.5rem;color:rgba(0,180,255,.65);display:block;margin-bottom:.6rem}
+    .cg-card-t{font-family:var(--sans);font-size:.88rem;font-weight:600;color:rgba(210,230,255,.85)}
+    .cg-card-d{font-family:var(--sans);font-size:.75rem;font-weight:300;color:rgba(140,175,220,.5);margin-top:.25rem;line-height:1.5}
+
+  </style>
+</head>
+<body>
+<div id="ansec-header"></div>
+<div class="mobile-overlay" id="navOverlay" aria-hidden="true"></div>
+
+<!-- ══════════════════════════════════════════════════════
+     HERO — full-screen video background
+══════════════════════════════════════════════════════ -->
+<main>
+<section class="hero" id="top" aria-label="Homepage hero">
+
+  <!-- z-0: dark base (always visible beneath video) -->
+  <div class="hero-base" aria-hidden="true"></div>
+
+  <!--
+  ╔══════════════════════════════════════════════════════════════════╗
+  ║  HERO VIDEO BACKGROUND                                           ║
+  ║                                                                  ║
+  ║  Replace src with a real campus walkthrough or highlights video. ║
+  ║                                                                  ║
+  ║  Recommended files:                                              ║
+  ║    /assets/video/campus-overview.mp4         (aerial walk)       ║
+  ║    /assets/video/students-campus-life.mp4    (students in action)║
+  ║    /assets/video/ansec-highlights-reel.mp4   (edited montage)   ║
+  ║                                                                  ║
+  ║  Technical requirements:                                         ║
+  ║    • Format     : MP4 (H.264) for widest browser support         ║
+  ║    • Resolution : 1920×1080 or 1280×720                          ║
+  ║    • Duration   : 15–30 s looping clip                           ║
+  ║    • File size  : ≤ 8 MB (compress with HandBrake / ffmpeg)      ║
+  ║    • Audio      : remove audio track (required for autoplay)     ║
+  ║    • poster=    : set to a first-frame still image               ║
+  ║                                                                  ║
+  ║  The <img class="hero-video-poster"> below is displayed:         ║
+  ║    - before the video loads                                       ║
+  ║    - on prefers-reduced-motion devices                           ║
+  ║    - when video autoplay is blocked                              ║
+  ╚══════════════════════════════════════════════════════════════════╝
+  -->
+  <video
+    class="hero-video"
+    src="assets/video/Campus-Overview.mp4"
+    poster="assets/images/campus/campus-hero-poster.jpg"
+    autoplay
+    muted
+    loop
+    playsinline
+    preload="none"
+    aria-hidden="true"
+  ></video>
+
+  <!-- Static fallback poster image (shown before video loads / on reduced-motion) -->
+  <!--
+    IMAGE: replace src with actual campus poster frame:
+    /assets/images/campus/campus-hero-poster.jpg
+  -->
+  <img
+    class="hero-video-poster"
+    src="/images/campus/campus-hero-poster.jpg"
+    alt=""
+    aria-hidden="true"
+    loading="eager"
+    fetchpriority="high"
+  />
+
+  <!--
+  ORIGINAL SVG BACKGROUND — replaced by the video above.
+  Kept here for reference in case video cannot be supplied.
+  To restore: delete the <video> and <img.hero-video-poster> above,
+  uncomment this block, and remove .hero-base from HTML.
+  ───────────────────────────────────────────────────────────────────
+  <div class="hero-img-wrap" aria-hidden="true">
+    <svg viewBox="0 0 1440 900" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" aria-hidden="true" style="width:100%;height:100%;object-fit:cover">
+      <defs>
+        <linearGradient id="hBg" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#030c1c"/><stop offset="100%" stop-color="#071428"/></linearGradient>
+        <radialGradient id="hR1" cx="20%" cy="50%" r="40%"><stop offset="0%" stop-color="#1a3a5c" stop-opacity=".5"/><stop offset="100%" stop-color="#071428" stop-opacity="0"/></radialGradient>
+        <radialGradient id="hR2" cx="80%" cy="40%" r="35%"><stop offset="0%" stop-color="#0f2744" stop-opacity=".6"/><stop offset="100%" stop-color="#071428" stop-opacity="0"/></radialGradient>
+      </defs>
+      <rect width="1440" height="900" fill="url(#hBg)"/>
+      <rect width="1440" height="900" fill="url(#hR1)"/>
+      <rect width="1440" height="900" fill="url(#hR2)"/>
+      <g stroke="rgba(0,113,227,.06)" stroke-width="1.5" fill="none">
+        <rect x="80" y="180" width="280" height="380" rx="6"/>
+        ... (abstract architecture lines, stars, cross motif)
+      </g>
+    </svg>
+  </div>
+  ───────────────────────────────────────────────────────────────────
+  -->
+
+  <!-- z-1: gradient overlay -->
+  <div class="hero-ov" aria-hidden="true"></div>
+  <!-- z-2: fine grid texture -->
+  <div class="hero-grid" aria-hidden="true"></div>
+  <!-- z-2: red vignette sweep -->
+  <div class="hero-red-sweep" aria-hidden="true"></div>
+
+  <!-- Scroll pip — matches academic calendar style exactly -->
+  <div class="hero-scroll" aria-hidden="true">
+    <span>Scroll</span>
+    <div class="scroll-pip"></div>
+  </div>
+
+  <!-- Floating badge — bottom-left corner -->
+  <div class="hero-float-badge" aria-hidden="true">
+    <div class="hb-icon"><i class="ri-award-line"></i></div>
+    <div>
+      <div class="hb-v">Established 1897</div>
+      <div class="hb-l">Eastern Region · Anum, Ghana</div>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="hero-inner">
+
+      <!-- Breadcrumb -->
+      <nav class="hero-breadcrumb" aria-label="Breadcrumb">
+        <a href="/index.html"><i class="ri-home-4-line"></i> Home</a>
+        <i class="sep ri-arrow-right-s-line"></i>
+        <span class="crumb-cur" aria-current="page">Welcome</span>
+      </nav>
+
+      <div class="hero-eyebrow">Anum, Eastern Region · Ghana</div>
+
+      <h1 class="hero-h1">
+        Shaping Lives,<br/>
+        Building <em>Character,</em><br/>
+        <strong>Since 1897.</strong>
+      </h1>
+
+      <p class="hero-sub">Anum Presbyterian Senior High School — a legacy of excellence rooted in faith, academic rigour, and the formation of whole persons who serve God and nation.</p>
+
+      <div class="hero-acts">
+        <a href="#about" class="btn-g">
+          <i class="ri-information-circle-line" aria-hidden="true"></i>
+          Discover ANSEC
+        </a>
+        <a href="pages/ansec-admissions.html" class="btn-ol">
+          <i class="ri-graduation-cap-line" aria-hidden="true"></i>
+          Admissions
+        </a>
+      </div>
+
+      <div class="hero-stats-strip" role="list">
+        <div class="hs" role="listitem"><div class="hs-n">128<sup>+</sup></div><div class="hs-l">Years of Excellence</div></div>
+        <div class="hs" role="listitem"><div class="hs-n">3,000<sup>+</sup></div><div class="hs-l">Active Students</div></div>
+        <div class="hs" role="listitem"><div class="hs-n">180<sup>+</sup></div><div class="hs-l">Teaching Staff</div></div>
+        <div class="hs" role="listitem"><div class="hs-n">A<sup>+</sup></div><div class="hs-l">WAEC Rating</div></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+<div class="hero-bar"></div>
+
+<!-- ═══ QUICK LINKS ═══ -->
+<div class="ql-row">
+  <div class="wrap"><div class="ql-inner">
+    <span class="ql-label">Quick Links</span>
+    <a href="pages/ansec-academic-calendar.html" class="ql"><i class="ri-calendar-2-line"></i>Academic Calendar</a>
+    <a href="pages/ansec-admissions.html" class="ql"><i class="ri-door-open-line"></i>Admissions</a>
+    <a href="pages/ansec-programmes.html" class="ql"><i class="ri-graduation-cap-line"></i>Programmes</a>
+    <a href="pages/ansec-clubs.html" class="ql"><i class="ri-group-line"></i>Clubs &amp; Activities</a>
+    <a href="pages/ansec-chaplaincy.html" class="ql"><i class="ri-cross-line"></i>Chaplaincy</a>
+    <a href="pages/ansec-admin-staff.html" class="ql"><i class="ri-user-star-line"></i>Admin &amp; Staff</a>
+    <a href="pages/ansec-campus-facilities.html" class="ql"><i class="ri-school-line"></i>Campus Facilities</a>
+    <a href="pages/ansec-donate.html" class="ql"><i class="ri-heart-3-line"></i>Donate</a>
+  </div></div>
+</div>
+
+<!-- ═══ ABOUT STRIP ═══ -->
+<section id="about" class="about-strip" aria-labelledby="about-heading">
+<div class="wrap"><div class="pad">
+  <div class="about-grid">
+    <div class="about-vis rv-l">
+      <div style="position:relative">
+        <div class="media-cor tl" style="border-color:rgba(0,113,227,.4)"></div>
+        <div class="media-cor br" style="border-color:rgba(0,113,227,.2)"></div>
+        <div class="media-box">
+          <div class="mb-ratio">
+            <!--
+              ABOUT SECTION IMAGE — campus life / students on grounds.
+              Replace src:
+                /assets/images/campus/campus-life.jpg
+                /assets/images/students/students-grounds.jpg
+            -->
+            <img
+              src="assets/images/campus-life.jpg"
+              alt="Students on ANSEC campus"
+              loading="lazy"
+            />
+            <!--
+            ORIGINAL SVG (replaced by <img> above — kept for reference):
+            ──────────────────────────────────────────────────────────
+            <svg viewBox="0 0 520 390" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%">
+              <rect width="520" height="390" fill="#f0f4f8"/>
+              ... (campus building illustration with student silhouettes)
+            </svg>
+            ──────────────────────────────────────────────────────────
+            -->
+          </div>
+          <div class="mb-caption">
+            <div class="mb-caption-icon"><i class="ri-school-line"></i></div>
+            <div><div class="mb-caption-v">ANSEC Campus</div><div class="mb-caption-l">Anum, Eastern Region</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="about-cnt rv-r">
+      <div class="about-tag">Who We Are</div>
+      <h2 class="about-h" id="about-heading">A School That <em>Forms</em> the Whole Person</h2>
+      <p class="bt">Anum Presbyterian Senior High School has stood as a beacon of learning, faith, and character formation in the Eastern Region of Ghana since its founding in 1897. What began as a vision of the Presbyterian Church of Ghana has grown into one of the region's most respected educational institutions.</p>
+      <p class="bt">Our approach is holistic — academic excellence alone is not enough. ANSEC students leave not just with certificates, but with values, discipline, and a love of service that shapes their contributions to society for decades to come.</p>
+      <div class="about-pillars">
+        <div class="pillar rv">
+          <div class="pillar-ico"><i class="ri-book-open-line"></i></div>
+          <div><div class="pillar-t">Academic Excellence</div><div class="pillar-d">Rigorous programmes across science, arts, business and technical streams</div></div>
+        </div>
+        <div class="pillar rv">
+          <div class="pillar-ico"><i class="ri-cross-line"></i></div>
+          <div><div class="pillar-t">Faith Foundation</div><div class="pillar-d">Grounded in Presbyterian values — truth, love, service, and integrity</div></div>
+        </div>
+        <div class="pillar rv">
+          <div class="pillar-ico"><i class="ri-shield-star-line"></i></div>
+          <div><div class="pillar-t">Character Formation</div><div class="pillar-d">Building leaders of good character through discipline and mentorship</div></div>
+        </div>
+        <div class="pillar rv">
+          <div class="pillar-ico"><i class="ri-community-line"></i></div>
+          <div><div class="pillar-t">Community &amp; Service</div><div class="pillar-d">Students engage beyond the school gates — serving Anum and Ghana</div></div>
+        </div>
+      </div>
+      <div class="about-acts">
+        <a href="pages/ansec-history.html" class="btn-g">
+          <i class="ri-time-line" aria-hidden="true"></i> Our Story
+        </a>
+        <a href="pages/ansec-mission-vision-values.html" class="btn-dk">
+          <i class="ri-eye-line" aria-hidden="true"></i> Mission &amp; Values
+        </a>
+      </div>
+    </div>
+  </div>
+</div></div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════
+     STATS — parallax background
+══════════════════════════════════════════════════════ -->
+<section class="stats-sec" aria-label="Key statistics" id="stats">
+  <!-- Parallax bg photo (driven by JS) -->
+  <div class="stats-parallax-bg" id="statsParallaxBg" aria-hidden="true"></div>
+  <div class="stats-parallax-tint" aria-hidden="true"></div>
+  <div class="wrap"><div class="pad-sm">
+    <div class="stats-grid rv">
+      <div class="stat-cell">
+        <div class="stat-n">1897</div>
+        <div class="stat-l">Year Founded</div>
+        <div class="stat-sub">Presbyterian Church of Ghana</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-n">3,000<sup>+</sup></div>
+        <div class="stat-l">Students Enrolled</div>
+        <div class="stat-sub">Day &amp; boarding students</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-n">6</div>
+        <div class="stat-l">Academic Departments</div>
+        <div class="stat-sub">Science, Arts, Business &amp; more</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-n">128<sup>+</sup></div>
+        <div class="stat-l">Years of Service</div>
+        <div class="stat-sub">Shaping generations of leaders</div>
+      </div>
+    </div>
+  </div></div>
+</section>
+
+<!-- ═══ HIGHLIGHTS ═══ -->
+<section class="highlights" aria-labelledby="highlights-heading">
+<div class="wrap"><div class="pad">
+  <div class="hl-hdr rv">
+    <div class="tag">Life at ANSEC</div>
+    <h2 class="sh" id="highlights-heading">Explore <em>Every Corner</em> of School Life</h2>
+    <p class="ss">From the classroom to the chapel, the parade ground to the stage — discover the full breadth of what ANSEC offers.</p>
+  </div>
+  <div class="hl-grid">
+
+    <!-- Academic -->
+    <a href="pages/ansec-departments.html" class="hl-card rv" aria-label="Academic departments">
+      <div class="hl-media">
+        <!--
+          IMAGE: students in class / science lab / classroom scene
+          /assets/images/academics/students-in-class.jpg
+          /assets/images/academics/science-lab.jpg
+        -->
+        <img
+          src="assets/images/students-in-class.jpg"
+          alt="Students learning in an ANSEC classroom"
+          loading="lazy"
+          style="width:100%;height:100%;object-fit:cover"
+        />
+        <!--
+        ORIGINAL SVG (replaced by <img> above):
+        ──────────────────────────────────────────────────────
+        <svg viewBox="0 0 400 225" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;display:block">
+          <rect width="400" height="225" fill="#061c36"/>
+          <g fill="none" stroke="rgba(0,113,227,.3)" stroke-width="1.4">
+            <rect x="40" y="40" width="160" height="120" rx="5"/>
+            <rect x="55" y="55" width="60" height="45" rx="3"/>
+            <rect x="125" y="55" width="60" height="45" rx="3"/>
+            <rect x="55" y="110" width="130" height="35" rx="2"/>
+            <line x1="120" y1="40" x2="120" y2="160"/>
+          </g>
+          ... (classroom line art)
+        </svg>
+        ──────────────────────────────────────────────────────
+        -->
+        <span class="hl-badge">Academic</span>
+      </div>
+      <div class="hl-body">
+        <div class="hl-meta">Departments &amp; Programmes</div>
+        <h3 class="hl-title">Six Academic Departments, One Vision of Excellence</h3>
+        <p class="hl-desc">From Science and Mathematics to Business, Languages, Humanities and Technical streams — ANSEC offers every student a rigorous academic pathway to fulfil their potential.</p>
+        <div class="hl-link">Explore Departments <i class="ri-arrow-right-line"></i></div>
+      </div>
+    </a>
+
+    <!-- Faith -->
+    <a href="pages/ansec-chaplaincy.html" class="hl-card rv" aria-label="Chaplaincy and worship">
+      <div class="hl-media">
+        <!--
+          IMAGE: ANSEC chapel interior / students in worship
+          /assets/images/chapel/chapel-interior.jpg
+          /assets/images/chapel/students-worship.jpg
+        -->
+        <img
+          src="assets/images/chapel/chapel-interior.jpg"
+          alt="ANSEC chapel interior"
+          loading="lazy"
+          style="width:100%;height:100%;object-fit:cover"stu 
+        />
+        <!--
+        ORIGINAL SVG (replaced by <img> above):
+        ──────────────────────────────────────────────────────
+        <svg viewBox="0 0 400 225" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;display:block">
+          <rect width="400" height="225" fill="#1c0505"/>
+          <g fill="none" stroke="rgba(220,38,38,.25)" stroke-width="1.5">
+            <rect x="120" y="80" width="160" height="120" rx="4"/>
+            <polyline points="100,80 200,30 300,80"/>
+            <line x1="200" y1="44" x2="200" y2="80" stroke-width="2.5"/>
+            <line x1="188" y1="56" x2="212" y2="56" stroke-width="2.5"/>
+            ... (chapel arch windows, pews)
+          </g>
+        </svg>
+        ──────────────────────────────────────────────────────
+        -->
+        <span class="hl-badge">Faith</span>
+      </div>
+      <div class="hl-body">
+        <div class="hl-meta">Chaplaincy &amp; Worship</div>
+        <h3 class="hl-title">A Campus Grounded in Living Faith</h3>
+        <p class="hl-desc">The ANSEC chaplaincy shapes the spiritual and moral fabric of the school — through daily devotions, Sunday chapel, discipleship groups, and a community that lives out the Presbyterian values at its core.</p>
+        <div class="hl-link">Explore Chaplaincy <i class="ri-arrow-right-line"></i></div>
+      </div>
+    </a>
+
+    <!-- Campus -->
+    <a href="pages/ansec-campus-facilities.html" class="hl-card rv" aria-label="Campus and facilities">
+      <div class="hl-media">
+        <!--
+          IMAGE: campus aerial view / main buildings / grounds
+          /assets/images/campus/campus-grounds.jpg
+          /assets/images/campus/campus-buildings.jpg
+        -->
+        <img
+          src="assets/images/campus-grounds.jpg"
+          alt="ANSEC campus grounds and buildings"
+          loading="lazy"
+          style="width:100%;height:100%;object-fit:cover"
+        />
+        <!--
+        ORIGINAL SVG (replaced by <img> above):
+        ──────────────────────────────────────────────────────
+        <svg viewBox="0 0 400 225" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;display:block">
+          <rect width="400" height="225" fill="#071c10"/>
+          <g fill="none" stroke="rgba(22,163,74,.25)" stroke-width="1.4">
+            <rect x="30" y="70" width="100" height="110" rx="4"/>
+            ... (campus buildings, trees, grounds)
+          </g>
+        </svg>
+        ──────────────────────────────────────────────────────
+        -->
+        <span class="hl-badge">Campus</span>
+      </div>
+      <div class="hl-body">
+        <div class="hl-meta">Campus &amp; Facilities</div>
+        <h3 class="hl-title">A Campus Designed for Learning and Growth</h3>
+        <p class="hl-desc">Classrooms, labs, libraries, dormitories, a chapel, sports courts, and an ICT centre — ANSEC's facilities have grown to match the school's ambition and the needs of every learner.</p>
+        <div class="hl-link">Tour the Campus <i class="ri-arrow-right-line"></i></div>
+      </div>
+    </a>
+
+    <!-- Clubs -->
+    <a href="pages/ansec-clubs.html" class="hl-card rv" aria-label="Clubs and activities">
+      <div class="hl-media">
+        <!--
+          IMAGE: students in clubs — robotics, choir, cadet parade
+          /assets/images/clubs/clubs-activities.jpg
+          /assets/images/clubs/brass-band-performance.jpg
+        -->
+        <img
+          src="assets/images/clubs/clubs-activities.jpg"
+          alt="ANSEC students participating in clubs and activities"
+          loading="lazy"
+          style="width:100%;height:100%;object-fit:cover"
+        />
+        <!--
+        ORIGINAL SVG (replaced by <img> above):
+        ──────────────────────────────────────────────────────
+        <svg viewBox="0 0 400 225" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;display:block">
+          <rect width="400" height="225" fill="#1a0414"/>
+          <g stroke="#ec4899" stroke-width="2" fill="none" stroke-linecap="round" opacity=".55">
+            ... (student figure silhouettes)
+          </g>
+        </svg>
+        ──────────────────────────────────────────────────────
+        -->
+        <span class="hl-badge">Co-Curricular</span>
+      </div>
+      <div class="hl-body">
+        <div class="hl-meta">Clubs &amp; Activities</div>
+        <h3 class="hl-title">Seven Clubs, Endless Possibilities</h3>
+        <p class="hl-desc">STEM Robotics, Media Team, Cadet Corps, Choir, Scripture Union, Dream Team, and Quiz Club — talent, passion and potential find expression in ANSEC's vibrant co-curricular life.</p>
+        <div class="hl-link">Explore Clubs <i class="ri-arrow-right-line"></i></div>
+      </div>
+    </a>
+
+    <!-- History -->
+    <a href="pages/ansec-history.html" class="hl-card rv" aria-label="School history">
+      <div class="hl-media">
+        <!--
+          IMAGE: vintage school photo / early campus / archival image
+          /assets/images/history/ansec-founding-era.jpg
+          /assets/images/history/old-campus-photo.jpg
+        -->
+        <img
+          src="assets/images/history/ansec-founding-era.jpg"
+          alt="Historical photograph of ANSEC"
+          loading="lazy"
+          style="width:100%;height:100%;object-fit:cover"
+        />
+        <!--
+        ORIGINAL SVG (replaced by <img> above):
+        ──────────────────────────────────────────────────────
+        <svg viewBox="0 0 400 225" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;display:block">
+          <rect width="400" height="225" fill="#0c0e0a"/>
+          <g fill="none" stroke="rgba(139,0,0,.2)" stroke-width="1.3">
+            <line x1="30" y1="112" x2="370" y2="112" stroke-width="2"/>
+            <circle cx="80" cy="112" r="7" fill="rgba(139,0,0,.3)"/>
+            ... (history timeline with year labels: 1937, 1960s, 1990s, 2010s, Today)
+          </g>
+        </svg>
+        ──────────────────────────────────────────────────────
+        -->
+        <span class="hl-badge">Heritage</span>
+      </div>
+      <div class="hl-body">
+        <div class="hl-meta">Our History</div>
+        <h3 class="hl-title">128 Years of Faithful Service to Ghana</h3>
+        <p class="hl-desc">From a small Presbyterian mission school in 1937 to a thriving senior high school — trace the remarkable journey of ANSEC through Ghana's own story of independence, growth and transformation.</p>
+        <div class="hl-link">Read Our History <i class="ri-arrow-right-line"></i></div>
+      </div>
+    </a>
+
+    <!-- Admin -->
+    <a href="pages/ansec-admin-staff.html" class="hl-card rv" aria-label="Administration and staff">
+      <div class="hl-media">
+        <!--
+          IMAGE: staff group photo / headteacher / administration block
+          /assets/images/staff/admin-staff-group.jpg
+          /assets/images/staff/headmaster-office.jpg
+        -->
+        <img
+          src="assets/images/staff/admin-staff-group.jpg"
+          alt="ANSEC administration and teaching staff"
+          loading="lazy"
+          style="width:100%;height:100%;object-fit:cover"
+        />
+        <!--
+        ORIGINAL SVG (replaced by <img> above):
+        ──────────────────────────────────────────────────────
+        <svg viewBox="0 0 400 225" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;display:block">
+          <rect width="400" height="225" fill="#071428"/>
+          <g fill="rgba(0,113,227,.22)" stroke="rgba(0,113,227,.3)" stroke-width="1">
+            <circle cx="80" cy="80" r="22"/><rect x="52" y="108" width="56" height="52" rx="6"/>
+            ... (4 staff figure outlines with name plates)
+          </g>
+        </svg>
+        ──────────────────────────────────────────────────────
+        -->
+        <span class="hl-badge">Leadership</span>
+      </div>
+      <div class="hl-body">
+        <div class="hl-meta">Administration &amp; Staff</div>
+        <h3 class="hl-title">The People Who Drive ANSEC Forward</h3>
+        <p class="hl-desc">Meet the dedicated headteacher, deputy heads, department heads, and teaching staff who give their professional lives to the education and development of every ANSEC student.</p>
+        <div class="hl-link">Meet the Team <i class="ri-arrow-right-line"></i></div>
+      </div>
+    </a>
+
+  </div>
+</div></div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════
+     FAITH SECTION — parallax background
+══════════════════════════════════════════════════════ -->
+<section class="faith" aria-labelledby="faith-heading">
+  <!-- Parallax bg (driven by JS) -->
+  <div class="faith-parallax-bg" id="faithParallaxBg" aria-hidden="true"></div>
+  <div class="faith-parallax-tint" aria-hidden="true"></div>
+  <div class="wrap"><div class="pad">
+    <div class="faith-inner">
+      <div class="faith-media-wrap rv-l">
+        <div class="faith-media">
+          <!--
+            FAITH / CHAPEL IMAGE — students worshipping, chapel interior, prayer.
+            Replace src:
+              /assets/images/chapel/chapel-worship.jpg
+              /assets/images/chapel/students-prayer.jpg
+          -->
+          <img
+            src="/assets/images/chapel-worship.jpg"
+            alt="Students worshipping in ANSEC chapel"
+            loading="lazy"
+            style="width:100%;height:100%;object-fit:cover;object-position:center"
+          />
+          <!--
+          ORIGINAL SVG (replaced by <img> above — was partially commented in source):
+          ──────────────────────────────────────────────────────
+          <svg viewBox="0 0 380 500" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;display:block">
+            <rect width="380" height="500" fill="#1c0505"/>
+            <g fill="none" stroke="rgba(220,38,38,.18)" stroke-width="1.5">
+              ... (chapel outline, cross, arch windows, pews, bell towers)
+            </g>
+          </svg>
+          ──────────────────────────────────────────────────────
+          -->
+        </div>
+        <div class="faith-quote">
+          <p class="fq-text">"The fear of the Lord is the beginning of wisdom — and knowledge of the Holy One is understanding."</p>
+          <div class="fq-src">Proverbs 9:10 — School Devotional Text</div>
+        </div>
+      </div>
+
+      <div class="faith-cnt rv-r">
+        <div class="faith-label">Presbyterian Foundation</div>
+        <h2 class="faith-h" id="faith-heading">Faith That <em>Transforms</em>, Not Just Informs</h2>
+        <p class="faith-txt">ANSEC was founded by the Presbyterian Church of Ghana on the conviction that education and faith are inseparable. More than eight decades later, that conviction still shapes every morning devotion, every act of service, and every relationship in this school community.</p>
+        <p class="faith-txt">The chaplaincy, Scripture Union, and the rhythms of chapel worship are not additions to school life — they are the heartbeat of it. Students are not merely taught about faith; they are invited into it.</p>
+        <div class="faith-values">
+          <div class="fv"><i class="ri-cross-line"></i><span class="fv-t">Weekly Chapel Services</span></div>
+          <div class="fv"><i class="ri-book-open-line"></i><span class="fv-t">Daily Devotions</span></div>
+          <div class="fv"><i class="ri-user-heart-line"></i><span class="fv-t">Pastoral Counselling</span></div>
+          <div class="fv"><i class="ri-group-line"></i><span class="fv-t">Scripture Union (SU)</span></div>
+          <div class="fv"><i class="ri-music-2-line"></i><span class="fv-t">Praise &amp; Worship</span></div>
+          <div class="fv"><i class="ri-service-line"></i><span class="fv-t">Community Outreach</span></div>
+        </div>
+        <a href="pages/ansec-chaplaincy.html" class="btn-g" style="align-self:flex-start;margin-top:.5rem">
+          <i class="ri-cross-line" aria-hidden="true"></i>
+          Chaplaincy &amp; Worship
+        </a>
+      </div>
+    </div>
+  </div></div>
+</section>
+
+<!-- ═══ CAMPUS PREVIEW ═══ -->
+<section class="campus" aria-labelledby="campus-heading">
+<div class="wrap"><div class="pad">
+  <div class="campus-hdr rv">
+    <div class="tag">Our Campus</div>
+    <h2 class="sh" id="campus-heading">A Place Built for <em>Learning & Growth</em></h2>
+    <p class="ss">Explore the classrooms, labs, dormitories, and open spaces that make ANSEC a vibrant community of learners.</p>
+  </div>
+
+  <div class="campus-mosaic">
+
+    <!-- Main large image -->
+    <div class="mosaic-main">
+      <!--
+        MOSAIC MAIN IMAGE — large campus overview / main building / aerial.
+        /assets/images/campus/campus-mosaic-main.jpg
+        /assets/images/campus/campus-main-building.jpg
+      -->
+      <img
+        src="/assets/images/campus-mosaic-main.jpg"
+        alt="ANSEC main campus overview"
+        loading="lazy"
+        style="width:100%;height:100%;object-fit:cover"
+      />
+      <!--
+      ORIGINAL SVG placeholder (replaced by <img> above):
+      <div class="mosaic-ph bg1">Main Campus Photo</div>
+      -->
+      <div class="mosaic-label">Main Campus</div>
+    </div>
+
+    <!-- Top right -->
+    <div class="mosaic-tr">
+      <!--
+        MOSAIC TOP-RIGHT IMAGE — science/ICT lab or library interior.
+        /assets/images/campus/science-lab.jpg
+        /assets/images/campus/ict-lab.jpg
+        /assets/images/campus/library.jpg
+      -->
+      <img
+        src="/assets/images/science-laboratory.jpg"
+        alt="ANSEC science laboratory"
+        loading="lazy"
+        style="width:100%;height:100%;object-fit:cover"
+      />
+      <!--
+      ORIGINAL SVG placeholder (replaced by <img> above):
+      <div class="mosaic-ph bg2">Science Lab / ICT Centre</div>
+      -->
+      <div class="mosaic-label">Science Lab</div>
+    </div>
+
+    <!-- Bottom right -->
+    <div class="mosaic-br">
+      <!--
+        MOSAIC BOTTOM-RIGHT IMAGE — sports field / dormitory / assembly hall.
+        /assets/images/campus/sports-field.jpg
+        /assets/images/campus/dormitory.jpg
+        /assets/images/campus/assembly-hall.jpg
+      -->
+      <img
+        src="/assets/images/sports-field.jpg"
+        alt="ANSEC sports field"
+        loading="lazy"
+        style="width:100%;height:100%;object-fit:cover"
+      />
+      <!--
+      ORIGINAL SVG placeholder (replaced by <img> above):
+      <div class="mosaic-ph bg3">Sports Field / Assembly Hall</div>
+      -->
+      <div class="mosaic-label">Sports Field</div>
+    </div>
+
+  </div>
+  <div class="campus-more">
+    <a href="pages/ansec-campus-facilities.html" class="btn-dk">
+      <i class="ri-school-line" aria-hidden="true"></i> Full Campus Tour
+    </a>
+  </div>
+</div></div>
+</section>
+
+<!-- ═══ CLUBS ROW ═══ -->
+<section class="clubs-row" aria-labelledby="clubs-heading">
+<div class="wrap"><div class="pad">
+  <div class="cr-inner">
+    <div class="cr-top rv">
+      <div>
+        <div style="font-family:var(--sans);font-size:.63rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:rgba(0,180,255,.65);margin-bottom:.6rem">Co-Curricular Life</div>
+        <h2 class="cr-h" id="clubs-heading">Find Your <em>Tribe</em></h2>
+        <p class="cr-sub">Seven clubs, one mission — to help every student discover their passion and grow beyond the classroom.</p>
+      </div>
+      <a href="pages/ansec-clubs.html" class="btn-ol" style="flex-shrink:0">
+        <i class="ri-group-line"></i> All Clubs
+      </a>
+    </div>
+    <div class="clubs-scroll rv">
+      <a href="pages/ansec-clubs.html#stem" class="club-chip" style="border-color:rgba(14,165,233,.3)">
+        <div class="chip-ico" style="background:rgba(14,165,233,.12);border-color:rgba(14,165,233,.3)"><i class="ri-code-s-slash-line" style="color:#0ea5e9"></i></div>
+        <div class="chip-name">STEM Robotics</div>
+        <div class="chip-sched">Sat 2pm</div>
+      </a>
+      <a href="pages/ansec-clubs.html#media" class="club-chip" style="border-color:rgba(139,92,246,.3)">
+        <div class="chip-ico" style="background:rgba(139,92,246,.12);border-color:rgba(139,92,246,.3)"><i class="ri-camera-line" style="color:#8b5cf6"></i></div>
+        <div class="chip-name">Media Team</div>
+        <div class="chip-sched">Fri 3pm</div>
+      </a>
+      <a href="pages/ansec-clubs.html#cadet" class="club-chip" style="border-color:rgba(22,163,74,.3)">
+        <div class="chip-ico" style="background:rgba(22,163,74,.12);border-color:rgba(22,163,74,.3)"><i class="ri-shield-star-line" style="color:#16a34a"></i></div>
+        <div class="chip-name">Cadet Corps</div>
+        <div class="chip-sched">Wed 4pm</div>
+      </a>
+      <a href="pages/ansec-clubs.html#choir" class="club-chip" style="border-color:rgba(245,158,11,.3)">
+        <div class="chip-ico" style="background:rgba(245,158,11,.12);border-color:rgba(245,158,11,.3)"><i class="ri-music-2-line" style="color:#f59e0b"></i></div>
+        <div class="chip-name">ANSEC Choir</div>
+        <div class="chip-sched">Thu 6:30pm</div>
+      </a>
+      <a href="pages/ansec-clubs.html#su" class="club-chip" style="border-color:rgba(220,38,38,.3)">
+        <div class="chip-ico" style="background:rgba(220,38,38,.12);border-color:rgba(220,38,38,.3)"><i class="ri-book-open-line" style="color:#dc2626"></i></div>
+        <div class="chip-name">Scripture Union</div>
+        <div class="chip-sched">Wed 7pm</div>
+      </a>
+      <a href="pages/ansec-clubs.html#dream" class="club-chip" style="border-color:rgba(236,72,153,.3)">
+        <div class="chip-ico" style="background:rgba(236,72,153,.12);border-color:rgba(236,72,153,.3)"><i class="ri-user-smile-line" style="color:#ec4899"></i></div>
+        <div class="chip-name">Dream Team</div>
+        <div class="chip-sched">Tue &amp; Fri</div>
+      </a>
+      <a href="pages/ansec-clubs.html#quiz" class="club-chip" style="border-color:rgba(0,113,227,.3)">
+        <div class="chip-ico" style="background:rgba(0,113,227,.12);border-color:rgba(0,113,227,.3)"><i class="ri-question-line" style="color:#0071e3"></i></div>
+        <div class="chip-name">Quiz Club</div>
+        <div class="chip-sched">Mon 7pm</div>
+      </a>
+    </div>
+  </div>
+</div></div>
+</section>
+
+<!-- ═══ TESTIMONIAL / ACHIEVEMENTS ═══ -->
+<section class="testi" aria-labelledby="testi-heading">
+<div class="wrap"><div class="pad">
+  <div class="testi-inner">
+    <div class="testi-media rv-l">
+      <!--
+        HEADTEACHER PHOTO — portrait of headteacher.
+        Replace src:
+          /assets/images/staff/headmaster-portrait.jpg
+          /assets/images/staff/head-teacher.jpg
+      -->
+          <!-- <img src="../assets/images/staff/headmaster-portrait.jpg" alt="ANSEC chapel interior" loading="lazy" style="width:100%;height:100%;object-fit:cover"/> -->
+      <img
+        src="/assets/images/staff/headmaster-portrait.jpg"
+        alt="ANSEC Headteacher"
+        loading="lazy"
+      />
+      <!--
+      ORIGINAL SVG (replaced by <img> above):
+      ──────────────────────────────────────────────────────
+      <svg viewBox="0 0 280 380" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;display:block">
+        <rect width="280" height="380" fill="#f0f4f8"/>
+        <rect x="0" y="300" width="280" height="80" fill="#e2e8f0"/>
+        <circle cx="140" cy="110" r="52" fill="#cbd5e1"/>
+        <path d="M60,380 Q60,260 140,260 Q220,260 220,380z" fill="#94a3b8"/>
+        <g stroke="rgba(0,113,227,.06)" stroke-width="1" fill="none">
+          <circle cx="140" cy="190" r="120"/>
+          <circle cx="140" cy="190" r="90"/>
+        </g>
+        <polygon points="140,310 153,330 175,330 ..." fill="rgba(139,0,0,.35)" stroke="rgba(139,0,0,.5)"/>
+      </svg>
+      ──────────────────────────────────────────────────────
+      -->
+    </div>
+
+    <div class="testi-cnt rv-r">
+      <div class="testi-lbl">A Word from Leadership</div>
+      <h2 class="sh" id="testi-heading" style="font-size:clamp(1.6rem,2.5vw,2.3rem)">Words That <em>Guide</em> Our Community</h2>
+      <div class="testi-quote">
+        <div class="tq-mark">&ldquo;</div>
+        <p class="tq-text">At ANSEC, we believe that true education is not the filling of a pail, but the lighting of a fire. Every student who walks through our gates carries unlimited potential — and it is our sacred duty to nurture that potential with academic excellence, uncompromising values, and a love of learning that will outlast their time with us.</p>
+        <div class="tq-author">
+          <div class="tqa-av"><i class="ri-user-line"></i></div>
+          <div>
+            <div class="tqa-name">The Headteacher, ANSEC</div>
+            <div class="tqa-role">Anum Presbyterian Senior High School</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-awards">
+        <div class="award"><i class="ri-award-fill"></i><span class="award-t">Best School — Eastern Region</span></div>
+        <div class="award"><i class="ri-trophy-fill"></i><span class="award-t">WAEC Excellence Award</span></div>
+        <div class="award"><i class="ri-medal-fill"></i><span class="award-t">Presbyterian Schools Council Honours</span></div>
+        <div class="award"><i class="ri-star-fill"></i><span class="award-t">Community Service Recognition</span></div>
+      </div>
+    </div>
+  </div>
+</div></div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════
+     CTA — parallax background
+══════════════════════════════════════════════════════ -->
+<section class="cta" aria-labelledby="cta-heading">
+  <!-- Parallax bg (driven by JS) -->
+  <div class="cta-parallax-bg" id="ctaParallaxBg" aria-hidden="true"></div>
+  <div class="cta-parallax-tint" aria-hidden="true"></div>
+  <div class="wrap"><div class="pad">
+    <div class="cta-inner rv">
+      <div class="cta-lbl">Join the ANSEC Family</div>
+      <h2 class="cta-h" id="cta-heading">Ready to Begin Your <em>ANSEC</em> Journey?</h2>
+      <p class="cta-sub">Whether you are a prospective student, a parent, an alumnus, or a supporter — there is a place for you in the ANSEC community. Let us walk this journey together.</p>
+      <div class="cta-acts">
+        <a href="pages/ansec-admissions.html" class="btn-g">
+          <i class="ri-graduation-cap-line"></i> Admissions
+        </a>
+        <a href="pages/ansec-donate.html" class="btn-ol">
+          <i class="ri-heart-3-line"></i> Support ANSEC
+        </a>
+      </div>
+      <div class="cta-grid rv">
+        <a href="pages/ansec-programmes.html" class="cg-card">
+          <i class="ri-graduation-cap-line"></i>
+          <div class="cg-card-t">Programmes Offered</div>
+          <div class="cg-card-d">Science, Arts, Business, Technical &amp; Vocational streams</div>
+        </a>
+        <a href="pages/ansec-academic-calendar.html" class="cg-card">
+          <i class="ri-calendar-2-line"></i>
+          <div class="cg-card-t">Academic Calendar</div>
+          <div class="cg-card-d">Term dates, exams, events and key milestones</div>
+        </a>
+        <a href="pages/ansec-alumni.html" class="cg-card">
+          <i class="ri-user-star-line"></i>
+          <div class="cg-card-t">Alumni Network</div>
+          <div class="cg-card-d">Connect with the ANSEC community across Ghana and beyond</div>
+        </a>
+      </div>
+    </div>
+  </div></div>
+</section>
+
+</main>
+
+<!-- ═══ JAVASCRIPT ═══ -->
+<script>
+(function(){
+  'use strict';
+  const $  = (sel,ctx=document) => ctx.querySelector(sel);
+  const $$ = (sel,ctx=document) => [...ctx.querySelectorAll(sel)];
+  const isMobile = () => window.innerWidth <= 992;
+
+  /* Touch detection */
+  if(!('ontouchstart' in window) && navigator.maxTouchPoints === 0){
+    document.body.classList.add('no-touch');
+  }
+
+  /* ── Scroll reveal ── */
+  const ro = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if(e.isIntersecting){ e.target.classList.add('in'); ro.unobserve(e.target); }
+    });
+  }, {threshold:0.08, rootMargin:'0px 0px -40px 0px'});
+  $$('.rv,.rv-l,.rv-r').forEach((el,i) => {
+    el.style.transitionDelay = (i % 6) * 0.07 + 's';
+    ro.observe(el);
+  });
+
+  /* ──────────────────────────────────────────────────────
+     PARALLAX SCROLL
+     Three sections get a gentle parallax background:
+       1. Stats    (#statsParallaxBg)
+       2. Faith    (#faithParallaxBg)
+       3. CTA      (#ctaParallaxBg)
+     Each bg element is taller than its container (inset:-40% 0)
+     so translateY never reveals a gap at top/bottom.
+     Speed factor 0.35 = moves 35% as fast as the scroll,
+     giving a soft depth effect without being distracting.
+  ──────────────────────────────────────────────────────── */
+  const parallaxItems = [
+    { el: document.getElementById('statsParallaxBg'), speed: 0.3 },
+    { el: document.getElementById('faithParallaxBg'), speed: 0.25 },
+    { el: document.getElementById('ctaParallaxBg'),   speed: 0.3  },
+  ].filter(item => item.el !== null);
+
+  /* Only run parallax on non-reduced-motion, non-mobile devices */
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const canParallax = !prefersReducedMotion && window.innerWidth > 768;
+
+  function updateParallax() {
+    if(!canParallax) return;
+    parallaxItems.forEach(({ el, speed }) => {
+      const rect      = el.parentElement.getBoundingClientRect();
+      /* Distance the section centre is from viewport centre.
+         Negative = section is above viewport centre (user has scrolled past).
+         Positive = section is below viewport centre (approaching). */
+      const fromCentre = rect.top + rect.height * 0.5 - window.innerHeight * 0.5;
+      /* Clamp so we never push outside the -40% inset buffer */
+      const maxShift   = rect.height * 0.35;
+      const shift      = Math.max(-maxShift, Math.min(maxShift, fromCentre * speed));
+      el.style.transform = `translateY(${shift}px)`;
+    });
+  }
+
+  if(canParallax){
+    window.addEventListener('scroll', updateParallax, { passive: true });
+    updateParallax(); /* run once on load */
+  }
+
+  /* ──────────────────────────────────────────────────────
+     HERO VIDEO — show poster if video fails to load or
+     if prefers-reduced-motion is detected
+  ──────────────────────────────────────────────────────── */
+  const heroVideo  = $('.hero-video');
+  const heroPoster = $('.hero-video-poster');
+
+  if(heroVideo && heroPoster){
+    /* Show poster immediately, hide when video is ready */
+    heroVideo.addEventListener('canplay', () => {
+      heroPoster.style.display = 'none';
+    });
+    heroVideo.addEventListener('error', () => {
+      heroVideo.style.display = 'none';
+      heroPoster.style.display = 'block';
+    });
+    /* If video has already loaded (cached), hide poster now */
+    if(heroVideo.readyState >= 3){
+      heroPoster.style.display = 'none';
+    }
+  }
+
+  /* ──────────────────────────────────────────────────────
+     FOOTER YEAR
+  ──────────────────────────────────────────────────────── */
+  const fyEl = document.getElementById('footerYear');
+  if(fyEl) fyEl.textContent = new Date().getFullYear();
+
+})();
+</script>
+
+<div id="ansec-footer"></div>
+<script src="/assets/js/ansec-layout.js" defer></script>
+</body>
+</html>
