@@ -418,7 +418,7 @@ body.al-locked { overflow: hidden !important; }
     overflow-y: auto; -webkit-overflow-scrolling: touch;
     overscroll-behavior: contain;
     box-shadow: -8px 0 40px var(--al-shadow-hv);
-    padding-top: var(--al-total-h);
+    padding-top: (var(--al-total-h)-10px);
   }
   .al-menu.al-open { transform: translateX(0); }
 
