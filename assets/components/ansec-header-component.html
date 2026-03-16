@@ -45,17 +45,6 @@
 
     <a href="/index.html" class="al-wordmark" aria-label="ANSEC home">AN<em>SEC</em></a>
 
-    <!-- "Navigation" label — visible on mobile when menu is open, sits left after wordmark -->
-    <span class="al-panel-label" id="al-panel-label" aria-hidden="true">Navigation</span>
-
-    <!-- Spacer pushes close + burger to the right -->
-    <span class="al-nav-spacer" aria-hidden="true"></span>
-
-    <!-- Close button — visible on mobile when menu is open, extreme right before burger -->
-    <button class="al-panel-close" id="al-close" aria-label="Close navigation menu">
-      <i class="ri-close-line" aria-hidden="true"></i>
-    </button>
-
     <!-- Hamburger (mobile only) -->
     <button class="al-burger" id="al-burger"
             aria-label="Open navigation menu"
@@ -168,6 +157,13 @@
     <!-- Mobile panel (controlled by al-burger) -->
     <div class="al-menu" id="al-menu"
          role="dialog" aria-modal="true" aria-label="Navigation menu">
+
+      <div class="al-panel-head">
+        <span class="al-panel-label">Navigation</span>
+        <button class="al-panel-close" id="al-close" aria-label="Close navigation menu">
+          <i class="ri-close-line" aria-hidden="true"></i>
+        </button>
+      </div>
 
       <ul class="al-mob-nav" role="menubar">
 
