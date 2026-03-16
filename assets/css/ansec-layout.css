@@ -420,12 +420,14 @@ body.al-locked { overflow: hidden !important; }
     box-shadow: -8px 0 40px var(--al-shadow-hv);
     padding-top: var(--al-total-h);
   }
-  @media (max-width: 992px) {
+
+  .al-menu.al-open { transform: translateX(0); }
+
+     @media (max-width: 992px) {
   .al-menu {
     padding-top: calc(var(--al-total-h) -25px); /* adjust amount */
   }
 }
-  .al-menu.al-open { transform: translateX(0); }
 
   /* Overlay: only display inside mobile breakpoint, pointer-events off when hidden */
   .al-overlay { display: block; pointer-events: none; }
