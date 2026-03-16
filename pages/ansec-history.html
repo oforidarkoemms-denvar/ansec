@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ANSEC — Our History</title>
+  <meta name="description" content="Trace the remarkable journey of Anum Presbyterian Senior High School from a Basel Mission grammar school founded in 1897 to a thriving Senior High School serving Ghana."/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;0,900;1,400;1,600&family=Lora:ital,wght@0,400;0,500;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet"/>
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet"/>
+  <style>
+    /* ═══════════════════════════════════════════════
+       DESIGN SYSTEM TOKENS
+    ═══════════════════════════════════════════════ */
+    :root {
+      --accent:        #0071e3;
+      --accent-soft:   rgba(0,113,227,.08);
+      --accent-mid:    rgba(0,113,227,.18);
+      --grad-btn:      linear-gradient(to right,#00b4ff,#6a00ff);
+      --navy-900:      #0a1929; --navy-800:#0f2744; --navy-700:#1a3a5c;
+      --presby-red:    #8b0000; --presby-red-h:#a50000;
+      --bg-page:       #f5f7fa;
+      --bg-white:      #ffffff;
+      --bg-dark:       #060f1e;
+      --bg-darkblue:   #071428;
+      --text-primary:  #0d1b2a;
+      --text-body:     #3a4a5c;
+      --text-muted:    #7a8fa6;
+      --serif:         'Playfair Display',Georgia,serif;
+      --lora:          'Lora',Georgia,serif;
+      --sans:          'DM Sans',system-ui,sans-serif;
+      --al-topbar-h:   56px; --al-navbar-h:64px; --al-total-h:120px;
+      --radius:        12px; --radius-sm:8px; --radius-xs:6px;
+      --shadow-card:   0 2px 12px rgba(0,0,0,.05),0 6px 28px rgba(0,0,0,.05);
+      --shadow-lift:   0 8px 32px rgba(0,0,0,.10);
+      --tr:            .28s cubic-bezier(.22,1,.36,1);
+    }
+
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth;overflow-x:hidden}
+    body{font-family:var(--sans);background:var(--bg-page);color:var(--text-primary);line-height:1.7;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+    img{display:block;max-width:100%}
+    a{text-decoration:none;color:inherit}
+
+    /* ── Layout ── */
+    .wrap{max-width:1400px;padding-inline:1.5rem;margin-inline:auto}
+    .pad{padding-block:5.5rem}
+    .pad-sm{padding-block:4rem}
+
+    /* ── Text atoms ── */
+    .section-tag{display:flex;align-items:center;justify-content:center;gap:.5rem;font-family:var(--sans);font-size:.63rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);margin-bottom:.9rem}
+    .section-tag::before,.section-tag::after{content:'';display:block;width:32px;height:1.5px;background:var(--accent);border-radius:1px;opacity:.6}
+    .section-tag.left-align{justify-content:flex-start}
+    .section-tag.left-align::before{display:none}
+    .sh{font-family:var(--serif);font-size:clamp(1.85rem,3.2vw,2.9rem);font-weight:700;line-height:1.2;color:var(--text-primary)}
+    .sh em{font-style:italic;color:var(--accent)}
+    .ss{font-family:var(--sans);font-size:.97rem;font-weight:300;color:var(--text-muted);margin-top:.6rem;line-height:1.75}
+    .bt{font-family:var(--lora);font-size:.97rem;color:var(--text-body);line-height:1.88}
+    .bt+.bt{margin-top:1.1rem}
+
+    /* ── Buttons ── */
+    .btn-g{display:inline-flex;align-items:center;gap:.5rem;padding:.78rem 1.9rem;border-radius:999px;background:var(--grad-btn);color:#fff;font-family:var(--sans);font-size:.87rem;font-weight:600;text-decoration:none;box-shadow:0 5px 22px rgba(106,0,255,.2);transition:transform var(--tr),box-shadow var(--tr);position:relative;overflow:hidden}
+    .btn-g::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.14),transparent)}
+    .btn-g:hover{transform:translateY(-2px);box-shadow:0 10px 34px rgba(106,0,255,.3)}
+    .btn-ol{display:inline-flex;align-items:center;gap:.5rem;padding:.78rem 1.9rem;border-radius:999px;background:transparent;color:var(--accent);font-family:var(--sans);font-size:.87rem;font-weight:600;text-decoration:none;border:1.5px solid var(--accent);transition:all var(--tr)}
+    .btn-ol:hover{background:var(--accent);color:#fff}
+    .btn-ol-light{display:inline-flex;align-items:center;gap:.5rem;padding:.78rem 1.9rem;border-radius:999px;background:transparent;color:rgba(220,235,255,.75);font-family:var(--sans);font-size:.87rem;font-weight:500;text-decoration:none;border:1.5px solid rgba(0,113,227,.4);transition:all var(--tr)}
+    .btn-ol-light:hover{border-color:rgba(0,180,255,.7);color:#fff;background:rgba(0,113,227,.12)}
+
+    /* ── Reveal ── */
+    .rv,.rv-l,.rv-r{opacity:0;transition:opacity .75s cubic-bezier(.22,1,.36,1),transform .75s cubic-bezier(.22,1,.36,1)}
+    .rv{transform:translateY(24px)}.rv-l{transform:translateX(-24px)}.rv-r{transform:translateX(24px)}
+    .rv.in,.rv-l.in,.rv-r.in{opacity:1;transform:none}
+
+    /* ── Divider ── */
+    .section-rule{width:100%;height:1px;background:linear-gradient(to right,transparent,rgba(0,113,227,.18),transparent);border:none}
+
+    /* ══════════════════════════════════════════════════════
+       HERO — SPLIT BEFORE / AFTER
+       Left: historic (greyscale) | Right: modern (colour)
+       Seam: glowing accent divider
+    ══════════════════════════════════════════════════════ */
+    .hero{
+      position:relative;width:100vw;
+      min-height:100svh;
+      overflow:hidden;
+      display:flex;align-items:center;justify-content:center;
+    }
+
+    /* Split panels */
+    .panel{
+      position:absolute;inset:0;width:50%;height:100%;
+      overflow:hidden;
+      transition:width .7s cubic-bezier(.77,0,.18,1),left .7s cubic-bezier(.77,0,.18,1)
+    }
+    .panel-left{left:0}
+    .panel-right{left:50%}
+    .hero:hover .panel-left {width:52%}
+    .hero:hover .panel-right{width:48%;left:52%}
+
+    /*
+      PANEL IMAGES
+      ─────────────────────────────────────────────────────
+      Left  (historic / greyscale): ../assets/images/campus/old-administration-block.jpg
+      Right (modern  / colour):     ../assets/images/campus/current-campus.jpg
+      The <img> inside each .bg fills its panel via object-fit:cover.
+      overflow:hidden on .panel clips the image as it animates on hover.
+    ─────────────────────────────────────────────────────
+    */
+    .panel .bg{
+      position:absolute;inset:0;
+    }
+    .panel .bg img{
+      position:absolute;inset:0;
+      width:100%;height:100%;
+      object-fit:cover;object-position:center;
+      display:block;
+    }
+    /* Dark tint overlaid on each image via pseudo-element */
+    .panel .bg::after{
+      content:'';
+      position:absolute;inset:0;
+      z-index:1;
+      pointer-events:none;
+    }
+    /* Left: greyscale filter on the img + stronger tint */
+    .panel-left .bg img{
+      filter:grayscale(1) contrast(1.18) brightness(0.82);
+    }
+    .panel-left .bg::after{
+      background:rgba(4,10,22,.30);
+    }
+    /* Right: full colour, lighter tint */
+    .panel-right .bg::after{
+      background:rgba(4,10,22,.18);
+    }
+
+    /*
+      SEAM — always centred at exactly 50% of .hero width.
+      Using left:50% + translateX(-50%) on the hero's positioned ancestor
+      keeps it pixel-perfect regardless of the panel hover animation.
+      The transition on the panels never moves .seam because it is a
+      sibling, not a child of either panel.
+    */
+    .seam{
+      position:absolute;
+      left:50%;top:0;bottom:0;
+      width:3px;
+      transform:translateX(-50%);
+      background:linear-gradient(to bottom,transparent,var(--accent) 20%,var(--accent) 80%,transparent);
+      z-index:25;
+      box-shadow:0 0 18px 3px rgba(0,113,227,.55);
+      pointer-events:none;
+    }
+    .seam::before,.seam::after{
+      content:'';position:absolute;left:50%;
+      width:16px;height:16px;background:var(--accent);border-radius:50%;
+      transform:translateX(-50%);
+      box-shadow:0 0 16px 4px rgba(0,113,227,.8);
+    }
+    .seam::before{top:15%}
+    .seam::after{bottom:15%}
+
+    /* Era corner labels — BEFORE / AFTER */
+    .era-label{
+      position:absolute;z-index:30;
+      top:calc(var(--al-total-h,120px) + 1.5rem);
+      font-family:var(--sans);font-size:.68rem;font-weight:600;
+      letter-spacing:.22em;text-transform:uppercase;
+      padding:.35rem .9rem;border-radius:2px;border:1px solid;
+    }
+    .era-label.before{left:2.4rem;color:#d4c8a8;border-color:rgba(212,200,168,.4);background:rgba(4,10,22,.55)}
+    .era-label.after {right:2.4rem;color:#a8d8ff;border-color:rgba(0,113,227,.4);background:rgba(4,10,22,.55)}
+    @media(max-width:640px){
+      .era-label.before{font-size:.55rem;left:1rem}
+      .era-label.after {font-size:.55rem;right:1rem}
+    }
+
+    /* Dark tint over both panels */
+    .panel-overlay{
+      position:absolute;inset:0;z-index:10;pointer-events:none;
+      background:rgba(4,10,22,.42)
+    }
+
+    /* Year corner tags (bottom) */
+    .year-tag{
+      position:absolute;bottom:2.4rem;z-index:30;
+      font-family:var(--serif);font-style:italic;font-size:1rem;
+      color:rgba(255,255,255,.5);letter-spacing:.04em
+    }
+    .year-tag.left {left:2.4rem}
+    .year-tag.right{right:2.4rem}
+    @media(max-width:640px){
+      .year-tag{font-size:.75rem;bottom:3.5rem}
+      .year-tag.left {left:1rem}
+      .year-tag.right{right:1rem}
+    }
+
+    /* CENTER CONTENT over the split */
+    .center-content{
+      position:relative;z-index:40;text-align:center;
+      padding:2rem 1.5rem;max-width:720px;
+      display:flex;flex-direction:column;align-items:center;gap:1.2rem;
+      padding-top:calc(var(--al-total-h,120px) + 0.5rem); 
+      animation:fadeUp 1.1s cubic-bezier(.22,1,.36,1) both
+    }
+    @keyframes fadeUp{from{opacity:0;transform:translateY(36px)}to{opacity:1;transform:none}}
+
+    /* Crest badge */
+    .crest-badge{
+      width:68px;height:68px;border-radius:50%;
+      background:rgba(0,113,227,.18);border:1.5px solid rgba(0,180,255,.45);
+      display:flex;align-items:center;justify-content:center;
+      backdrop-filter:blur(6px);margin-bottom:.3rem;
+      animation:fadeUp .9s .15s both
+    }
+    .crest-badge img{width:42px;height:42px;border-radius:50%;object-fit:cover}
+
+    .school-tag{
+      font-family:var(--sans);font-size:.63rem;letter-spacing:.26em;
+      text-transform:uppercase;color:rgba(168,216,255,.75);
+      animation:fadeUp .9s .25s both
+    }
+    .accent-rule{width:60px;height:2px;background:linear-gradient(to right,transparent,var(--accent),transparent);border-radius:1px;animation:fadeUp .9s .35s both}
+
+    .hero-breadcrumb{
+      display:flex;align-items:center;gap:.5rem;
+      font-family:var(--sans);font-size:.72rem;font-weight:500;
+      color:rgba(150,185,225,.5);letter-spacing:.05em;
+      animation:fadeUp .9s .32s both
+    }
+    .hero-breadcrumb a{color:rgba(150,185,225,.55);transition:color var(--tr)}
+    .hero-breadcrumb a:hover{color:rgba(150,200,255,.8)}
+    .hero-breadcrumb i.sep{font-size:.7rem;opacity:.4}
+    .crumb-cur{color:rgba(180,210,255,.72)}
+
+    h1.headline{
+      font-family:var(--serif);font-size:clamp(2rem,5vw,3.6rem);
+      font-weight:700;line-height:1.12;color:#ffffff;
+      text-shadow:0 2px 32px rgba(0,0,0,.55);
+      animation:fadeUp .9s .4s both
+    }
+    h1.headline em{font-style:italic;color:#7dd3fc}
+
+    .hero-sub{
+      font-family:var(--lora);font-size:clamp(.88rem,1.8vw,1.1rem);
+      font-weight:400;font-style:italic;
+      color:rgba(220,235,255,.82);letter-spacing:.015em;
+      animation:fadeUp .9s .52s both
+    }
+    .accent-rule-long{width:100px;height:1.5px;background:linear-gradient(to right,transparent,var(--accent),transparent);animation:fadeUp .9s .6s both}
+
+    .cta-btn{
+      display:inline-flex;align-items:center;gap:.55rem;
+      padding:.85rem 2.2rem;border-radius:999px;
+      background:var(--grad-btn);color:#fff;
+      font-family:var(--sans);font-size:.9rem;font-weight:600;letter-spacing:.04em;
+      text-decoration:none;border:none;cursor:pointer;
+      box-shadow:0 8px 32px rgba(106,0,255,.32),0 2px 8px rgba(0,180,255,.2);
+      transition:transform .22s,box-shadow .22s;
+      animation:fadeUp .9s .72s both;position:relative;overflow:hidden
+    }
+    .cta-btn::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.18),transparent);border-radius:inherit}
+    .cta-btn:hover{transform:translateY(-2px) scale(1.03);box-shadow:0 12px 40px rgba(106,0,255,.45),0 4px 12px rgba(0,180,255,.28)}
+
+    /* Scroll pip (standard design system) */
+    .hero-scroll{
+      position:absolute;bottom:1.2rem;left:50%;transform:translateX(-50%);
+      z-index:40;display:flex;flex-direction:column;align-items:center;gap:.4rem;
+      opacity:.5;animation:fadeUp 1s 1.2s both;pointer-events:none
+    }
+    .hero-scroll span{font-size:.55rem;letter-spacing:.2em;text-transform:uppercase;color:#fff;font-family:var(--sans)}
+    .scroll-pip{width:4px;height:22px;border:1.5px solid rgba(255,255,255,.4);border-radius:99px;overflow:hidden;position:relative}
+    .scroll-pip::after{
+      content:'';position:absolute;left:50%;top:0;
+      width:2px;height:7px;background:#fff;transform:translateX(-50%);
+      border-radius:99px;animation:spip 1.6s ease-in-out infinite
+    }
+    @keyframes spip{0%{top:0;opacity:1}80%{top:13px;opacity:0}100%{top:0;opacity:0}}
+    @media(max-width:640px){.hero-scroll{display:none}}
+
+    /* Film grain texture */
+    .grain{position:absolute;inset:0;z-index:50;pointer-events:none;opacity:.03;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");background-size:256px}
+
+    /* ══════════════════════════════════════════════════════
+       §0 — HISTORY STRIP (right below hero)
+       Quick milestone numbers on dark background
+    ══════════════════════════════════════════════════════ */
+    .history-strip{background:var(--bg-darkblue);padding:3.5rem 2rem 4rem;display:flex;flex-direction:column;align-items:center;gap:2rem;text-align:center;border-top:1px solid rgba(0,113,227,.12)}
+    .strip-label{font-family:var(--sans);font-size:.65rem;letter-spacing:.24em;text-transform:uppercase;color:var(--accent)}
+    .strip-title{font-family:var(--serif);font-size:clamp(1.5rem,3vw,2.3rem);font-weight:600;color:#f0f4ff;max-width:580px;line-height:1.25}
+    .strip-divider{width:48px;height:2px;background:var(--accent);border-radius:1px}
+    .milestones-strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1.5rem;max-width:860px;width:100%}
+    .ms-card{background:rgba(255,255,255,.04);border:1px solid rgba(0,113,227,.15);border-radius:10px;padding:1.6rem 1.4rem;text-align:center;transition:background .22s,transform .22s}
+    .ms-card:hover{background:rgba(0,113,227,.1);transform:translateY(-4px)}
+    .ms-year{font-family:var(--serif);font-size:1.75rem;font-weight:700;color:var(--accent);margin-bottom:.4rem}
+    .ms-desc{font-family:var(--sans);font-size:.8rem;font-weight:300;color:rgba(200,220,240,.75);line-height:1.6}
+
+    /* ══════════════════════════════════════════════════════
+       §1 — FOUNDATION SNAPSHOT
+    ══════════════════════════════════════════════════════ */
+    #foundation{background:var(--bg-white)}
+    .foundation-grid{display:grid;grid-template-columns:55fr 45fr;gap:5rem;align-items:center}
+    @media(max-width:860px){.foundation-grid{grid-template-columns:1fr;gap:3rem}.foundation-image-col{order:-1}}
+    .foundation-text-col{position:relative;padding-left:2rem}
+    .foundation-text-col::before{content:'';position:absolute;left:0;top:.4rem;bottom:.4rem;width:2px;background:linear-gradient(to bottom,transparent,var(--accent) 20%,var(--accent) 80%,transparent);border-radius:1px}
+    .accent-label{display:inline-flex;align-items:center;gap:.5rem;font-family:var(--sans);font-size:.63rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);margin-bottom:1rem}
+    .accent-bar{display:inline-block;width:36px;height:2px;background:var(--accent);border-radius:1px;vertical-align:middle;margin-right:.5rem}
+    .foundation-actions{display:flex;align-items:center;gap:1.25rem;flex-wrap:wrap;margin-top:2.4rem}
+    @media(max-width:600px){.foundation-actions{flex-direction:column;align-items:flex-start}}
+    .foundation-image-col{position:relative}
+    .foundation-img-wrap{position:relative;border-radius:var(--radius);overflow:visible}
+    .img-corner-accent{position:absolute;top:-1rem;left:-1rem;width:70px;height:70px;border-left:2px solid rgba(0,113,227,.3);border-top:2px solid rgba(0,113,227,.3);border-radius:4px 0 0 0;pointer-events:none}
+    .foundation-img{width:100%;aspect-ratio:4/3;border-radius:var(--radius);object-fit:cover;display:block;box-shadow:var(--shadow-card)}
+    /* Floating date badge */
+    .date-badge{position:absolute;bottom:-1.4rem;right:-1.4rem;background:var(--bg-white);border-radius:var(--radius-sm);padding:1rem 1.4rem;box-shadow:0 8px 32px rgba(0,0,0,.12);z-index:10;display:flex;flex-direction:column;align-items:center;gap:.2rem;border-top:3px solid var(--accent);min-width:130px}
+    .date-badge-label{font-family:var(--sans);font-size:.6rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--accent)}
+    .date-badge-year{font-family:var(--serif);font-size:2rem;font-weight:700;color:var(--text-primary);line-height:1}
+    .date-badge-sub{font-family:var(--sans);font-size:.65rem;color:var(--text-muted);font-weight:300}
+    @media(max-width:860px){.date-badge{bottom:-1rem;right:-.5rem}}
+
+    /* ══════════════════════════════════════════════════════
+       §2 — FOUNDING MISSIONARIES
+    ══════════════════════════════════════════════════════ */
+    #missionaries{background:var(--bg-page)}
+    .missionaries-header{text-align:center;max-width:640px;margin-inline:auto;margin-bottom:4rem}
+    .missionaries-grid{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;max-width:900px;margin-inline:auto}
+    @media(max-width:860px){.missionaries-grid{grid-template-columns:1fr;max-width:440px}}
+    .profile-card{background:var(--bg-white);border-radius:var(--radius);padding:2.4rem 2rem;box-shadow:var(--shadow-card);display:flex;flex-direction:column;align-items:center;text-align:center;transition:transform var(--tr),box-shadow var(--tr);position:relative;overflow:hidden}
+    .profile-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(to right,transparent,var(--accent),transparent);opacity:0;transition:opacity var(--tr)}
+    .profile-card:hover{transform:translateY(-5px);box-shadow:0 16px 48px rgba(0,0,0,.10)}
+    .profile-card:hover::before{opacity:1}
+    .profile-avatar{width:100px;height:100px;border-radius:50%;overflow:hidden;border:3px solid rgba(0,113,227,.15);margin-bottom:1.4rem;box-shadow:0 4px 16px rgba(0,0,0,.1);background:var(--accent-soft);display:flex;align-items:center;justify-content:center}
+    .profile-avatar img{width:100%;height:100%;object-fit:cover;border-radius:50%}
+    .profile-avatar .avatar-icon{font-size:2.5rem;color:var(--accent)}
+    .profile-name{font-family:var(--serif);font-size:1.35rem;font-weight:700;color:var(--text-primary);line-height:1.2}
+    .profile-underline{display:block;width:36px;height:2px;background:var(--accent);border-radius:1px;margin:.6rem auto 1rem}
+    .profile-years{display:inline-block;font-family:var(--sans);font-size:.62rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);background:var(--accent-soft);padding:.3rem .8rem;border-radius:99px;margin-bottom:1.1rem}
+    .profile-bio{font-family:var(--lora);font-size:.92rem;color:var(--text-body);line-height:1.8}
+
+    /* ══════════════════════════════════════════════════════
+       §3 — MAIN HISTORY TIMELINE
+    ══════════════════════════════════════════════════════ */
+    #timeline{background:var(--bg-white)}
+    .timeline-header{text-align:center;max-width:640px;margin-inline:auto;margin-bottom:5rem}
+    .timeline-track{position:relative;max-width:1100px;margin-inline:auto}
+    .timeline-track::before{content:'';position:absolute;left:50%;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,transparent,var(--accent) 6%,var(--accent) 94%,transparent);transform:translateX(-50%);border-radius:1px}
+    .timeline-block{display:grid;grid-template-columns:1fr 64px 1fr;gap:0;align-items:start;margin-bottom:5rem;position:relative}
+    .timeline-block:last-child{margin-bottom:0}
+    .tl-content{padding:.3rem 2.5rem}
+    .tl-content.left{grid-column:1;text-align:right;padding-right:2.8rem}
+    .tl-content.right{grid-column:3;text-align:left;padding-left:2.8rem}
+    .tl-spacer{grid-column:2}
+    .tl-node{grid-column:2;grid-row:1;display:flex;align-items:flex-start;justify-content:center;padding-top:1.5rem;position:relative;z-index:5}
+    .tl-dot{width:20px;height:20px;border-radius:50%;background:var(--bg-white);border:2.5px solid var(--accent);box-shadow:0 0 0 5px rgba(0,113,227,.12);transition:transform var(--tr),box-shadow var(--tr);flex-shrink:0}
+    .timeline-block:hover .tl-dot{transform:scale(1.3);box-shadow:0 0 0 8px rgba(0,113,227,.1)}
+    .tl-tag{display:inline-block;font-family:var(--sans);font-size:.6rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);background:var(--accent-soft);padding:.25rem .7rem;border-radius:99px;margin-bottom:.6rem}
+    .tl-year{font-family:var(--serif);font-size:2.2rem;font-weight:700;color:var(--accent);line-height:1;margin-bottom:.25rem;letter-spacing:-.02em}
+    .tl-era{font-family:var(--serif);font-size:1.2rem;font-weight:600;color:var(--text-primary);margin-bottom:.75rem;line-height:1.3}
+    .tl-text{font-family:var(--lora);font-size:.93rem;color:var(--text-body);line-height:1.82}
+    .tl-text+.tl-text{margin-top:.75rem}
+    /* Timeline image card */
+    .tl-img-card{margin-top:1.4rem;border-radius:var(--radius-sm);overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,.07);max-width:320px}
+    .tl-content.left .tl-img-card{margin-left:auto}
+    .tl-content.right .tl-img-card{margin-right:auto}
+    .tl-img-card img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block}
+    /* Responsive timeline */
+    @media(max-width:860px){
+      .timeline-track::before{left:28px}
+      .timeline-block{grid-template-columns:56px 1fr;gap:0;margin-bottom:3rem}
+      .tl-node{grid-column:1;grid-row:1;padding-top:1.4rem;justify-content:center}
+      .tl-content.left,.tl-content.right{grid-column:2;text-align:left;padding:1rem .5rem 0 1.5rem}
+      .tl-content.left .tl-img-card{margin-left:0}
+      .tl-spacer{display:none}
+      .tl-year{font-size:1.7rem}
+    }
+
+    /* ══════════════════════════════════════════════════════
+       §4 — MILESTONES & ACHIEVEMENTS
+    ══════════════════════════════════════════════════════ */
+    #milestones{background:var(--bg-page)}
+    .milestones-header{text-align:center;max-width:560px;margin-inline:auto;margin-bottom:3.5rem}
+    .milestones-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1.5rem}
+    @media(max-width:1024px){.milestones-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media(max-width:600px){.milestones-grid{grid-template-columns:1fr 1fr;gap:1rem}}
+    @media(max-width:420px){.milestones-grid{grid-template-columns:1fr}}
+    .milestone-stat-card{background:var(--bg-white);border-radius:var(--radius);padding:2.2rem 1.5rem 2rem;text-align:center;box-shadow:var(--shadow-card);border-bottom:3px solid transparent;transition:transform var(--tr),box-shadow var(--tr),border-color var(--tr);position:relative;overflow:hidden}
+    .milestone-stat-card::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 120%,rgba(0,113,227,.06) 0%,transparent 70%);pointer-events:none}
+    .milestone-stat-card:hover{transform:translateY(-5px) scale(1.015);box-shadow:0 12px 40px rgba(0,0,0,.09);border-color:var(--accent)}
+    .stat-icon{width:42px;height:42px;background:var(--accent-soft);border-radius:50%;margin:0 auto 1.1rem;display:flex;align-items:center;justify-content:center;font-size:1.1rem;color:var(--accent)}
+    .stat-number{font-family:var(--serif);font-size:clamp(2.4rem,4vw,3.2rem);font-weight:700;color:var(--text-primary);line-height:1;letter-spacing:-.03em}
+    .stat-number sup{font-size:.5em;vertical-align:super;color:var(--accent)}
+    .stat-label{font-family:var(--sans);font-size:.62rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-top:.4rem;display:block}
+    .stat-caption{font-family:var(--sans);font-size:.8rem;color:var(--text-muted);margin-top:.5rem;font-weight:300;line-height:1.5}
+
+    /* ══════════════════════════════════════════════════════
+       §5 — HEADMASTERS
+    ══════════════════════════════════════════════════════ */
+    #headmasters{background:var(--bg-white)}
+    .headmasters-header{text-align:center;max-width:640px;margin-inline:auto;margin-bottom:4rem}
+    .headmasters-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.5rem;max-width:900px;margin-inline:auto}
+    @media(max-width:860px){.headmasters-grid{grid-template-columns:1fr 1fr}}
+    @media(max-width:560px){.headmasters-grid{grid-template-columns:1fr}}
+    .hm-card{background:var(--bg-white);border-radius:var(--radius);padding:2rem 1.5rem;box-shadow:var(--shadow-card);border-top:3px solid var(--accent);transition:transform var(--tr),box-shadow var(--tr)}
+    .hm-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lift)}
+    .hm-icon{width:48px;height:48px;border-radius:50%;background:var(--accent-soft);border:1px solid var(--accent-mid);display:flex;align-items:center;justify-content:center;font-size:1.2rem;color:var(--accent);margin-bottom:1rem}
+    .hm-name{font-family:var(--serif);font-size:1.1rem;font-weight:700;color:var(--text-primary);line-height:1.25;margin-bottom:.3rem}
+    .hm-era{display:inline-block;font-family:var(--sans);font-size:.6rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);background:var(--accent-soft);padding:.22rem .65rem;border-radius:99px;margin-bottom:.85rem}
+    .hm-bio{font-family:var(--sans);font-size:.82rem;color:var(--text-muted);line-height:1.65;font-weight:300}
+
+    /* ══════════════════════════════════════════════════════
+       §6 — LEGACY & FUTURE VISION
+    ══════════════════════════════════════════════════════ */
+    #legacy{background:var(--bg-dark);position:relative;overflow:hidden}
+    #legacy::before{content:'';position:absolute;right:8%;top:50%;width:600px;height:600px;background:radial-gradient(ellipse,rgba(0,113,227,.14) 0%,transparent 70%);transform:translateY(-50%);pointer-events:none}
+    #legacy::after{content:'';position:absolute;left:-10%;top:-20%;width:400px;height:400px;background:radial-gradient(ellipse,rgba(0,100,200,.08) 0%,transparent 70%);pointer-events:none}
+    .legacy-grid{display:grid;grid-template-columns:45fr 55fr;gap:5rem;align-items:center;position:relative;z-index:2}
+    @media(max-width:860px){.legacy-grid{grid-template-columns:1fr;gap:3rem}.legacy-image-col{order:-1}}
+    .legacy-image-col{position:relative}
+    .legacy-img-wrap{border-radius:var(--radius);overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,.35);position:relative}
+    .legacy-img-wrap img{width:100%;aspect-ratio:5/4;object-fit:cover;display:block}
+    .legacy-img-overlay{position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,113,227,.15) 0%,rgba(6,15,30,.35) 100%)}
+    .legacy-accent-corner{position:absolute;bottom:-1.2rem;left:-1.2rem;width:80px;height:80px;border-left:2px solid rgba(0,180,255,.35);border-bottom:2px solid rgba(0,180,255,.35);border-radius:0 0 0 6px;pointer-events:none}
+    .legacy-text-col{padding-right:1rem}
+    @media(max-width:860px){.legacy-text-col{padding-right:0}}
+    .legacy-heading{font-family:var(--serif);font-size:clamp(2rem,3.5vw,3rem);font-weight:700;color:#fff;line-height:1.18;margin-bottom:1.5rem}
+    .legacy-heading em{font-style:italic;color:#7dd3fc}
+    .legacy-text{font-family:var(--lora);font-size:1rem;color:rgba(200,220,240,.78);line-height:1.9}
+    .legacy-text+.legacy-text{margin-top:1rem}
+    .legacy-actions{display:flex;align-items:center;gap:1.2rem;flex-wrap:wrap;margin-top:2.4rem}
+    @media(max-width:600px){.legacy-actions{flex-direction:column;align-items:flex-start}}
+    .legacy-quote{margin-top:2rem;padding:1.4rem 1.6rem;border-left:2px solid rgba(0,113,227,.45);background:rgba(255,255,255,.04);border-radius:0 var(--radius-sm) var(--radius-sm) 0}
+    .legacy-quote blockquote{font-family:var(--lora);font-style:italic;font-size:.97rem;color:rgba(200,220,240,.65);line-height:1.75}
+    .legacy-quote cite{display:block;font-family:var(--sans);font-size:.7rem;font-style:normal;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-top:.7rem}
+
+  </style>
+</head>
+<body>
+<div id="ansec-header"></div>
+
+<!-- ══════════════════════════════════════════════════════
+     HERO — SPLIT BEFORE / AFTER
+══════════════════════════════════════════════════════ -->
+<section class="hero" aria-label="ANSEC History — Before and After">
+
+  <!-- Left panel: historic (greyscale) -->
+  <div class="panel panel-left">
+    <div class="bg">
+      <!--
+        HISTORIC CAMPUS PHOTO — left panel (greyscale filter applied via CSS)
+        Replace src with the actual old campus / administration block photo:
+          ../assets/images/campus/old-administration-block.jpg
+          ../assets/images/oldadministrationbloc.jpg
+      -->
+      <img
+        src="../assets/images/hero/old-administration-block.jpg"
+        alt="Historic ANSEC campus — old administration block"
+        loading="eager"
+        fetchpriority="high"
+      />
+    </div>
+  </div>
+
+  <!-- Right panel: modern (colour) -->
+  <div class="panel panel-right">
+    <div class="bg">
+      <!--
+        MODERN CAMPUS PHOTO — right panel (full colour)
+        Replace src with the actual current campus photo:
+          ../assets/images/campus/current-campus.jpg
+          ../assets/images/currentCampus.jpg
+      -->
+      <img
+        src="../assets/images/hero/current-campus.jpg"
+        alt="ANSEC modern campus today"
+        loading="eager"
+        fetchpriority="high"
+      />
+    </div>
+  </div>
+
+  <!-- Dark tint over both panels -->
+  <div class="panel-overlay" aria-hidden="true"></div>
+
+  <!-- Glowing seam divider -->
+  <div class="seam" aria-hidden="true"></div>
+
+  <!-- Era corner labels -->
+  <div class="era-label before">c. 1897</div>
+  <div class="era-label after">Today</div>
+
+  <!-- Year corner tags (bottom) -->
+  <div class="year-tag left">Est. 1897</div>
+  <div class="year-tag right">ANSEC Today</div>
+
+  <!-- Centre content -->
+  <div class="center-content">
+
+    <!-- School logo / crest -->
+    <div class="crest-badge" aria-hidden="true">
+      <!--
+        Replace src with real school crest/logo:
+          ../assets/images/ansecLogo.jpg
+          ../assets/images/ansec-crest.png
+      -->
+      <img src="../assets/images/ansecLogo.jpg" alt="ANSEC Crest"/>
+    </div>
+
+
+    <!-- Breadcrumb -->
+    <nav class="hero-breadcrumb" aria-label="Breadcrumb">
+      <a href="/index.html"><i class="ri-home-4-line"></i> Home</a>
+      <i class="sep ri-arrow-right-s-line"></i>
+      <a href="">Our School</a>
+      <i class="sep ri-arrow-right-s-line"></i>
+      <span class="crumb-cur" aria-current="page">Our History</span>
+    </nav>
+    <div class="school-tag">Anum Presbyterian Senior High School &nbsp;·&nbsp; Ghana</div>
+
+    <div class="accent-rule" aria-hidden="true"></div>
+
+    <h1 class="headline">
+      Rooted in History.<br><em>Rising in Excellence.</em>
+    </h1>
+
+    <p class="hero-sub">From a Basel Mission grammar school founded in 1897 to a thriving Senior High School — the story of faith, sacrifice, and service.</p>
+
+    <div class="accent-rule-long" aria-hidden="true"></div>
+
+    <a href="#foundation" class="cta-btn">
+      Discover Our Journey
+      <i class="ri-arrow-right-line"></i>
+    </a>
+
+  </div>
+
+  <!-- Scroll pip -->
+  <div class="hero-scroll" aria-hidden="true">
+    <div class="scroll-pip"></div>
+    <span>Scroll</span>
+  </div>
+
+  <!-- Film grain texture -->
+  <div class="grain" aria-hidden="true"></div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════
+     HISTORY STRIP — key year milestones
+══════════════════════════════════════════════════════ -->
+<div class="history-strip">
+  <div class="strip-label">Key Milestones</div>
+  <h2 class="strip-title">A Legacy Built Year by Year</h2>
+  <div class="strip-divider"></div>
+  <div class="milestones-strip">
+    <div class="ms-card">
+      <div class="ms-year">1869</div>
+      <div class="ms-desc">F. A. L. Ramseyer arrives in the Gold Coast as a Basel Mission missionary, beginning the Presbyterian presence in Anum.</div>
+    </div>
+    <div class="ms-card">
+      <div class="ms-year">1897</div>
+      <div class="ms-desc">J. Lochmann officially establishes the Anum Basel Mission Grammar School with seven boys as the first students.</div>
+    </div>
+    <div class="ms-card">
+      <div class="ms-year">1960s</div>
+      <div class="ms-desc">Post-independence reforms transform the school into Anum Presbyterian Secondary School, expanding academic programmes.</div>
+    </div>
+    <div class="ms-card">
+      <div class="ms-year">1987</div>
+      <div class="ms-desc">Ghana's national education reforms upgrade the institution to Anum Presbyterian Senior High School (ANSEC).</div>
+    </div>
+    <div class="ms-card">
+      <div class="ms-year">Today</div>
+      <div class="ms-desc">ANSEC operates as a co-educational day and boarding SHS, offering six academic programmes and serving students across Ghana.</div>
+    </div>
+  </div>
+</div>
+
+<hr class="section-rule">
+
+
+<!-- ══════════════════════════════════════════════════════
+     §1 — FOUNDATION SNAPSHOT
+══════════════════════════════════════════════════════ -->
+<section id="foundation">
+  <div class="wrap"><div class="pad">
+    <div class="foundation-grid">
+
+      <!-- TEXT COLUMN -->
+      <div class="foundation-text-col rv-l">
+        <span class="accent-label"><span class="accent-bar"></span>Our Origins</span>
+
+        <h2 class="sh" style="max-width:520px;margin-bottom:1.6rem;">
+          Built on Faith,<br><em>Discipline, and Vision</em>
+        </h2>
+
+        <p class="bt">
+          The history of Anum Presbyterian Senior High School is inseparable from the Basel Mission's early work in Ghana's Eastern Region. The foundations were laid by Friedrich August Louis Ramseyer, who arrived in the Gold Coast in 1869. After years of captivity during Ashanti-British conflicts, Ramseyer returned to Anum with renewed determination — preaching the Christian faith, organising the local church, and establishing the schools and mission stations that would define the town's educational character.
+        </p>
+        <p class="bt">
+          Building on this groundwork, missionary J. Lochmann officially established the school in 1897 as the <em>Anum Basel Mission Grammar School</em>, welcoming just seven boys as its first students. The aim was simple and enduring: provide Christian and formal education to train teachers, catechists, church workers, and responsible members of society.
+        </p>
+        <p class="bt">
+          From those modest beginnings, the school has grown — through colonial rule, independence, national reforms, and the twenty-first century — into one of Eastern Region's most respected senior high schools. It stands today as a living testament to the power of faithful vision and community resolve.
+        </p>
+
+        <div class="foundation-actions">
+          <a href="#timeline" class="btn-g">
+            <i class="ri-time-line"></i> Explore the Full Timeline
+          </a>
+          <a href="#missionaries" class="btn-ol">Meet the Founders</a>
+        </div>
+      </div>
+
+      <!-- IMAGE COLUMN -->
+      <div class="foundation-image-col rv-r" style="position:relative;">
+        <div class="foundation-img-wrap">
+          <div class="img-corner-accent"></div>
+          <!--
+            FOUNDATION IMAGE — historic school or old administration block photo.
+            Replace src:
+              ../assets/images/ansec-old.jpg
+              ../assets/images/campus/old-administration-block.jpg
+          -->
+          <img
+            class="foundation-img"
+            src="../assets/images/ansec-old.jpg"
+            alt="Historic ANSEC campus — early administration block"
+            loading="lazy"
+          />
+          <!-- Date badge -->
+          <div class="date-badge">
+            <span class="date-badge-label">Founded</span>
+            <span class="date-badge-year">1897</span>
+            <span class="date-badge-sub">Mission Era</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div></div>
+</section>
+
+<hr class="section-rule">
+
+
+<!-- ══════════════════════════════════════════════════════
+     §2 — FOUNDING MISSIONARIES
+══════════════════════════════════════════════════════ -->
+<section id="missionaries">
+  <div class="wrap"><div class="pad">
+
+    <div class="missionaries-header rv">
+      <div class="section-tag">Founding Figures</div>
+      <h2 class="sh">The Founding Missionaries</h2>
+      <p class="ss">The visionaries whose faith and dedication laid the enduring foundation on which ANSEC stands.</p>
+    </div>
+
+    <div class="missionaries-grid">
+
+      <!-- Card 1 — Friedrich August Louis Ramseyer -->
+      <div class="profile-card rv" style="transition-delay:.1s;">
+        <div class="profile-avatar">
+          <!--
+            PORTRAIT IMAGE — F.A.L. Ramseyer.
+            Replace src if a real portrait is available:
+              ../assets/images/missionaries/FAL-Ramseyer.jpg
+              ../assets/images/FAL_Ramseyer.png
+          -->
+          <img
+            src="../assets/images/FAL_Ramseyer.png"
+            alt="Friedrich August Louis Ramseyer"
+            loading="lazy"
+          />
+        </div>
+        <h3 class="profile-name">F. A. L. Ramseyer</h3>
+        <span class="profile-underline"></span>
+        <span class="profile-years">Active 1869 – 1900s</span>
+        <p class="profile-bio">
+          Friedrich August Louis Ramseyer arrived in the Gold Coast in 1869 as a missionary of the Basel Mission. After being held captive in Kumasi during Ashanti conflicts and released in 1874, he continued his work in Anum with remarkable determination — preaching, organising the local Presbyterian church, and establishing the mission stations and schools that laid the educational foundation for the town. His legacy endures in ANSEC's tradition of moral formation alongside academic excellence.
+        </p>
+      </div>
+
+      <!-- Card 2 — J. Lochmann -->
+      <div class="profile-card rv" style="transition-delay:.22s;">
+        <div class="profile-avatar">
+          <!--
+            PORTRAIT IMAGE — J. Lochmann.
+            Replace src if a real portrait is available:
+              ../assets/images/missionaries/J-Lochmann.jpg
+          -->
+          <div class="avatar-icon"><i class="ri-user-line"></i></div>
+        </div>
+        <h3 class="profile-name">J. Lochmann</h3>
+        <span class="profile-underline"></span>
+        <span class="profile-years">Active c. 1890s – 1910s</span>
+        <p class="profile-bio">
+          J. Lochmann was the Basel missionary who formally established the Anum Basel Mission Grammar School in 1897 with seven boys as the very first students. A scholar-missionary, Lochmann brought rigorous organisation to the curriculum — introducing Bible studies, English, arithmetic, and moral instruction — and insisted on academic standards that prefigured the culture ANSEC maintains today. His conviction that education and faith are inseparable has shaped the school's ethos for over a century.
+        </p>
+      </div>
+
+    </div>
+  </div></div>
+</section>
+
+<hr class="section-rule">
+
+
+<!-- ══════════════════════════════════════════════════════
+     §3 — MAIN HISTORY TIMELINE
+══════════════════════════════════════════════════════ -->
+<section id="timeline">
+  <div class="wrap"><div class="pad">
+
+    <div class="timeline-header rv">
+      <div class="section-tag">Chronicles</div>
+      <h2 class="sh">The Journey Through Time</h2>
+      <p class="ss">From Mission Foundations to Modern Excellence</p>
+    </div>
+
+    <div class="timeline-track">
+
+      <!-- ── ERA 1: MISSIONARY FOUNDATIONS ── -->
+      <div class="timeline-block rv">
+        <div class="tl-content left">
+          <span class="tl-tag">Missionary Foundations</span>
+          <div class="tl-year">1869–1897</div>
+          <h3 class="tl-era">The Basel Mission and the Roots of Education in Anum</h3>
+          <p class="tl-text">
+            The story of ANSEC begins with the Basel Mission's arrival in the Gold Coast. F. A. L. Ramseyer, arriving in 1869, was among the earliest to establish a sustained educational and spiritual presence in Anum. After his release from Ashanti captivity in 1874, Ramseyer returned to the town with renewed purpose — building churches, mission stations, and basic schools that fused Christian instruction with formal learning.
+          </p>
+          <p class="tl-text">
+            Late in the 19th century, another Basel missionary, J. Lochmann, arrived to build on this work. In 1897 he formally opened the <em>Anum Basel Mission Grammar School</em> — seven boys, a single classroom, and an ambition that would outlast generations.
+          </p>
+          <!--
+            TIMELINE IMAGE — vintage mission-era photo or illustration
+            Replace src: ../assets/images/history/mission-era-1897.jpg
+          -->
+          <div class="tl-img-card">
+            <img
+              src="../assets/images/history/mission-era-1897.jpg"
+              alt="Basel Mission school, late 19th century"
+              loading="lazy"
+            />
+          </div>
+        </div>
+        <div class="tl-node"><div class="tl-dot"></div></div>
+        <div class="tl-spacer"></div>
+      </div>
+
+      <!-- ── ERA 2: EARLY DEVELOPMENT ── -->
+      <div class="timeline-block flip rv">
+        <div class="tl-spacer"></div>
+        <div class="tl-node"><div class="tl-dot"></div></div>
+        <div class="tl-content right">
+          <span class="tl-tag">Early Development</span>
+          <div class="tl-year">1900–1950s</div>
+          <h3 class="tl-era">Growing as a Mission Grammar School</h3>
+          <p class="tl-text">
+            Through the first half of the 20th century, the school grew steadily as part of the Presbyterian mission education system. The curriculum centred on Bible studies, English language, arithmetic, and moral training — equipping students to become teachers, catechists, and community leaders.
+          </p>
+          <p class="tl-text">
+            Management was later taken over by the Presbyterian Church of Ghana, which strengthened both academic standards and Christian values. By the 1930s and 1940s, the school had become an important mission grammar school across the Eastern Region, training an educated class that would serve Ghana long before independence.
+          </p>
+          <!--
+            TIMELINE IMAGE — 1940s/50s school photo
+            Replace src: ../assets/images/history/early-development-1940s.jpg
+          -->
+          <div class="tl-img-card">
+            <img
+              src="../assets/images/history/early-development-1940s.jpg"
+              alt="ANSEC campus in the mid-20th century"
+              loading="lazy"
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- ── ERA 3: SECONDARY SCHOOL EXPANSION ── -->
+      <div class="timeline-block rv">
+        <div class="tl-content left">
+          <span class="tl-tag">Secondary School Expansion</span>
+          <div class="tl-year">1957–1980s</div>
+          <h3 class="tl-era">Independence and Institutional Growth</h3>
+          <p class="tl-text">
+            Ghana's independence in 1957 heralded a new era for national education. Post-independence reforms provided the catalyst for Anum's mission school to evolve into a formally recognised secondary institution — Anum Presbyterian Secondary School — offering expanded academic streams in Science, Arts, and Commerce.
+          </p>
+          <p class="tl-text">
+            Through the 1970s and 1980s, enrolment grew steadily as students from across Ghana came to the school. New classroom blocks, a library, science laboratories, and improved boarding facilities transformed the campus into a fully residential secondary school capable of supporting a comprehensive educational programme. Headmasters Mr. S. Kwamina Ansah and Mr. G. S. Asare led major infrastructure expansions during this era, including the construction of the administration block and library development.
+          </p>
+          <!--
+            TIMELINE IMAGE — 1970s/80s campus
+            Replace src: ../assets/images/history/secondary-era-1970s.jpg
+          -->
+          <div class="tl-img-card">
+            <img
+              src="../assets/images/history/secondary-era-1970s.jpg"
+              alt="ANSEC in the 1970s and 1980s"
+              loading="lazy"
+            />
+          </div>
+        </div>
+        <div class="tl-node"><div class="tl-dot"></div></div>
+        <div class="tl-spacer"></div>
+      </div>
+
+      <!-- ── ERA 4: SHS REFORMS & MODERN ERA ── -->
+      <div class="timeline-block flip rv">
+        <div class="tl-spacer"></div>
+        <div class="tl-node"><div class="tl-dot"></div></div>
+        <div class="tl-content right">
+          <span class="tl-tag">Modern Senior High School Era</span>
+          <div class="tl-year">1987 – Present</div>
+          <h3 class="tl-era">ANSEC — Serving Ghana in the 21st Century</h3>
+          <p class="tl-text">
+            Ghana's 1987 education reforms upgraded the institution to <em>Anum Presbyterian Senior High School (ANSEC)</em>. Through the 1990s and 2000s, boarding facilities and academic departments were further expanded; classrooms, dormitories, and the administration complex grew to serve an increasingly national student body.
+          </p>
+          <p class="tl-text">
+            Today, ANSEC operates as a co-educational day and boarding school offering six academic programmes: General Arts, General Science, Business, Visual Arts, Home Economics, and Agricultural Science. The school consistently produces WASSCE candidates of distinction and upholds the motto of its founders — <em>"Service and Sacrifice"</em> — as it shapes generations of Ghanaian leaders.
+          </p>
+          <!--
+            TIMELINE IMAGE — current modern campus
+            Replace src: ../assets/images/campus/current-campus.jpg
+          -->
+          <div class="tl-img-card">
+            <img
+              src="../assets/images/campus/current-campus.jpg"
+              alt="ANSEC modern campus today"
+              loading="lazy"
+            />
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /timeline-track -->
+  </div></div>
+</section>
+
+<hr class="section-rule">
+
+
+<!-- ══════════════════════════════════════════════════════
+     §4 — MILESTONES & ACHIEVEMENTS
+══════════════════════════════════════════════════════ -->
+<section id="milestones">
+  <div class="wrap"><div class="pad">
+
+    <div class="milestones-header rv">
+      <div class="section-tag">By the Numbers</div>
+      <h2 class="sh">Milestones <em>That Define Us</em></h2>
+      <p class="ss">A record of impact, shaped by over a century of dedication.</p>
+    </div>
+
+    <div class="milestones-grid">
+
+      <div class="milestone-stat-card rv" style="transition-delay:.06s;">
+        <div class="stat-icon"><i class="ri-time-line"></i></div>
+        <div class="stat-number">1897</div>
+        <span class="stat-label">Year of Founding</span>
+        <p class="stat-caption">Established as Anum Basel Mission Grammar School by J. Lochmann</p>
+      </div>
+
+      <div class="milestone-stat-card rv" style="transition-delay:.14s;">
+        <div class="stat-icon"><i class="ri-user-3-line"></i></div>
+        <div class="stat-number">7</div>
+        <span class="stat-label">First Students</span>
+        <p class="stat-caption">Seven boys enrolled in 1897 — the founding class of ANSEC</p>
+      </div>
+
+      <div class="milestone-stat-card rv" style="transition-delay:.22s;">
+        <div class="stat-icon"><i class="ri-team-line"></i></div>
+        <div class="stat-number">3,000<sup>+</sup></div>
+        <span class="stat-label">Students Today</span>
+        <p class="stat-caption">Day and boarding students from across Ghana</p>
+      </div>
+
+      <div class="milestone-stat-card rv" style="transition-delay:.30s;">
+        <div class="stat-icon"><i class="ri-book-open-line"></i></div>
+        <div class="stat-number">6</div>
+        <span class="stat-label">Academic Programmes</span>
+        <p class="stat-caption">General Arts, Science, Business, Visual Arts, Home Economics, Agricultural Science</p>
+      </div>
+
+    </div>
+  </div></div>
+</section>
+
+<hr class="section-rule">
+
+
+<!-- ══════════════════════════════════════════════════════
+     §5 — NOTABLE HEADMASTERS
+══════════════════════════════════════════════════════ -->
+<section id="headmasters">
+  <div class="wrap"><div class="pad">
+
+    <div class="headmasters-header rv">
+      <div class="section-tag">Leadership Legacy</div>
+      <h2 class="sh">Notable <em>Headmasters</em></h2>
+      <p class="ss">The dedicated leaders who shaped ANSEC's academic standards, infrastructure, and character across the decades.</p>
+    </div>
+
+    <div class="headmasters-grid">
+
+      <div class="hm-card rv" style="transition-delay:.06s;">
+        <div class="hm-icon"><i class="ri-cross-line"></i></div>
+        <div class="hm-name">Rev. J. Lochmann</div>
+        <span class="hm-era">Founder · c. 1897–1910s</span>
+        <p class="hm-bio">
+          The Basel missionary who founded the school in 1897. Lochmann established the curriculum — Bible studies, English, arithmetic, and moral instruction — and set the standards of academic rigour that define ANSEC's character to this day.
+        </p>
+      </div>
+
+      <div class="hm-card rv" style="transition-delay:.14s;">
+        <div class="hm-icon"><i class="ri-building-2-line"></i></div>
+        <div class="hm-name">Mr. S. Kwamina Ansah</div>
+        <span class="hm-era">Infrastructure Era</span>
+        <p class="hm-bio">
+          A transformative leader who contributed significantly to infrastructure development at ANSEC, overseeing the construction of the administration block and the procurement of school vehicles that expanded the campus's operational capacity.
+        </p>
+      </div>
+
+      <div class="hm-card rv" style="transition-delay:.22s;">
+        <div class="hm-icon"><i class="ri-graduation-cap-line"></i></div>
+        <div class="hm-name">Mr. G. S. Asare</div>
+        <span class="hm-era">Academic Development Era</span>
+        <p class="hm-bio">
+          Mr. G. S. Asare played an important role in improving academic programmes and securing key resources for the school, including a school bus and development of the library — investments that broadened access to learning for generations of students.
+        </p>
+      </div>
+
+    </div>
+  </div></div>
+</section>
+
+<hr class="section-rule">
+
+
+<!-- ══════════════════════════════════════════════════════
+     §6 — LEGACY & FUTURE VISION
+══════════════════════════════════════════════════════ -->
+<section id="legacy">
+  <div class="wrap"><div class="pad">
+    <div class="legacy-grid">
+
+      <!-- IMAGE COLUMN -->
+      <div class="legacy-image-col rv-l">
+        <div class="legacy-img-wrap">
+          <!--
+            LEGACY IMAGE — vibrant modern campus photo.
+            Replace src:
+              ../assets/images/campus/modern-campus.jpg
+              ../assets/images/modern-campus-img1.jpg
+          -->
+          <img
+            src="/assets/images/campus-aerial-view.jpg"
+            alt="ANSEC modern campus"
+            loading="lazy"
+          />
+          <div class="legacy-img-overlay"></div>
+        </div>
+        <div class="legacy-accent-corner"></div>
+      </div>
+
+      <!-- TEXT COLUMN -->
+      <div class="legacy-text-col rv-r">
+        <span class="accent-label" style="color:rgba(0,180,255,.75);"><span class="accent-bar" style="background:rgba(0,180,255,.55);"></span>Vision Forward</span>
+
+        <h2 class="legacy-heading">
+          Honoring Our Past.<br><em>Shaping the Future.</em>
+        </h2>
+
+        <p class="legacy-text">
+          The story of ANSEC is far from finished. What began with seven boys and a single mission classroom in 1897 has become a living institution — one that holds its history as a sacred trust while refusing to be defined by it alone. Each graduating class carries forward the accumulated wisdom of more than a century; each new student reshapes what this school will become.
+        </p>
+        <p class="legacy-text">
+          The years ahead will see continued investment in STEM education, teacher development, digital learning infrastructure, and holistic student welfare. ANSEC is committed to equipping every student not merely for examinations, but for meaningful, principled lives — exactly as J. Lochmann and F. A. L. Ramseyer intended when they first opened these doors.
+        </p>
+
+        <div class="legacy-quote">
+          <blockquote>
+            "Service and Sacrifice" — these two words have guided ANSEC for over a century. They are not just a motto; they are a mandate. To serve Ghana well, every student must be willing to sacrifice for something greater than themselves.
+          </blockquote>
+          <cite>— ANSEC School Motto &amp; Tradition</cite>
+        </div>
+
+        <div class="legacy-actions">
+          <a href="../pages/ansec-admissions.html" class="btn-g">
+            <i class="ri-graduation-cap-line"></i> Join Our Legacy
+          </a>
+          <a href="../pages/ansec-alumni.html" class="btn-ol-light">
+            <i class="ri-user-star-line"></i> Alumni Network
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </div></div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════
+     SCROLL REVEAL
+══════════════════════════════════════════════════════ -->
+<script>
+(function(){
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if(e.isIntersecting){ e.target.classList.add('in'); observer.unobserve(e.target); }
+    });
+  }, {threshold:0.1, rootMargin:'0px 0px -50px 0px'});
+  document.querySelectorAll('.rv,.rv-l,.rv-r').forEach((el,i) => {
+    if(!el.style.transitionDelay) el.style.transitionDelay = (i % 5) * 0.08 + 's';
+    observer.observe(el);
+  });
+})();
+</script>
+
+<div id="ansec-footer"></div>
+<script src="/assets/js/ansec-layout.js" defer></script>
+</body>
+</html>

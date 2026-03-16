@@ -1,0 +1,1242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Support ANSEC — Donate</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,900;1,400;1,600&family=Lora:ital,wght@0,400;0,500;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet"/>
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.0.0/fonts/remixicon.css" rel="stylesheet"/>
+  <style>
+  :root{
+    --accent:#0071e3; --accent-soft:rgba(0,113,227,.08); --accent-mid:rgba(0,113,227,.18);
+    --grad-btn:linear-gradient(to right,#00b4ff,#6a00ff);
+    --presby-red:#8b0000; --presby-red-h:#a50000; --presby-red-glow:rgba(139,0,0,.28);
+    /* gold removed — ANSEC colours: presby-red + navy + accent blue */
+    --crimson-light:rgba(139,0,0,.15); --crimson-mid:rgba(139,0,0,.25);
+    --navy-900:#0a1929; --navy-800:#0f2744; --navy-700:#1a3a5c;
+    --bg-page:#f5f7fa; --bg-white:#ffffff; --bg-dark:#060f1e; --bg-darkblue:#071428;
+    --text-primary:#0d1b2a; --text-body:#3a4a5c; --text-muted:#7a8fa6; --text-xmuted:#a8b8cc;
+    --serif:'Playfair Display',Georgia,serif;
+    --lora:'Lora',Georgia,serif;
+    --sans:'DM Sans',system-ui,sans-serif;
+    --al-topbar-h:56px;--al-navbar-h:64px;--al-total-h:120px;
+    --radius:12px; --radius-sm:8px; --radius-xs:6px;
+    --shadow-soft:0 2px 16px rgba(0,0,0,.06);
+    --shadow-card:0 2px 12px rgba(0,0,0,.05),0 6px 28px rgba(0,0,0,.05);
+    --shadow-lift:0 8px 32px rgba(0,0,0,.10);
+    --tr:.28s cubic-bezier(.22,1,.36,1); --tr-slow:.45s cubic-bezier(.22,1,.36,1);
+    --container-pad:1.5rem;
+    --shadow-light:rgba(10,25,41,.07); --shadow-medium:rgba(10,25,41,.14); --shadow-heavy:rgba(10,25,41,.25);
+    --z-topbar:1000; --z-navbar:999; --z-dropdown:998; --z-overlay:997; --z-mobilemenu:1001;
+    --neutral-50:#fafafa; --neutral-100:#f5f5f5; --neutral-200:#e5e5e5; --neutral-300:#d4d4d4;
+    --neutral-500:#737373; --neutral-700:#404040;
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;overflow-x:hidden}
+  body{font-family:var(--sans);background:var(--bg-page);color:var(--text-primary);line-height:1.7;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  body.menu-open{overflow:hidden}
+  .wrap{max-width:1400px;padding-inline:var(--container-pad);margin-inline:auto}
+
+  /* ── ATOMS ─────────────────────────────────────────────────── */
+  .section-tag{display:flex;align-items:center;justify-content:center;gap:.55rem;font-family:var(--sans);font-size:.63rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);margin-bottom:1rem}
+  .section-tag::before,.section-tag::after{content:'';display:block;width:32px;height:1.5px;background:var(--accent);border-radius:1px;opacity:.6}
+  .section-heading{font-family:var(--serif);font-size:clamp(1.85rem,3.2vw,2.9rem);font-weight:700;line-height:1.2;color:var(--text-primary)}
+  .section-heading em{font-style:italic;color:var(--accent)}
+  .section-subheading{font-family:var(--sans);font-size:.97rem;font-weight:300;color:var(--text-muted);margin-top:.6rem;line-height:1.75}
+  .body-text{font-family:var(--lora);font-size:.97rem;color:var(--text-body);line-height:1.88}
+  .body-text+.body-text{margin-top:1rem}
+
+  /* ── BUTTONS ─────────────────────────────────────────────── */
+  .btn-g{display:inline-flex;align-items:center;gap:.55rem;padding:.8rem 2rem;border-radius:999px;background:var(--grad-btn);color:#fff;font-family:var(--sans);font-size:.88rem;font-weight:600;text-decoration:none;border:none;cursor:pointer;box-shadow:0 5px 22px rgba(106,0,255,.2);transition:transform var(--tr),box-shadow var(--tr);position:relative;overflow:hidden}
+  .btn-g::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.14),transparent);border-radius:inherit;pointer-events:none}
+  .btn-g:hover{transform:translateY(-2px);box-shadow:0 10px 34px rgba(106,0,255,.3)}
+  .btn-ol{display:inline-flex;align-items:center;gap:.55rem;padding:.8rem 2rem;border-radius:999px;background:transparent;color:var(--accent);font-family:var(--sans);font-size:.88rem;font-weight:600;text-decoration:none;border:1.5px solid var(--accent);cursor:pointer;transition:background var(--tr),color var(--tr)}
+  .btn-ol:hover{background:var(--accent);color:#fff}
+  .btn-red{display:inline-flex;align-items:center;gap:.55rem;padding:.8rem 2rem;border-radius:999px;background:var(--presby-red);color:#fff;font-family:var(--sans);font-size:.88rem;font-weight:600;text-decoration:none;border:none;cursor:pointer;box-shadow:0 4px 18px var(--presby-red-glow);transition:background var(--tr),transform var(--tr),box-shadow var(--tr);position:relative;overflow:hidden}
+  .btn-red::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.1),transparent);border-radius:inherit;pointer-events:none}
+  .btn-red:hover{background:var(--presby-red-h);transform:translateY(-2px);box-shadow:0 8px 28px var(--presby-red-glow)}
+
+  /* ── REVEAL ────────────────────────────────────────────────── */
+  .rv,.rv-l,.rv-r{opacity:0;transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1)}
+  .rv{transform:translateY(24px)}.rv-l{transform:translateX(-24px)}.rv-r{transform:translateX(24px)}
+  .rv.in,.rv-l.in,.rv-r.in{opacity:1;transform:none}
+
+ 
+  
+
+  /* ═══════════════════════════════════════════════════════════
+     §1  HERO — real campus photo background
+  ═══════════════════════════════════════════════════════════ */
+  .hero{
+    position:relative;min-height:100svh;display:flex;align-items:center;
+    overflow:hidden;
+  }
+  /* z-0: dark base + photo */
+  .hero-base{position:absolute;inset:0;z-index:0;background:var(--bg-darkblue)}
+  .hero-img{position:absolute;inset:0;z-index:0;width:100%;height:100%;
+    object-fit:cover;object-position:center;opacity:.42}
+  /* z-1: gradient overlay */
+  .hero-ov{position:absolute;inset:0;z-index:1;pointer-events:none;
+    background:linear-gradient(
+      to bottom,
+      rgba(7,20,40,.92) 0%,
+      rgba(7,20,40,.45) 40%,
+      rgba(139,0,0,.18) 65%,
+      rgba(7,20,40,.95) 100%
+    )}
+  /* z-2: fine grid texture */
+  .hero-grid{position:absolute;inset:0;z-index:2;opacity:.028;pointer-events:none;
+    background-image:linear-gradient(rgba(255,255,255,.5) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(255,255,255,.5) 1px,transparent 1px);
+    background-size:64px 64px}
+  /* z-2: red vignette sweep bottom-left */
+  .hero-sweep{position:absolute;bottom:0;left:0;width:55%;height:60%;z-index:2;pointer-events:none;
+    background:radial-gradient(ellipse at bottom left,rgba(139,0,0,.22),transparent 70%)}
+  /* scroll pip */
+  .hero-scroll-pip{position:absolute;bottom:1.4rem;right:2rem;z-index:5;
+    display:flex;flex-direction:column;align-items:center;gap:.4rem;
+    opacity:.3;pointer-events:none}
+  .scroll-pip-bar{width:6px;height:24px;border-radius:3px;background:rgba(255,255,255,.5);
+    animation:scrollPipAnim 2.2s ease-in-out infinite}
+  @keyframes scrollPipAnim{0%,100%{transform:translateY(0)}50%{transform:translateY(5px)}}
+  .hero-scroll-pip span{font-family:var(--sans);font-size:.56rem;font-weight:600;
+    letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.4)}
+  /* breadcrumb */
+  .hero-breadcrumb{display:flex;align-items:center;gap:.5rem;
+    font-family:var(--sans);font-size:.72rem;font-weight:500;
+    color:rgba(150,185,225,.5);margin-bottom:1.6rem;letter-spacing:.05em}
+  .hero-breadcrumb a{color:rgba(150,185,225,.55);text-decoration:none;transition:color var(--tr)}
+  .hero-breadcrumb a:hover{color:rgba(150,200,255,.8)}
+  .hero-breadcrumb i{font-size:.7rem;opacity:.5}
+  .crumb-cur{color:rgba(180,210,255,.7)}
+  /* z-4: content grid */
+  .hero-inner{position:relative;z-index:4;display:grid;
+    grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+    gap:5rem;align-items:center;
+    /* padding-top:calc(var(--al-total-h,120px) + 2.5rem); */
+    padding-bottom:4.5rem}
+  @media(max-width:860px){.hero-inner{grid-template-columns:1fr;gap:3rem;text-align:center}}
+
+  .hero-eyebrow{display:flex;align-items:center;gap:.55rem;font-family:var(--sans);font-size:.62rem;font-weight:700;letter-spacing:.26em;text-transform:uppercase;color:rgba(255,160,160,.75);margin-bottom:1.2rem;animation:hUp .9s both}
+  @media(max-width:860px){.hero-eyebrow{justify-content:center}}
+  .hero-eyebrow::before,.hero-eyebrow::after{content:'';display:block;width:22px;height:1.5px;background:rgba(255,120,120,.5);border-radius:1px}
+  .hero-h1{font-family:var(--serif);font-size:clamp(2.2rem,4.2vw,4.2rem);font-weight:700;color:#fff;line-height:1.1;animation:hUp .9s .08s both}
+  .hero-h1 em{font-style:italic;color:#7dd3fc}
+  .hero-h1 strong{color:#fca5a5;font-weight:700}
+  .hero-sub{font-family:var(--lora);font-size:1rem;font-weight:400;font-style:italic;color:rgba(210,225,245,.68);margin-top:1.3rem;line-height:1.85;max-width:520px;animation:hUp .9s .16s both}
+  @media(max-width:860px){.hero-sub{max-width:100%;margin-inline:auto}}
+  .hero-acts{display:flex;align-items:center;gap:1rem;flex-wrap:wrap;margin-top:2rem;animation:hUp .9s .24s both}
+  @media(max-width:860px){.hero-acts{justify-content:center}}
+
+  /* right: giving stats */
+  .hero-right{animation:hUp .9s .1s both}
+  @media(max-width:860px){.hero-right{display:none}}
+  .giving-stats{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:1.2rem}
+  .gs-card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);border-radius:var(--radius);padding:1.6rem 1.4rem;backdrop-filter:blur(8px);transition:background var(--tr),border-color var(--tr)}
+  .gs-card:hover{background:rgba(255,255,255,.09);border-color:rgba(139,0,0,.35)}
+  .gs-n{font-family:var(--serif);font-size:2.2rem;font-weight:700;color:#fff;line-height:1}
+    /* ═══════════════════════════════════════════════════════════
+     §2  WHY GIVE — three pillars
+  ═══════════════════════════════════════════════════════════ */
+  #why{background:var(--bg-white)}
+  .why-inner{padding-block:5.5rem}
+  .why-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:5rem;align-items:center;margin-top:3.5rem}
+  @media(max-width:860px){.why-grid{grid-template-columns:1fr;gap:3rem}}
+
+  .why-vis{position:relative}
+  .why-img-box{position:relative;border-radius:var(--radius);overflow:hidden;aspect-ratio:4/3;box-shadow:0 20px 60px rgba(0,0,0,.12),0 0 0 1px rgba(0,0,0,.06)}
+  .why-img-box svg{width:100%;height:100%;display:block}
+  /* corner brackets */
+  .corner{position:absolute;width:28px;height:28px;pointer-events:none}
+  .corner.tl{top:-8px;left:-8px;border-top:2.5px solid var(--accent);border-left:2.5px solid var(--accent)}
+  .corner.br{bottom:-8px;right:-8px;border-bottom:2.5px solid rgba(0,113,227,.35);border-right:2.5px solid rgba(0,113,227,.35)}
+  .why-quote{position:absolute;bottom:1.2rem;right:-1.2rem;max-width:240px;background:var(--bg-darkblue);border-radius:var(--radius-sm);padding:1rem 1.2rem;border:1px solid var(--crimson-mid);box-shadow:0 8px 28px rgba(0,0,0,.35)}
+  @media(max-width:700px){.why-quote{position:static;margin-top:1rem;max-width:100%}}
+  .why-quote-mark{font-family:var(--serif);font-size:2.5rem;color:rgba(220,180,180,.7);line-height:.8;margin-bottom:.2rem;opacity:.7}
+  .why-quote-text{font-family:var(--lora);font-size:.82rem;font-style:italic;color:rgba(210,230,255,.75);line-height:1.7}
+  .why-quote-author{font-family:var(--sans);font-size:.62rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(150,185,225,.5);margin-top:.5rem}
+
+  .why-pillars{display:flex;flex-direction:column;gap:1.5rem;margin-top:2rem}
+  .pillar{display:flex;align-items:flex-start;gap:1.1rem;padding:1.3rem 1.4rem;background:var(--bg-page);border-radius:var(--radius-sm);border:1px solid rgba(0,0,0,.05);transition:box-shadow var(--tr),transform var(--tr)}
+  .pillar:hover{box-shadow:var(--shadow-lift);transform:translateY(-2px)}
+  .pillar-icon{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0}
+  .pillar-icon.red{background:rgba(139,0,0,.1);color:var(--presby-red)}
+  .pillar-icon.blue{background:var(--accent-soft);color:var(--accent)}
+  .pillar-icon.gold{background:rgba(0,113,227,.1);color:var(--accent)}
+  .pillar-title{font-family:var(--sans);font-size:.92rem;font-weight:700;color:var(--text-primary)}
+  .pillar-desc{font-family:var(--sans);font-size:.82rem;font-weight:300;color:var(--text-muted);margin-top:.25rem;line-height:1.6}
+
+  /* ═══════════════════════════════════════════════════════════
+     §3  GIVING AREAS — what your gift supports
+  ═══════════════════════════════════════════════════════════ */
+  #areas{background:var(--bg-page)}
+  .areas-inner{padding-block:5.5rem}
+  .areas-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.8rem;margin-top:3rem}
+  @media(max-width:1000px){.areas-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+  @media(max-width:600px){.areas-grid{grid-template-columns:1fr}}
+
+  .area-card{background:var(--bg-white);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow-card);transition:transform var(--tr),box-shadow var(--tr);cursor:pointer;border:2px solid transparent;position:relative}
+  .area-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lift)}
+  .area-card.selected{border-color:var(--accent)}
+  .area-card.selected .area-check{opacity:1;transform:scale(1)}
+  .area-thumb{height:140px;display:flex;align-items:center;justify-content:center;font-size:2.6rem;position:relative}
+  .area-thumb.academics{background:linear-gradient(135deg,rgba(0,113,227,.12),rgba(0,180,255,.06))}
+  .area-thumb.faith{background:linear-gradient(135deg,rgba(139,0,0,.12),rgba(180,83,9,.06))}
+  .area-thumb.sports{background:linear-gradient(135deg,rgba(234,88,12,.12),rgba(245,158,11,.06))}
+  .area-thumb.library{background:linear-gradient(135deg,rgba(124,58,237,.12),rgba(167,139,250,.06))}
+  .area-thumb.bursary{background:linear-gradient(135deg,rgba(5,150,105,.12),rgba(52,211,153,.06))}
+  .area-thumb.infra{background:linear-gradient(135deg,rgba(8,145,178,.12),rgba(14,165,233,.06))}
+  .area-check{position:absolute;top:.7rem;right:.7rem;width:26px;height:26px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-size:.75rem;opacity:0;transform:scale(.5);transition:opacity var(--tr),transform var(--tr)}
+  .area-body{padding:1.3rem 1.4rem}
+  .area-title{font-family:var(--sans);font-size:.94rem;font-weight:700;color:var(--text-primary)}
+  .area-desc{font-family:var(--sans);font-size:.8rem;font-weight:300;color:var(--text-muted);margin-top:.35rem;line-height:1.6}
+
+  /* ═══════════════════════════════════════════════════════════
+     §4  DONATION FORM — the main CTA
+  ═══════════════════════════════════════════════════════════ */
+  #donate{background:var(--bg-darkblue);position:relative;overflow:hidden}
+  .donate-glow1{position:absolute;top:-20%;right:-10%;width:60%;height:80%;border-radius:50%;background:radial-gradient(ellipse,rgba(139,0,0,.2) 0%,transparent 65%);pointer-events:none}
+  .donate-glow2{position:absolute;bottom:-20%;left:-5%;width:50%;height:60%;border-radius:50%;background:radial-gradient(ellipse,rgba(0,113,227,.12) 0%,transparent 65%);pointer-events:none}
+  .donate-grid-bg{position:absolute;inset:0;opacity:.03;background-image:linear-gradient(rgba(255,255,255,.5) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.5) 1px,transparent 1px);background-size:60px 60px;pointer-events:none}
+  .donate-inner{padding-block:5.5rem;position:relative;z-index:1}
+  .donate-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:5rem;align-items:start}
+  @media(max-width:860px){.donate-layout{grid-template-columns:1fr;gap:3.5rem}}
+
+  /* Left: context */
+  .donate-context .section-heading{color:#fff}
+  .donate-context .section-heading em{color:#7dd3fc}
+  .donate-context .section-subheading{color:rgba(200,220,240,.65)}
+  .impact-list{margin-top:2rem;display:flex;flex-direction:column;gap:.9rem}
+  .impact-item{display:flex;align-items:flex-start;gap:.9rem;padding:.9rem 1rem;background:rgba(255,255,255,.05);border-radius:var(--radius-sm);border:1px solid rgba(255,255,255,.07)}
+  .impact-icon{width:38px;height:38px;border-radius:8px;background:var(--crimson-light);border:1px solid rgba(139,0,0,.18);display:flex;align-items:center;justify-content:center;color:rgba(220,180,180,.85);font-size:1rem;flex-shrink:0}
+  .impact-amt{font-family:var(--serif);font-size:1rem;font-weight:700;color:#fff}
+  .impact-desc{font-family:var(--sans);font-size:.78rem;font-weight:300;color:rgba(180,200,230,.6);margin-top:.1rem;line-height:1.5}
+
+  /* Right: form card */
+  .donate-form-card{background:var(--bg-white);border-radius:var(--radius);box-shadow:0 24px 64px rgba(0,0,0,.4);padding:2.2rem}
+  @media(max-width:480px){.donate-form-card{padding:1.4rem 1.2rem}}
+
+  .form-title{font-family:var(--serif);font-size:1.4rem;font-weight:700;color:var(--text-primary);margin-bottom:1.6rem}
+  .form-title em{font-style:italic;color:var(--accent)}
+
+  /* Amount presets */
+  .amount-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.6rem;margin-bottom:1rem}
+  @media(max-width:360px){.amount-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+  .amt-btn{padding:.72rem .5rem;border-radius:var(--radius-sm);border:1.5px solid rgba(0,0,0,.1);background:var(--bg-page);font-family:var(--sans);font-size:.88rem;font-weight:600;color:var(--text-body);cursor:pointer;transition:all var(--tr);text-align:center}
+  .amt-btn:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
+  .amt-btn.active{background:var(--accent);border-color:var(--accent);color:#fff}
+
+  /* Custom amount */
+  .custom-amt-wrap{position:relative;margin-bottom:1.4rem}
+  .custom-prefix{position:absolute;left:1rem;top:50%;transform:translateY(-50%);font-family:var(--sans);font-size:.92rem;font-weight:600;color:var(--text-muted)}
+  .custom-amt-input{width:100%;padding:.8rem 1rem .8rem 2.2rem;border:1.5px solid rgba(0,0,0,.1);border-radius:var(--radius-sm);font-family:var(--sans);font-size:.95rem;font-weight:500;color:var(--text-primary);background:var(--bg-page);transition:border-color var(--tr),box-shadow var(--tr);outline:none}
+  .custom-amt-input:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+  .custom-amt-input::placeholder{color:var(--text-xmuted)}
+
+  /* Frequency */
+  .freq-row{display:flex;gap:.5rem;margin-bottom:1.4rem}
+  .freq-btn{flex:1;padding:.62rem .4rem;border-radius:var(--radius-sm);border:1.5px solid rgba(0,0,0,.1);background:var(--bg-page);font-family:var(--sans);font-size:.8rem;font-weight:500;color:var(--text-muted);cursor:pointer;transition:all var(--tr);text-align:center}
+  .freq-btn:hover{border-color:var(--accent);color:var(--accent)}
+  .freq-btn.active{background:var(--accent-soft);border-color:var(--accent);color:var(--accent);font-weight:600}
+
+  /* Form fields */
+  .field{margin-bottom:1.1rem}
+  .field-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:.8rem}
+  @media(max-width:420px){.field-row{grid-template-columns:1fr}}
+  .field label{display:block;font-family:var(--sans);font-size:.72rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--text-muted);margin-bottom:.35rem}
+  .field input,.field select,.field textarea{width:100%;padding:.78rem 1rem;border:1.5px solid rgba(0,0,0,.1);border-radius:var(--radius-sm);font-family:var(--sans);font-size:.9rem;color:var(--text-primary);background:var(--bg-page);outline:none;transition:border-color var(--tr),box-shadow var(--tr);appearance:none}
+  .field input:focus,.field select:focus,.field textarea:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+  .field textarea{resize:vertical;min-height:76px;line-height:1.6}
+  .field select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%237a8fa6' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 1rem center;padding-right:2.5rem}
+
+  /* Checkbox */
+  .check-row{display:flex;align-items:flex-start;gap:.7rem;margin-bottom:1.2rem}
+  .check-row input[type="checkbox"]{width:16px;height:16px;accent-color:var(--accent);flex-shrink:0;margin-top:.18rem;cursor:pointer}
+  .check-label{font-family:var(--sans);font-size:.79rem;font-weight:400;color:var(--text-muted);line-height:1.5}
+  .check-label a{color:var(--accent);text-decoration:none}
+  .check-label a:hover{text-decoration:underline}
+
+  /* Submit button */
+  .donate-submit{width:100%;padding:1rem;border-radius:var(--radius-sm);background:var(--presby-red);color:#fff;font-family:var(--sans);font-size:.95rem;font-weight:700;letter-spacing:.03em;border:none;cursor:pointer;transition:background var(--tr),transform var(--tr),box-shadow var(--tr);box-shadow:0 4px 18px var(--presby-red-glow);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;gap:.6rem}
+  .donate-submit::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.1),transparent);pointer-events:none}
+  .donate-submit:hover{background:var(--presby-red-h);transform:translateY(-1px);box-shadow:0 8px 28px var(--presby-red-glow)}
+  .donate-submit:active{transform:translateY(0)}
+
+  .form-note{font-family:var(--sans);font-size:.7rem;font-weight:300;color:var(--text-xmuted);text-align:center;margin-top:.85rem;line-height:1.55;display:flex;align-items:center;justify-content:center;gap:.4rem}
+  .form-note i{font-size:.85rem;color:var(--text-muted)}
+
+  /* Divider inside form */
+  .form-divider{height:1px;background:rgba(0,0,0,.07);margin:1.3rem 0;display:flex;align-items:center;gap:.75rem}
+  .form-divider::before,.form-divider::after{content:'';flex:1;height:1px;background:rgba(0,0,0,.07)}
+  .form-divider-text{font-family:var(--sans);font-size:.68rem;font-weight:500;color:var(--text-xmuted);white-space:nowrap;padding:0 .4rem}
+
+  /* ═══════════════════════════════════════════════════════════
+     §5  MOBILE MONEY — Ghana payment methods
+  ═══════════════════════════════════════════════════════════ */
+  #mobile-money{background:var(--bg-white)}
+  .mm-inner{padding-block:5.5rem}
+  .mm-layout{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:5rem;align-items:center;margin-top:3rem}
+  @media(max-width:860px){.mm-layout{grid-template-columns:1fr;gap:3rem}}
+
+  .mm-cards{display:flex;flex-direction:column;gap:1rem}
+  .mm-card{display:flex;align-items:center;gap:1.1rem;padding:1.2rem 1.4rem;background:var(--bg-page);border-radius:var(--radius-sm);border:1.5px solid rgba(0,0,0,.07);transition:box-shadow var(--tr),border-color var(--tr)}
+  .mm-card:hover{box-shadow:var(--shadow-card);border-color:rgba(0,113,227,.2)}
+  .mm-logo{width:48px;height:48px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0;font-weight:700;font-family:var(--serif)}
+  .mm-logo.mtn{background:rgba(253,224,71,.25);color:#b45309;border:1px solid rgba(253,224,71,.4)}
+  .mm-logo.vodafone{background:rgba(239,68,68,.15);color:#dc2626;border:1px solid rgba(239,68,68,.3)}
+  .mm-logo.airteltigo{background:rgba(220,38,38,.12);color:#9b1c1c;border:1px solid rgba(220,38,38,.25)}
+  .mm-logo.bank{background:rgba(0,113,227,.1);color:var(--accent);border:1px solid rgba(0,113,227,.2)}
+  .mm-info{flex:1}
+  .mm-name{font-family:var(--sans);font-size:.92rem;font-weight:700;color:var(--text-primary)}
+  .mm-number{font-family:var(--sans);font-size:.82rem;font-weight:500;color:var(--accent);margin-top:.1rem}
+  .mm-name2{font-family:var(--sans);font-size:.75rem;font-weight:400;color:var(--text-muted);margin-top:.05rem}
+  .mm-copy{width:32px;height:32px;border-radius:6px;border:1.5px solid rgba(0,0,0,.08);background:var(--bg-white);color:var(--text-muted);display:flex;align-items:center;justify-content:center;font-size:.85rem;cursor:pointer;transition:all var(--tr);flex-shrink:0}
+  .mm-copy:hover{background:var(--accent-soft);border-color:var(--accent);color:var(--accent)}
+  .mm-copy.copied{background:rgba(5,150,105,.1);border-color:rgba(5,150,105,.4);color:#059669}
+
+  /* Bank details box */
+  .bank-details{background:var(--bg-page);border-radius:var(--radius);border:1px solid rgba(0,0,0,.07);padding:1.8rem;margin-top:0}
+  .bank-row{display:flex;justify-content:space-between;align-items:center;padding:.55rem 0;border-bottom:1px solid rgba(0,0,0,.05)}
+  .bank-row:last-child{border-bottom:none}
+  .bank-lbl{font-family:var(--sans);font-size:.72rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--text-xmuted)}
+  .bank-val{font-family:var(--sans);font-size:.85rem;font-weight:600;color:var(--text-primary)}
+
+  /* ═══════════════════════════════════════════════════════════
+     §6  IMPACT NUMBERS
+  ═══════════════════════════════════════════════════════════ */
+  #impact{background:var(--bg-darkblue);position:relative;overflow:hidden}
+  .impact-bg-glow{position:absolute;inset:0;background:radial-gradient(ellipse 60% 60% at 50% 50%,rgba(139,0,0,.18) 0%,transparent 70%);pointer-events:none}
+  .impact-inner{padding-block:5rem;position:relative;z-index:1}
+  .impact-nums{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1.5rem;margin-top:3rem}
+  @media(max-width:900px){.impact-nums{grid-template-columns:repeat(2,minmax(0,1fr))}}
+  @media(max-width:480px){.impact-nums{grid-template-columns:1fr 1fr;gap:1rem}}
+  .in-cell{text-align:center;padding:2rem 1rem;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:var(--radius);transition:background var(--tr)}
+  .in-cell:hover{background:rgba(255,255,255,.08)}
+  .in-n{font-family:var(--serif);font-size:2.5rem;font-weight:700;color:#fff;line-height:1}
+  @media(max-width:480px){.in-n{font-size:1.9rem}}
+  .in-n sup{font-size:.4em;color:#7dd3fc;vertical-align:super}
+  .in-l{font-family:var(--sans);font-size:.6rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:rgba(150,185,225,.5);margin-top:.5rem}
+  .in-s{font-family:var(--lora);font-size:.78rem;font-style:italic;color:rgba(150,185,225,.4);margin-top:.25rem}
+
+  /* ═══════════════════════════════════════════════════════════
+     §7  TESTIMONIAL from a beneficiary
+  ═══════════════════════════════════════════════════════════ */
+  #testimonial{background:var(--bg-white)}
+  .testi-inner{padding-block:5.5rem}
+  .testi-layout{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:5rem;align-items:center}
+  @media(max-width:860px){.testi-layout{grid-template-columns:1fr;gap:3rem}}
+  .testi-vis{position:relative}
+  .testi-img-box{border-radius:var(--radius);overflow:hidden;aspect-ratio:3/4;box-shadow:var(--shadow-lift)}
+  @media(max-width:860px){.testi-img-box{aspect-ratio:16/9}}
+  .testi-img-box svg{width:100%;height:100%;display:block}
+  .testi-badge{position:absolute;bottom:-1rem;right:-1rem;background:var(--presby-red);color:#fff;border-radius:var(--radius-sm);padding:.7rem 1rem;box-shadow:0 8px 24px var(--presby-red-glow);min-width:140px}
+  @media(max-width:860px){.testi-badge{position:static;display:inline-flex;align-items:center;gap:.6rem;margin-top:1rem;border-radius:999px;min-width:0}}
+  .tb-num{font-family:var(--serif);font-size:1.5rem;font-weight:700;line-height:1}
+  .tb-lbl{font-family:var(--sans);font-size:.62rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;opacity:.7;margin-top:.15rem}
+
+  .testi-content{display:flex;flex-direction:column;gap:1.5rem}
+  .testi-quote{position:relative;background:linear-gradient(135deg,rgba(139,0,0,.05),rgba(0,113,227,.04));border-radius:var(--radius);padding:2rem;border:1px solid rgba(139,0,0,.1)}
+  .testi-qm{font-family:var(--serif);font-size:5rem;color:var(--presby-red);opacity:.15;line-height:.7;margin-bottom:.5rem}
+  .testi-text{font-family:var(--lora);font-size:1rem;font-style:italic;color:var(--text-body);line-height:1.85}
+  .testi-author{display:flex;align-items:center;gap:.9rem;margin-top:1.4rem}
+  .testi-avatar{width:44px;height:44px;border-radius:50%;background:var(--presby-red);display:flex;align-items:center;justify-content:center;color:#fff;font-family:var(--serif);font-size:1rem;font-weight:700;flex-shrink:0}
+  .testi-name{font-family:var(--sans);font-size:.9rem;font-weight:700;color:var(--text-primary)}
+  .testi-role{font-family:var(--sans);font-size:.76rem;font-weight:400;color:var(--text-muted)}
+
+  /* ═══════════════════════════════════════════════════════════
+     §8  CLOSING CTA
+  ═══════════════════════════════════════════════════════════ */
+  #closing{background:var(--presby-red);position:relative;overflow:hidden}
+  .cl-glow{position:absolute;inset:0;background:radial-gradient(ellipse 70% 70% at 50% 50%,rgba(255,255,255,.08) 0%,transparent 70%);pointer-events:none}
+  .cl-pattern{position:absolute;inset:0;opacity:.04;background-image:repeating-linear-gradient(45deg,#fff 0,#fff 1px,transparent 0,transparent 50%);background-size:20px 20px;pointer-events:none}
+  .cl-inner{padding-block:5rem;position:relative;z-index:1;text-align:center}
+  .cl-eyebrow{font-family:var(--sans);font-size:.63rem;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:rgba(255,255,255,.6);margin-bottom:1rem}
+  .cl-h{font-family:var(--serif);font-size:clamp(2rem,4vw,3.5rem);font-weight:700;color:#fff;line-height:1.15;max-width:700px;margin-inline:auto}
+  .cl-h em{font-style:italic;color:rgba(220,180,180,.85)}
+  .cl-sub{font-family:var(--lora);font-size:1rem;font-style:italic;color:rgba(255,255,255,.72);max-width:520px;margin:1.3rem auto 0;line-height:1.8}
+  .cl-acts{display:flex;align-items:center;justify-content:center;gap:1rem;flex-wrap:wrap;margin-top:2.5rem}
+  .btn-white{display:inline-flex;align-items:center;gap:.55rem;padding:.85rem 2.2rem;border-radius:999px;background:#fff;color:var(--presby-red);font-family:var(--sans);font-size:.92rem;font-weight:700;text-decoration:none;border:none;cursor:pointer;box-shadow:0 6px 24px rgba(0,0,0,.18);transition:transform var(--tr),box-shadow var(--tr)}
+  .btn-white:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(0,0,0,.25)}
+  .btn-ghost-white{display:inline-flex;align-items:center;gap:.55rem;padding:.85rem 2.2rem;border-radius:999px;background:transparent;color:rgba(255,255,255,.85);font-family:var(--sans);font-size:.92rem;font-weight:500;text-decoration:none;border:1.5px solid rgba(255,255,255,.4);cursor:pointer;transition:all var(--tr)}
+  .btn-ghost-white:hover{background:rgba(255,255,255,.12);color:#fff;border-color:rgba(255,255,255,.7)}
+
+  
+
+  /* ── Toast notification ─────────────────────────────────── */
+  .toast{position:fixed;bottom:2rem;right:2rem;background:var(--bg-darkblue);color:#fff;font-family:var(--sans);font-size:.82rem;font-weight:500;padding:.75rem 1.2rem;border-radius:var(--radius-sm);border:1px solid rgba(5,150,105,.4);box-shadow:0 8px 28px rgba(0,0,0,.3);display:flex;align-items:center;gap:.6rem;z-index:9999;transform:translateY(80px);opacity:0;transition:all var(--tr-slow)}
+  .toast.show{transform:translateY(0);opacity:1}
+  .toast i{color:#34d399;font-size:1rem}
+
+  /* ── Thank-you overlay ─────────────────────────────────── */
+  .ty-overlay{position:fixed;inset:0;background:rgba(6,15,30,.88);backdrop-filter:blur(12px);z-index:9998;display:none;align-items:center;justify-content:center;padding:1.5rem}
+  .ty-overlay.show{display:flex}
+  .ty-card{background:var(--bg-white);border-radius:var(--radius);padding:3rem 2.5rem;max-width:480px;width:100%;text-align:center;box-shadow:0 32px 80px rgba(0,0,0,.5)}
+  .ty-icon{width:72px;height:72px;border-radius:50%;background:rgba(139,0,0,.1);border:2px solid rgba(139,0,0,.2);display:flex;align-items:center;justify-content:center;margin:0 auto 1.5rem;font-size:2rem;color:var(--presby-red)}
+  .ty-h{font-family:var(--serif);font-size:1.8rem;font-weight:700;color:var(--text-primary);margin-bottom:.8rem}
+  .ty-h em{color:var(--presby-red)}
+  .ty-p{font-family:var(--lora);font-size:.95rem;font-style:italic;color:var(--text-body);line-height:1.8}
+  .ty-close{margin-top:2rem;padding:.8rem 2rem;border-radius:999px;background:var(--presby-red);color:#fff;border:none;cursor:pointer;font-family:var(--sans);font-size:.88rem;font-weight:600;transition:background var(--tr)}
+  .ty-close:hover{background:var(--presby-red-h)}
+
+  </style>
+</head>
+<body>
+
+<div id="ansec-header"></div>
+
+<main>
+
+<!-- ═══════════════════════════════════════════════════════════
+     §1  HERO
+═══════════════════════════════════════════════════════════ -->
+<section class="hero" id="top" aria-label="Donate to ANSEC">
+
+  <!-- z-0: dark base -->
+  <div class="hero-base" aria-hidden="true"></div>
+
+  <!-- z-0: campus photo
+       Suggested image: students gathered at assembly / speech day / chapel
+       Replace src with the best available campus photo.
+       Alternatives (comment/uncomment):
+         /assets/images/campus/campus-front-gate.jpg
+         /assets/images/campus/campus-assembly.jpg
+         /assets/images/students/students-assembly-hall.jpg  -->
+  <img
+    class="hero-img"
+    src="/assets/images/campus/campus-assembly.jpg"
+    alt=""
+    aria-hidden="true"
+    loading="eager"
+    fetchpriority="high"
+  />
+
+  <!-- z-1: gradient overlay -->
+  <div class="hero-ov" aria-hidden="true"></div>
+  <!-- z-2: grid texture -->
+  <div class="hero-grid" aria-hidden="true"></div>
+  <!-- z-2: red sweep -->
+  <div class="hero-sweep" aria-hidden="true"></div>
+
+  <!-- Scroll pip -->
+  <div class="hero-scroll-pip" aria-hidden="true">
+    <div class="scroll-pip-bar"></div>
+    <span>Scroll</span>
+  </div>
+
+  <div class="wrap" style="position:relative;z-index:4;width:100%">
+    <div class="hero-inner">
+
+      <!-- Left -->
+      <div>
+        <!-- Breadcrumb -->
+        <nav class="hero-breadcrumb" aria-label="Breadcrumb">
+          <a href="/index.html"><i class="ri-home-4-line"></i> Home</a>
+          <i class="ri-arrow-right-s-line"></i>
+          <span class="crumb-cur" aria-current="page">Support ANSEC</span>
+        </nav>
+
+        <div class="hero-eyebrow">Support ANSEC · Make a Difference</div>
+        <h1 class="hero-h1">
+          Invest in a<br/>
+          <em>Student's</em><br/>
+          <strong>Future Today</strong>
+        </h1>
+        <p class="hero-sub">Since 1897, ANSEC has shaped generations of Ghanaian leaders. Your gift — however large or small — directly funds scholarships, laboratories, chapels, and opportunities that change lives forever.</p>
+        <div class="hero-acts">
+          <a href="#donate" class="btn-red">
+            <i class="ri-heart-3-fill" aria-hidden="true"></i> Give Now
+          </a>
+          <a href="#mobile-money" class="btn-ol" style="color:rgba(200,220,255,.8);border-color:rgba(200,220,255,.3)">
+            <i class="ri-smartphone-line" aria-hidden="true"></i> Mobile Money
+          </a>
+        </div>
+      </div>
+
+      <!-- Right: stats cards (hidden on mobile) -->
+      <div class="hero-right" aria-hidden="true">
+        <div class="giving-stats">
+          <div class="gs-card">
+            <div class="gs-n">128<sup>+</sup></div>
+            <div class="gs-l">Years of Service</div>
+          </div>
+          <div class="gs-card">
+            <div class="gs-n">3<sup>,</sup>000<sup>+</sup></div>
+            <div class="gs-l">Students Enrolled</div>
+          </div>
+          <div class="gs-card">
+            <div class="gs-n">500<sup>+</sup></div>
+            <div class="gs-l">Bursary Recipients</div>
+          </div>
+          <div class="gs-card">
+            <div class="gs-n">6</div>
+            <div class="gs-l">Academic Departments</div>
+          </div>
+          <div class="gs-card accent">
+            <div class="gs-icon"><i class="ri-heart-3-fill"></i></div>
+            <div class="gs-text">
+              <div class="gs-n">100<sup>%</sup></div>
+              <div class="gs-l">Goes to ANSEC Students</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+<div class="hero-bar"></div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     §2  WHY GIVE
+═══════════════════════════════════════════════════════════ -->
+<section id="why">
+  <div class="wrap">
+    <div class="why-inner">
+
+      <div style="text-align:center;max-width:620px;margin-inline:auto" class="rv">
+        <div class="section-tag">Why It Matters</div>
+        <h2 class="section-heading">A School That <em>Forms the Whole Person</em></h2>
+        <p class="section-subheading">ANSEC does more than educate — it nurtures faith, builds character, and opens doors that would otherwise remain closed for many students from Anum and beyond.</p>
+      </div>
+
+      <div class="why-grid">
+
+        <!-- Left: illustration + quote -->
+        <div class="rv-l">
+          <div class="why-vis">
+            <div class="why-img-box">
+              <!--
+                IMAGE: Replace SVG with campus/students photo
+                <img src="../assets/images/students-campus.jpg"
+                     alt="ANSEC students on campus"
+                     loading="lazy"
+                     style="width:100%;height:100%;object-fit:cover;object-position:center"/>
+              -->
+              <svg viewBox="0 0 480 360" xmlns="http://www.w3.org/2000/svg">
+                <rect width="480" height="360" fill="#f0f4f8"/>
+                <rect x="0" y="230" width="480" height="130" fill="#e2e8f0"/>
+                <!-- buildings -->
+                <rect x="20" y="90" width="140" height="140" rx="5" fill="#cbd5e1" stroke="#94a3b8" stroke-width="1.2"/>
+                <rect x="34" y="104" width="50" height="38" rx="3" fill="#fff" stroke="#94a3b8"/>
+                <rect x="96" y="104" width="50" height="38" rx="3" fill="#fff" stroke="#94a3b8"/>
+                <rect x="34" y="155" width="112" height="58" rx="3" fill="#fff" stroke="#94a3b8"/>
+                <polyline points="6,90 90,52 174,90" fill="none" stroke="#64748b" stroke-width="1.5"/>
+                <rect x="175" y="120" width="85" height="110" rx="4" fill="#dde4ef" stroke="#94a3b8" stroke-width="1.2"/>
+                <rect x="186" y="132" width="26" height="26" rx="2" fill="#fff" stroke="#94a3b8"/>
+                <rect x="222" y="132" width="26" height="26" rx="2" fill="#fff" stroke="#94a3b8"/>
+                <rect x="186" y="170" width="62" height="48" rx="2" fill="#fff" stroke="#94a3b8"/>
+                <polyline points="162,120 217,92 272,120" fill="none" stroke="#64748b" stroke-width="1.5"/>
+                <!-- chapel -->
+                <rect x="290" y="80" width="160" height="150" rx="6" fill="#c8d4e8" stroke="#94a3b8" stroke-width="1.2"/>
+                <rect x="304" y="96" width="58" height="46" rx="3" fill="#fff" stroke="#94a3b8"/>
+                <rect x="374" y="96" width="58" height="46" rx="3" fill="#fff" stroke="#94a3b8"/>
+                <rect x="304" y="153" width="128" height="62" rx="3" fill="#fff" stroke="#94a3b8"/>
+                <!-- cross on chapel -->
+                <line x1="370" y1="55" x2="370" y2="88" stroke="#8b0000" stroke-width="3" stroke-linecap="round"/>
+                <line x1="355" y1="66" x2="385" y2="66" stroke="#8b0000" stroke-width="3" stroke-linecap="round"/>
+                <polyline points="275,80 370,40 465,80" fill="none" stroke="#64748b" stroke-width="1.5"/>
+                <!-- students -->
+                <circle cx="80" cy="256" r="9" fill="#475569"/>
+                <rect x="74" y="265" width="12" height="22" rx="3" fill="#64748b"/>
+                <circle cx="120" cy="252" r="9" fill="#334155"/>
+                <rect x="114" y="261" width="12" height="22" rx="3" fill="#475569"/>
+                <circle cx="350" cy="255" r="9" fill="#475569"/>
+                <rect x="344" y="264" width="12" height="22" rx="3" fill="#64748b"/>
+                <!-- flag -->
+                <line x1="240" y1="230" x2="240" y2="168" stroke="#64748b" stroke-width="2.5"/>
+                <rect x="240" y="168" width="38" height="24" rx="2" fill="#0071e3" opacity=".75"/>
+                <!-- trees -->
+                <ellipse cx="22" cy="218" rx="17" ry="24" fill="#86efac" opacity=".7"/>
+                <ellipse cx="458" cy="213" rx="20" ry="27" fill="#86efac" opacity=".65"/>
+                <!-- ground line -->
+                <line x1="0" y1="230" x2="480" y2="230" stroke="#94a3b8"/>
+              </svg>
+              <div class="corner tl"></div>
+              <div class="corner br"></div>
+            </div>
+            <div class="why-quote">
+              <div class="why-quote-mark">"</div>
+              <div class="why-quote-text">Education is the greatest equaliser. At ANSEC, every donation helps a deserving student step into the future they were born for.</div>
+              <div class="why-quote-author">— ANSEC Alumni Association</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: three pillars -->
+        <div class="rv-r">
+          <p class="body-text">Anum Presbyterian Senior High School has been a beacon of excellence for over eight decades. But sustaining that excellence requires more than government allocation — it requires the commitment of alumni, parents, the church, and friends who believe in the mission.</p>
+          <p class="body-text" style="margin-top:1rem">Your generosity directly funds the resources, spaces, and opportunities that help our students thrive — academically, spiritually, and as citizens.</p>
+
+          <div class="why-pillars" style="margin-top:2rem">
+            <div class="pillar rv">
+              <div class="pillar-icon red"><i class="ri-graduation-cap-line"></i></div>
+              <div>
+                <div class="pillar-title">Bursaries &amp; Scholarships</div>
+                <div class="pillar-desc">Many brilliant students cannot afford fees. Gifts to the bursary fund keep deserving students in school and on the path to success.</div>
+              </div>
+            </div>
+            <div class="pillar rv">
+              <div class="pillar-icon blue"><i class="ri-flask-line"></i></div>
+              <div>
+                <div class="pillar-title">Science &amp; Technology Labs</div>
+                <div class="pillar-desc">Modern labs equipped with up-to-date instruments mean students graduate ready for university and the workforce.</div>
+              </div>
+            </div>
+            <div class="pillar rv">
+              <div class="pillar-icon blue2"><i class="ri-cross-line"></i></div>
+              <div>
+                <div class="pillar-title">Faith &amp; Character Infrastructure</div>
+                <div class="pillar-desc">The chapel, chaplaincy programmes, and character formation activities form the spiritual backbone of the ANSEC experience.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     §3  GIVING AREAS
+═══════════════════════════════════════════════════════════ -->
+<section id="areas">
+  <div class="wrap">
+    <div class="areas-inner">
+
+      <div style="text-align:center;max-width:600px;margin-inline:auto" class="rv">
+        <div class="section-tag">Where Your Gift Goes</div>
+        <h2 class="section-heading">Choose an <em>Area to Support</em></h2>
+        <p class="section-subheading">Every giving area channels your donation to where it's needed most. Click any card to mark it as your preferred focus — or leave it general and we'll direct it to the greatest need.</p>
+      </div>
+
+      <div class="areas-grid">
+
+        <div class="area-card rv" data-area="academics" tabindex="0" role="button" aria-pressed="false">
+          <div class="area-thumb academics">
+            <i class="ri-book-open-line" style="color:#0071e3;opacity:.6"></i>
+            <div class="area-check"><i class="ri-check-line"></i></div>
+          </div>
+          <div class="area-body">
+            <div class="area-title">Academic Excellence</div>
+            <div class="area-desc">Textbooks, e-learning resources, teaching aids, and classroom upgrades for all six departments.</div>
+          </div>
+        </div>
+
+        <div class="area-card rv" data-area="bursary" tabindex="0" role="button" aria-pressed="false">
+          <div class="area-thumb bursary">
+            <i class="ri-hand-heart-line" style="color:#059669;opacity:.6"></i>
+            <div class="area-check"><i class="ri-check-line"></i></div>
+          </div>
+          <div class="area-body">
+            <div class="area-title">Student Bursary Fund</div>
+            <div class="area-desc">Fee support and hardship grants ensuring financial need is never a barrier to ANSEC education.</div>
+          </div>
+        </div>
+
+        <div class="area-card rv" data-area="faith" tabindex="0" role="button" aria-pressed="false">
+          <div class="area-thumb faith">
+            <i class="ri-building-line" style="color:#8b0000;opacity:.55"></i>
+            <div class="area-check"><i class="ri-check-line"></i></div>
+          </div>
+          <div class="area-body">
+            <div class="area-title">Chaplaincy &amp; Chapel</div>
+            <div class="area-desc">Chapel renovation, worship equipment, devotional materials, and pastoral counselling services.</div>
+          </div>
+        </div>
+
+        <div class="area-card rv" data-area="library" tabindex="0" role="button" aria-pressed="false">
+          <div class="area-thumb library">
+            <i class="ri-library-line" style="color:#7c3aed;opacity:.55"></i>
+            <div class="area-check"><i class="ri-check-line"></i></div>
+          </div>
+          <div class="area-body">
+            <div class="area-title">Library &amp; Digital Resources</div>
+            <div class="area-desc">Books, journals, computers, internet access, and a modern reading environment for all students.</div>
+          </div>
+        </div>
+
+        <div class="area-card rv" data-area="sports" tabindex="0" role="button" aria-pressed="false">
+          <div class="area-thumb sports">
+            <i class="ri-football-line" style="color:#ea580c;opacity:.55"></i>
+            <div class="area-check"><i class="ri-check-line"></i></div>
+          </div>
+          <div class="area-body">
+            <div class="area-title">Sports &amp; Recreation</div>
+            <div class="area-desc">Equipment, playing fields, fitness facilities, and inter-school competition funding for the athletics program.</div>
+          </div>
+        </div>
+
+        <div class="area-card rv" data-area="infra" tabindex="0" role="button" aria-pressed="false">
+          <div class="area-thumb infra">
+            <i class="ri-building-4-line" style="color:#0891b2;opacity:.55"></i>
+            <div class="area-check"><i class="ri-check-line"></i></div>
+          </div>
+          <div class="area-body">
+            <div class="area-title">Infrastructure &amp; Campus</div>
+            <div class="area-desc">Classrooms, dormitories, sanitation, kitchen, and campus beautification projects.</div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     §4  DONATION FORM
+═══════════════════════════════════════════════════════════ -->
+<section id="donate">
+  <div class="donate-glow1" aria-hidden="true"></div>
+  <div class="donate-glow2" aria-hidden="true"></div>
+  <div class="donate-grid-bg" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="donate-inner">
+      <div class="donate-layout">
+
+        <!-- Left: context + impact equivalents -->
+        <div class="donate-context rv-l">
+          <div class="section-tag" style="justify-content:flex-start">
+            <span style="width:32px;height:1.5px;background:var(--accent);display:block;border-radius:1px;opacity:.6"></span>
+            Your Donation
+          </div>
+          <h2 class="section-heading">Every Cedi <em>Counts</em></h2>
+          <p class="section-subheading">See what your gift can do for an ANSEC student. No amount is too small — together, we build something lasting.</p>
+
+          <div class="impact-list">
+            <div class="impact-item rv">
+              <div class="impact-icon"><i class="ri-book-2-line"></i></div>
+              <div>
+                <div class="impact-amt">GHS 50</div>
+                <div class="impact-desc">Buys a complete set of SHS textbooks for one subject area</div>
+              </div>
+            </div>
+            <div class="impact-item rv">
+              <div class="impact-icon"><i class="ri-flask-line"></i></div>
+              <div>
+                <div class="impact-amt">GHS 200</div>
+                <div class="impact-desc">Stocks a laboratory bench with reagents for a full term of practicals</div>
+              </div>
+            </div>
+            <div class="impact-item rv">
+              <div class="impact-icon"><i class="ri-user-heart-line"></i></div>
+              <div>
+                <div class="impact-amt">GHS 500</div>
+                <div class="impact-desc">Covers one student's term fees through the bursary fund</div>
+              </div>
+            </div>
+            <div class="impact-item rv">
+              <div class="impact-icon"><i class="ri-computer-line"></i></div>
+              <div>
+                <div class="impact-amt">GHS 2,000</div>
+                <div class="impact-desc">Funds a refurbished laptop for the school's computer lab</div>
+              </div>
+            </div>
+            <div class="impact-item rv">
+              <div class="impact-icon"><i class="ri-building-line"></i></div>
+              <div>
+                <div class="impact-amt">GHS 5,000<sup>+</sup></div>
+                <div class="impact-desc">Makes you a named benefactor supporting a classroom renovation</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: form -->
+        <div class="rv-r">
+          <div class="donate-form-card">
+            <div class="form-title">Make Your Gift <em>Today</em></div>
+
+            <!-- Amount presets -->
+            <div class="amount-grid" role="group" aria-label="Select donation amount">
+              <button class="amt-btn" data-amt="50">GHS 50</button>
+              <button class="amt-btn active" data-amt="100">GHS 100</button>
+              <button class="amt-btn" data-amt="200">GHS 200</button>
+              <button class="amt-btn" data-amt="500">GHS 500</button>
+              <button class="amt-btn" data-amt="1000">GHS 1,000</button>
+              <button class="amt-btn" data-amt="other">Other</button>
+            </div>
+
+            <!-- Custom amount (hidden until "Other" is clicked) -->
+            <div class="custom-amt-wrap" id="customAmtWrap" style="display:none">
+              <span class="custom-prefix">₵</span>
+              <input type="number" class="custom-amt-input" id="customAmt" placeholder="Enter amount (GHS)" min="1" aria-label="Custom donation amount"/>
+            </div>
+
+            <!-- Frequency -->
+            <div class="freq-row" role="group" aria-label="Donation frequency">
+              <button class="freq-btn active" data-freq="once">One-time</button>
+              <button class="freq-btn" data-freq="monthly">Monthly</button>
+              <button class="freq-btn" data-freq="termly">Termly</button>
+              <button class="freq-btn" data-freq="annual">Annual</button>
+            </div>
+
+            <div class="form-divider"><span class="form-divider-text">Your Details</span></div>
+
+            <!-- Donor fields -->
+            <div class="field-row">
+              <div class="field">
+                <label for="fName">First Name</label>
+                <input type="text" id="fName" placeholder="Kwame" autocomplete="given-name"/>
+              </div>
+              <div class="field">
+                <label for="lName">Last Name</label>
+                <input type="text" id="lName" placeholder="Mensah" autocomplete="family-name"/>
+              </div>
+            </div>
+            <div class="field">
+              <label for="fEmail">Email Address</label>
+              <input type="email" id="fEmail" placeholder="kwame@example.com" autocomplete="email"/>
+            </div>
+            <div class="field">
+              <label for="fPhone">Phone (Mobile Money)</label>
+              <input type="tel" id="fPhone" placeholder="+233 24 XXX XXXX" autocomplete="tel"/>
+            </div>
+            <div class="field">
+              <label for="fArea">Giving Area</label>
+              <select id="fArea">
+                <option value="">Where needed most</option>
+                <option value="academics">Academic Excellence</option>
+                <option value="bursary">Student Bursary Fund</option>
+                <option value="faith">Chaplaincy &amp; Chapel</option>
+                <option value="library">Library &amp; Digital Resources</option>
+                <option value="sports">Sports &amp; Recreation</option>
+                <option value="infra">Infrastructure &amp; Campus</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="fNote">Message (optional)</label>
+              <textarea id="fNote" placeholder="Dedicated in honour of... / In memory of..."></textarea>
+            </div>
+
+            <div class="check-row">
+              <input type="checkbox" id="chkAnon"/>
+              <label class="check-label" for="chkAnon">Make my gift anonymous</label>
+            </div>
+            <div class="check-row">
+              <input type="checkbox" id="chkUpdates" checked/>
+              <label class="check-label" for="chkUpdates">Send me updates on how my donation is being used</label>
+            </div>
+            <div class="check-row">
+              <input type="checkbox" id="chkTerms"/>
+              <label class="check-label" for="chkTerms">I agree to the <a href="#">Donation Terms</a> and understand my gift is non-refundable</label>
+            </div>
+
+            <button class="donate-submit" id="donateSubmit" type="button">
+              <i class="ri-heart-3-fill"></i> Donate <span id="submitAmt">GHS 100</span>
+            </button>
+            <p class="form-note">
+              <i class="ri-shield-check-line"></i>
+              Your information is secure. All donations go directly to ANSEC students.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     §5  MOBILE MONEY & BANK TRANSFER
+═══════════════════════════════════════════════════════════ -->
+<section id="mobile-money">
+  <div class="wrap">
+    <div class="mm-inner">
+
+      <div style="text-align:center;max-width:600px;margin-inline:auto;margin-bottom:3rem" class="rv">
+        <div class="section-tag">Direct Transfer</div>
+        <h2 class="section-heading">Pay via <em>Mobile Money</em> or Bank</h2>
+        <p class="section-subheading">Prefer to donate directly? Send to any of the numbers or accounts below, then WhatsApp us your name and amount for receipt.</p>
+      </div>
+
+      <div class="mm-layout">
+        <!-- Left: mobile money -->
+        <div class="rv-l">
+          <div class="mm-cards">
+
+            <div class="mm-card">
+              <div class="mm-logo mtn">MTN</div>
+              <div class="mm-info">
+                <div class="mm-name">MTN Mobile Money</div>
+                <div class="mm-number">024 XXX XXXX</div>
+                <div class="mm-name2">Account Name: ANSEC School Fund</div>
+              </div>
+              <button class="mm-copy" data-copy="024XXXXXXXX" aria-label="Copy MTN number">
+                <i class="ri-file-copy-line"></i>
+              </button>
+            </div>
+
+            <div class="mm-card">
+              <div class="mm-logo vodafone" style="font-size:.8rem;font-family:var(--sans);font-weight:900">VODA</div>
+              <div class="mm-info">
+                <div class="mm-name">Vodafone Cash</div>
+                <div class="mm-number">050 XXX XXXX</div>
+                <div class="mm-name2">Account Name: ANSEC School Fund</div>
+              </div>
+              <button class="mm-copy" data-copy="050XXXXXXXX" aria-label="Copy Vodafone number">
+                <i class="ri-file-copy-line"></i>
+              </button>
+            </div>
+
+            <div class="mm-card">
+              <div class="mm-logo airteltigo" style="font-size:.72rem;font-family:var(--sans);font-weight:900">A-T</div>
+              <div class="mm-info">
+                <div class="mm-name">AirtelTigo Money</div>
+                <div class="mm-number">057 XXX XXXX</div>
+                <div class="mm-name2">Account Name: ANSEC School Fund</div>
+              </div>
+              <button class="mm-copy" data-copy="057XXXXXXXX" aria-label="Copy AirtelTigo number">
+                <i class="ri-file-copy-line"></i>
+              </button>
+            </div>
+
+            <div class="mm-card">
+              <div class="mm-logo bank"><i class="ri-bank-line" style="font-size:1.1rem"></i></div>
+              <div class="mm-info">
+                <div class="mm-name">WhatsApp Confirmation</div>
+                <div class="mm-number">+233 XX XXX XXXX</div>
+                <div class="mm-name2">Send name + amount for official receipt</div>
+              </div>
+              <button class="mm-copy" data-copy="+233XXXXXXXXX" aria-label="Copy WhatsApp number">
+                <i class="ri-file-copy-line"></i>
+              </button>
+            </div>
+
+          </div><!-- /mm-cards -->
+        </div>
+
+        <!-- Right: bank transfer details -->
+        <div class="rv-r">
+          <p class="body-text" style="margin-bottom:1.5rem">For larger gifts, institutional donations, or if you prefer bank transfer, use the details below. Please include your name and "ANSEC Donation" in the narration.</p>
+
+          <div class="bank-details">
+            <div style="font-family:var(--sans);font-size:.7rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--text-xmuted);margin-bottom:1rem;display:flex;align-items:center;gap:.5rem">
+              <i class="ri-bank-line"></i> Bank Account Details
+            </div>
+            <div class="bank-row">
+              <span class="bank-lbl">Bank</span>
+              <span class="bank-val">GCB Bank Limited</span>
+            </div>
+            <div class="bank-row">
+              <span class="bank-lbl">Account Name</span>
+              <span class="bank-val">Anum Presbyterian SHS</span>
+            </div>
+            <div class="bank-row">
+              <span class="bank-lbl">Account Number</span>
+              <span class="bank-val">XXXX XXXX XXXX</span>
+            </div>
+            <div class="bank-row">
+              <span class="bank-lbl">Branch</span>
+              <span class="bank-val">Anum Branch</span>
+            </div>
+            <div class="bank-row">
+              <span class="bank-lbl">Swift / Sort Code</span>
+              <span class="bank-val">GHCBGHAC</span>
+            </div>
+            <div class="bank-row">
+              <span class="bank-lbl">Narration</span>
+              <span class="bank-val">ANSEC Donation – [Your Name]</span>
+            </div>
+          </div>
+
+          <p style="font-family:var(--sans);font-size:.78rem;color:var(--text-muted);margin-top:1rem;line-height:1.6">
+            <i class="ri-information-line" style="color:var(--accent)"></i>
+            All donors who provide contact details will receive an acknowledgement letter for tax purposes where applicable.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     §6  IMPACT NUMBERS
+═══════════════════════════════════════════════════════════ -->
+<section id="impact">
+  <div class="impact-bg-glow" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="impact-inner">
+      <div style="text-align:center;max-width:600px;margin-inline:auto" class="rv">
+        <div class="section-tag" style="color:rgba(0,180,255,.7)">
+          <span style="background:rgba(0,180,255,.5);width:32px;height:1.5px;display:block;border-radius:1px"></span>
+          Impact So Far
+          <span style="background:rgba(0,180,255,.5);width:32px;height:1.5px;display:block;border-radius:1px"></span>
+        </div>
+        <h2 class="section-heading" style="color:#fff">What <em style="color:#7dd3fc">Donors Like You</em><br/>Have Already Done</h2>
+        <p class="section-subheading" style="color:rgba(200,220,240,.6)">Giving to ANSEC is not new — it is a tradition. Here is what past generosity has made possible.</p>
+      </div>
+      <div class="impact-nums">
+        <div class="in-cell rv">
+          <div class="in-n">500<sup>+</sup></div>
+          <div class="in-l">Bursary Students</div>
+          <div class="in-s">who wouldn't have stayed</div>
+        </div>
+        <div class="in-cell rv">
+          <div class="in-n">3</div>
+          <div class="in-l">Laboratories Renovated</div>
+          <div class="in-s">Science, ICT &amp; Home Econ</div>
+        </div>
+        <div class="in-cell rv">
+          <div class="in-n">12<sup>k+</sup></div>
+          <div class="in-l">Books in Library</div>
+          <div class="in-s">donated over the decades</div>
+        </div>
+        <div class="in-cell rv">
+          <div class="in-n">128<sup>yr</sup></div>
+          <div class="in-l">Continuous Service</div>
+          <div class="in-s">shaped by community support</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     §7  TESTIMONIAL
+═══════════════════════════════════════════════════════════ -->
+<section id="testimonial">
+  <div class="wrap">
+    <div class="testi-inner">
+      <div class="testi-layout">
+
+        <!-- Left: photo -->
+        <div class="rv-l">
+          <div class="testi-vis">
+            <div class="testi-img-box">
+              <!--
+                IMAGE: Replace SVG with student/beneficiary photo
+                <img src="../assets/images/bursary-student.jpg"
+                     alt="ANSEC bursary recipient"
+                     loading="lazy"
+                     style="width:100%;height:100%;object-fit:cover;object-position:center top"/>
+              -->
+              <svg viewBox="0 0 320 426" xmlns="http://www.w3.org/2000/svg">
+                <rect width="320" height="426" fill="#0f2744"/>
+                <rect x="0" y="280" width="320" height="146" fill="#0a1929"/>
+                <ellipse cx="160" cy="130" rx="80" ry="80" fill="#1a3a5c"/>
+                <!-- person silhouette -->
+                <circle cx="160" cy="110" r="38" fill="#2d5278"/>
+                <path d="M72 300 C72 240 248 240 248 300" fill="#2d5278"/>
+                <!-- graduation cap -->
+                <polygon points="160,55 200,75 160,95 120,75" fill="rgba(255,255,255,.35)"/>
+                <rect x="155" y="75" width="10" height="20" fill="rgba(255,255,255,.3)"/>
+                <!-- glow -->
+                <ellipse cx="160" cy="160" rx="100" ry="60" fill="rgba(0,113,227,.08)"/>
+              </svg>
+            </div>
+            <div class="testi-badge">
+              <div class="tb-num">2024</div>
+              <div class="tb-lbl">Bursary Recipient</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: quote -->
+        <div class="rv-r">
+          <div class="testi-content">
+            <div>
+              <div class="section-tag" style="justify-content:flex-start">
+                <span style="width:32px;height:1.5px;background:var(--accent);display:block;border-radius:1px;opacity:.6"></span>
+                A Student's Story
+              </div>
+              <h2 class="section-heading">The Gift That <em>Kept Me in School</em></h2>
+            </div>
+            <div class="testi-quote">
+              <div class="testi-qm">"</div>
+              <p class="testi-text">I almost had to drop out in SHS 2. My mother had lost her job and there was simply no money for fees. Then the school's bursary committee came through — funded by people I had never met who believed in students like me. That gift didn't just keep me in school. It kept my dream alive. I am now in my first year at UG studying Medicine, and I owe it in part to those unnamed donors who decided a stranger's future was worth investing in.</p>
+              <div class="testi-author">
+                <div class="testi-avatar">AK</div>
+                <div>
+                  <div class="testi-name">Abena Kyei</div>
+                  <div class="testi-role">ANSEC Class of 2024 · University of Ghana, Medicine</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     §8  CLOSING CTA
+═══════════════════════════════════════════════════════════ -->
+<section id="closing">
+  <div class="cl-glow" aria-hidden="true"></div>
+  <div class="cl-pattern" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="cl-inner rv">
+      <div class="cl-eyebrow">Join the Movement</div>
+      <h2 class="cl-h">Be Part of ANSEC's <em>Next Chapter</em></h2>
+      <p class="cl-sub">Every student who walks through our gates carries the legacy of those who gave before. Your gift today writes the next line of that story.</p>
+      <div class="cl-acts">
+        <a href="#donate" class="btn-white">
+          <i class="ri-heart-3-fill"></i> Donate Now
+        </a>
+        <a href="alumni.html" class="btn-ghost-white">
+          <i class="ri-user-star-line"></i> Alumni Portal
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+</main>
+
+<!-- ── Toast ─── -->
+<div class="toast" id="toast" role="alert" aria-live="polite">
+  <i class="ri-checkbox-circle-line"></i>
+  <span id="toastMsg">Copied to clipboard!</span>
+</div>
+
+<!-- ── Thank-you overlay ─── -->
+<div class="ty-overlay" id="tyOverlay" role="dialog" aria-modal="true" aria-labelledby="tyTitle">
+  <div class="ty-card">
+    <div class="ty-icon"><i class="ri-heart-3-fill"></i></div>
+    <h2 class="ty-h" id="tyTitle">Thank You, <em id="tyName">Friend</em>!</h2>
+    <p class="ty-p">Your generosity means the world to ANSEC students. We will be in touch with a confirmation and updates on how your gift is making a difference.</p>
+    <p class="ty-p" style="margin-top:.8rem;font-size:.85rem;color:var(--text-muted);font-style:normal">To complete your donation via Mobile Money or bank transfer, please use the details in the <a href="#mobile-money" style="color:var(--accent)">Direct Transfer</a> section.</p>
+    <button class="ty-close" id="tyClose">Close</button>
+  </div>
+</div>
+
+<script>
+(function(){
+  'use strict';
+  const $ = (sel,ctx=document)=>ctx.querySelector(sel);
+  const $$ = (sel,ctx=document)=>[...ctx.querySelectorAll(sel)];
+  const isMobile = ()=>window.innerWidth<=992;
+
+  /* ── Touch detection ── */
+  if(!('ontouchstart' in window)&&navigator.maxTouchPoints===0){
+    document.body.classList.add('no-touch');
+  }
+
+  /* ── Nav ── */
+  const navbar=$('#navbar'),toggle=$('#navToggle'),menu=$('#navMenu'),closeBtn=$('#navClose'),overlay=$('#navOverlay');
+  let menuOpen=false,scrolled=false;
+  function openMenu(){menuOpen=true;menu.classList.add('open');overlay.classList.add('visible');toggle.setAttribute('aria-expanded','true');document.body.classList.add('menu-open');setTimeout(()=>{closeBtn&&closeBtn.focus();},80);}
+  function closeMenu(){if(!menuOpen)return;menuOpen=false;menu.classList.remove('open');overlay.classList.remove('visible');toggle.setAttribute('aria-expanded','false');document.body.classList.remove('menu-open');toggle.focus();}
+  toggle&&toggle.addEventListener('click',e=>{e.stopPropagation();menuOpen?closeMenu():openMenu();});
+  closeBtn&&closeBtn.addEventListener('click',closeMenu);
+  overlay&&overlay.addEventListener('click',closeMenu);
+
+  function closeAllDropdowns(except=null){$$('.nav-item.has-dropdown.open').forEach(item=>{if(item===except)return;item.classList.remove('open');const t=$('.dropdown-toggle',item);if(t)t.setAttribute('aria-expanded','false');});}
+  $$('.dropdown-toggle').forEach(btn=>{
+    btn.addEventListener('click',e=>{
+      e.preventDefault();e.stopPropagation();
+      const item=btn.closest('.nav-item');const isOpen=item.classList.contains('open');
+      if(isMobile()){closeAllDropdowns(isOpen?null:item);}else{closeAllDropdowns(item);}
+      if(isOpen){item.classList.remove('open');btn.setAttribute('aria-expanded','false');}
+      else{item.classList.add('open');btn.setAttribute('aria-expanded','true');}
+    });
+  });
+  document.addEventListener('click',e=>{if(navbar&&!navbar.contains(e.target)){closeAllDropdowns();if(isMobile())closeMenu();}});
+  window.addEventListener('scroll',()=>{const y=window.scrollY;if(y>40&&!scrolled){navbar.classList.add('scrolled');scrolled=true;}else if(y<=40&&scrolled){navbar.classList.remove('scrolled');scrolled=false;}},{passive:true});
+  let rt;window.addEventListener('resize',()=>{clearTimeout(rt);rt=setTimeout(()=>{if(!isMobile()){closeMenu();closeAllDropdowns();}},200);});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'){if(menuOpen){closeMenu();return;}closeAllDropdowns();}});
+
+  /* ── Scroll reveal ── */
+  const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target);}});},{threshold:0.08,rootMargin:'0px 0px -40px 0px'});
+  $$('.rv,.rv-l,.rv-r').forEach((el,i)=>{el.style.transitionDelay=(i%6)*0.07+'s';obs.observe(el);});
+
+  /* ── Footer year ── */
+  const fyEl=$('#footerYear');if(fyEl)fyEl.textContent=new Date().getFullYear();
+
+  /* ── Toast helper ── */
+  const toastEl=$('#toast'),toastMsg=$('#toastMsg');
+  let toastTimer;
+  function showToast(msg){
+    toastMsg.textContent=msg;toastEl.classList.add('show');
+    clearTimeout(toastTimer);toastTimer=setTimeout(()=>toastEl.classList.remove('show'),2800);
+  }
+
+  /* ── Copy buttons (Mobile Money) ── */
+  $$('.mm-copy').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      const num=btn.dataset.copy||'';
+      navigator.clipboard.writeText(num).then(()=>{
+        btn.innerHTML='<i class="ri-check-line"></i>';
+        btn.classList.add('copied');
+        showToast('Number copied to clipboard!');
+        setTimeout(()=>{btn.innerHTML='<i class="ri-file-copy-line"></i>';btn.classList.remove('copied');},2000);
+      }).catch(()=>showToast('Copy failed — please copy manually.'));
+    });
+  });
+
+  /* ── Area cards (giving areas) ── */
+  let selectedArea='';
+  $$('.area-card').forEach(card=>{
+    function toggleCard(){
+      const isSelected=card.classList.contains('selected');
+      $$('.area-card').forEach(c=>{c.classList.remove('selected');c.setAttribute('aria-pressed','false');});
+      if(!isSelected){
+        card.classList.add('selected');
+        card.setAttribute('aria-pressed','true');
+        selectedArea=card.dataset.area||'';
+        // Sync with form select
+        const fArea=$('#fArea');
+        if(fArea&&selectedArea)fArea.value=selectedArea;
+      }else{selectedArea='';const fArea=$('#fArea');if(fArea)fArea.value='';}
+    }
+    card.addEventListener('click',toggleCard);
+    card.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();toggleCard();}});
+  });
+
+  /* ── Amount presets ── */
+  let selectedAmt=100;
+  const submitAmtEl=$('#submitAmt');
+  function updateSubmitBtn(){
+    if(submitAmtEl){
+      submitAmtEl.textContent=selectedAmt==='other'?'Your Amount':'GHS '+Number(selectedAmt).toLocaleString();
+    }
+  }
+  $$('.amt-btn').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      $$('.amt-btn').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      selectedAmt=btn.dataset.amt;
+      const wrap=$('#customAmtWrap');
+      if(wrap)wrap.style.display=selectedAmt==='other'?'block':'none';
+      if(selectedAmt!=='other')updateSubmitBtn();
+      else if(submitAmtEl)submitAmtEl.textContent='Your Amount';
+    });
+  });
+  const customAmtInput=$('#customAmt');
+  customAmtInput&&customAmtInput.addEventListener('input',()=>{
+    const v=parseFloat(customAmtInput.value)||0;
+    if(submitAmtEl)submitAmtEl.textContent=v>0?'GHS '+v.toLocaleString():'Your Amount';
+  });
+  updateSubmitBtn();
+
+  /* ── Frequency buttons ── */
+  $$('.freq-btn').forEach(btn=>{
+    btn.addEventListener('click',()=>{$$('.freq-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');});
+  });
+
+  /* ── Donate submit ── */
+  const tyOverlay=$('#tyOverlay'),tyName=$('#tyName'),tyClose=$('#tyClose');
+  $('#donateSubmit')&&$('#donateSubmit').addEventListener('click',()=>{
+    const terms=$('#chkTerms');
+    if(terms&&!terms.checked){showToast('Please agree to the donation terms first.');return;}
+    const fname=($('#fName')&&$('#fName').value.trim())||'Friend';
+    if(tyName)tyName.textContent=fname;
+    if(tyOverlay)tyOverlay.classList.add('show');
+    document.body.classList.add('menu-open');// lock scroll
+  });
+  tyClose&&tyClose.addEventListener('click',()=>{tyOverlay.classList.remove('show');document.body.classList.remove('menu-open');});
+  tyOverlay&&tyOverlay.addEventListener('click',e=>{if(e.target===tyOverlay){tyOverlay.classList.remove('show');document.body.classList.remove('menu-open');}});
+
+})();
+</script>
+
+  <div id="ansec-footer"></div>
+<script src="/assets/js/ansec-layout.js" defer></script>
+</body>
+</html>

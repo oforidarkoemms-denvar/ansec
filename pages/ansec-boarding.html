@@ -1,0 +1,1388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Boarding &amp; Pastoral Care — ANSEC</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,900;1,400;1,600&family=Lora:ital,wght@0,400;0,500;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet"/>
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet"/>
+  <style>
+    /* ═══════════════════════════════════════════════
+       DESIGN TOKENS
+    ═══════════════════════════════════════════════ */
+    :root {
+      --accent:        #0071e3;
+      --accent-soft:   rgba(0,113,227,.08);
+      --accent-mid:    rgba(0,113,227,.18);
+      --presby-red:    #8b0000;
+      --gold:          #d4af37;
+      --gold-soft:     rgba(212,175,55,.13);
+      --warm:          #b45309;
+      --warm-soft:     rgba(180,83,9,.09);
+      --grad-btn:      linear-gradient(to right,#00b4ff,#6a00ff);
+      --bg-page:       #f4f6f9;
+      --bg-white:      #ffffff;
+      --bg-dark:       #060f1e;
+      --bg-darkblue:   #071428;
+      --text-primary:  #0d1b2a;
+      --text-body:     #3a4a5c;
+      --text-muted:    #7a8fa6;
+      --text-xmuted:   #a8b8cc;
+      --serif:  'Playfair Display',Georgia,serif;
+      --lora:   'Lora',Georgia,serif;
+      --sans:   'DM Sans',system-ui,sans-serif;
+      --radius:    12px;
+      --radius-lg: 18px;
+      --radius-sm:  8px;
+      --shadow-soft: 0 2px 16px rgba(0,0,0,.06);
+      --shadow-card: 0 2px 12px rgba(0,0,0,.05),0 6px 28px rgba(0,0,0,.05);
+      --shadow-lift: 0 8px 32px rgba(0,0,0,.10);
+      --tr: .28s cubic-bezier(.22,1,.36,1);
+      --topbar-height:  56px;
+      --navbar-height:  64px;
+      --header-total:  120px;
+    }
+
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:var(--sans);background:var(--bg-page);color:var(--text-primary);line-height:1.7;-webkit-font-smoothing:antialiased}
+
+    /* ─── layout wrappers ─── */
+    .section{max-width:1360px;padding-inline:1.75rem;margin-inline:auto}
+    .section-inner{padding-block:5.5rem}
+    .section-inner-sm{padding-block:4rem}
+
+    /* ─── atoms ─── */
+    .section-tag{display:flex;align-items:center;justify-content:center;gap:.55rem;font-family:var(--sans);font-size:.63rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);margin-bottom:.9rem}
+    .section-tag::before,.section-tag::after{content:'';display:block;width:32px;height:1.5px;background:var(--accent);border-radius:1px;opacity:.55}
+    .section-heading{font-family:var(--serif);font-size:clamp(1.9rem,3.2vw,2.85rem);font-weight:700;line-height:1.18;color:var(--text-primary)}
+    .section-heading em{font-style:italic;color:var(--accent)}
+    .section-subheading{font-family:var(--sans);font-size:.97rem;font-weight:300;color:var(--text-muted);margin-top:.65rem;line-height:1.75;max-width:600px}
+    .body-text{font-family:var(--lora);font-size:.97rem;color:var(--text-body);line-height:1.88}
+    .body-text+.body-text{margin-top:1rem}
+    hr.rule{border:none;height:1px;background:linear-gradient(to right,transparent,rgba(0,113,227,.12),transparent);margin-block:0}
+
+    /* ─── buttons ─── */
+    .btn-gradient{display:inline-flex;align-items:center;gap:.5rem;padding:.78rem 1.9rem;border-radius:999px;background:var(--grad-btn);color:#fff;font-family:var(--sans);font-size:.87rem;font-weight:600;text-decoration:none;border:none;cursor:pointer;box-shadow:0 5px 22px rgba(106,0,255,.2);transition:transform var(--tr),box-shadow var(--tr);position:relative;overflow:hidden}
+    .btn-gradient::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.14),transparent)}
+    .btn-gradient:hover{transform:translateY(-2px);box-shadow:0 10px 34px rgba(106,0,255,.3)}
+    .btn-outline{display:inline-flex;align-items:center;gap:.5rem;padding:.76rem 1.8rem;border-radius:999px;background:transparent;color:var(--accent);font-family:var(--sans);font-size:.87rem;font-weight:600;text-decoration:none;border:1.5px solid var(--accent);cursor:pointer;transition:background var(--tr),color var(--tr)}
+    .btn-outline:hover{background:var(--accent);color:#fff}
+    .btn-outline-light{display:inline-flex;align-items:center;gap:.5rem;padding:.76rem 1.8rem;border-radius:999px;background:transparent;color:rgba(210,230,255,.7);font-family:var(--sans);font-size:.87rem;font-weight:500;text-decoration:none;border:1.5px solid rgba(0,113,227,.35);cursor:pointer;transition:all var(--tr)}
+    .btn-outline-light:hover{border-color:rgba(0,180,255,.6);color:#fff;background:rgba(0,113,227,.1)}
+
+    /* ─── reveal ─── */
+    .reveal,.reveal-l,.reveal-r{opacity:0;transition:opacity .72s cubic-bezier(.22,1,.36,1),transform .72s cubic-bezier(.22,1,.36,1)}
+    .reveal{transform:translateY(26px)}.reveal-l{transform:translateX(-26px)}.reveal-r{transform:translateX(26px)}
+    .reveal.in,.reveal-l.in,.reveal-r.in{opacity:1;transform:none}
+
+    /* ═══════════════════════════════════════════════
+       §1  HERO  (min-height: 80vh)
+    ═══════════════════════════════════════════════ */
+    .hero{
+      position:relative;
+      min-height:80vh;
+      display:flex;
+      align-items:center;
+      overflow:hidden;
+      background:var(--bg-darkblue);
+    }
+    /* layered atmospheric background */
+    .hero-bg{position:absolute;inset:0;z-index:0}
+    .hero-bg-gradient{
+      position:absolute;inset:0;
+      background:
+        radial-gradient(ellipse 75% 60% at 70% 35%,rgba(180,83,9,.18) 0%,transparent 65%),
+        radial-gradient(ellipse 55% 50% at 15% 70%,rgba(0,113,227,.14) 0%,transparent 65%),
+        linear-gradient(160deg,#060c1c 0%,#0a1728 45%,#080e1a 100%);
+    }
+    .hero-grid{position:absolute;inset:0;z-index:1;opacity:.025;background-image:linear-gradient(rgba(255,255,255,.5) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.5) 1px,transparent 1px);background-size:64px 64px}
+    /* warm glow orb */
+    .hero-orb{
+      position:absolute;top:-12%;right:8%;z-index:1;
+      width:520px;height:520px;border-radius:50%;
+      background:radial-gradient(circle,rgba(180,83,9,.16) 0%,transparent 70%);
+      filter:blur(40px);
+    }
+    /* cross-hatch decorative lines bottom-left */
+    .hero-lines{position:absolute;bottom:0;left:0;z-index:1;opacity:.06;pointer-events:none}
+
+    .hero-overlay{position:absolute;inset:0;z-index:2;background:linear-gradient(to bottom,rgba(4,8,18,.82) 0%,rgba(6,15,30,.4) 50%,rgba(4,8,18,.92) 100%)}
+
+    /* top accent stripe */
+    .hero-stripe{position:absolute;top:0;left:0;right:0;z-index:3;height:3px;background:linear-gradient(to right,transparent 0%,var(--warm) 20%,var(--gold) 50%,var(--warm) 80%,transparent 100%);opacity:.7}
+
+    .hero-content{
+      position:relative;z-index:4;
+      width:100%;
+      text-align:center;
+      padding-block:8rem 6.5rem;
+    }
+
+    /* ─── breadcrumb ─── */
+    .hero-breadcrumb{
+      display:flex;align-items:center;justify-content:center;
+      gap:.45rem;margin-bottom:1.8rem;
+      font-family:var(--sans);font-size:.71rem;font-weight:500;
+      color:rgba(140,175,220,.45);letter-spacing:.04em;
+      animation:hUp .8s both;
+    }
+    .hero-breadcrumb a{color:rgba(160,195,235,.5);text-decoration:none;transition:color var(--tr)}
+    .hero-breadcrumb a:hover{color:rgba(212,175,55,.85)}
+    .hero-breadcrumb i{font-size:.65rem;opacity:.4}
+    .hero-breadcrumb .crumb-cur{color:rgba(212,175,55,.7)}
+
+    /* ─── eyebrow ─── */
+    .hero-eyebrow{
+      display:flex;align-items:center;justify-content:center;gap:.55rem;
+      font-family:var(--sans);font-size:.63rem;font-weight:600;
+      letter-spacing:.24em;text-transform:uppercase;
+      color:rgba(212,175,55,.8);margin-bottom:1.3rem;
+      animation:hUp .85s .07s both;
+    }
+    .hero-eyebrow::before,.hero-eyebrow::after{content:'';display:block;width:30px;height:1.5px;background:rgba(212,175,55,.45);border-radius:1px}
+
+    /* ─── h1 ─── */
+    .hero-h1{
+      font-family:var(--serif);
+      font-size:clamp(2.4rem,5vw,4.5rem);
+      font-weight:700;color:#fff;
+      line-height:1.06;
+      max-width:880px;margin-inline:auto;
+      animation:hUp .88s .14s both;
+    }
+    .hero-h1 em{font-style:italic;color:rgba(212,175,55,.95)}
+    .hero-h1 .amp{color:rgba(255,255,255,.25);font-weight:400}
+
+    /* ─── sub ─── */
+    .hero-sub{
+      font-family:var(--lora);font-size:1.04rem;font-style:italic;
+      color:rgba(195,215,240,.58);max-width:600px;
+      margin:1.4rem auto 0;line-height:1.82;
+      animation:hUp .88s .22s both;
+    }
+
+    /* ─── stat bar ─── */
+    .hero-stats{
+      display:flex;align-items:center;justify-content:center;
+      flex-wrap:wrap;gap:0;margin-top:3.2rem;
+      border-top:1px solid rgba(212,175,55,.12);
+      border-bottom:1px solid rgba(212,175,55,.12);
+      padding-block:.5rem;
+      animation:hUp .88s .30s both;
+    }
+    .hstat{display:flex;flex-direction:column;align-items:center;flex:1;min-width:80px;padding:.9rem .7rem;border-right:1px solid rgba(212,175,55,.12)}
+    .hstat:last-child{border-right:none}
+    .hstat-num{font-family:var(--serif);font-size:2.1rem;font-weight:700;color:#fff;line-height:1;letter-spacing:-.02em}
+    .hstat-num sup{font-size:.48em;color:var(--gold);vertical-align:super}
+    .hstat-lbl{font-family:var(--sans);font-size:.63rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:rgba(160,195,230,.42);margin-top:.25rem}
+
+    /* ─── CTA row ─── */
+    .hero-cta{display:flex;align-items:center;justify-content:center;gap:1rem;flex-wrap:wrap;margin-top:2.5rem;animation:hUp .88s .38s both}
+
+    /* ─── scroll pip ─── */
+    .hero-scroll{
+      position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);
+      z-index:5;display:flex;flex-direction:column;align-items:center;gap:.4rem;
+      opacity:.35;animation:hUp .9s .55s both;pointer-events:none;
+    }
+    .hero-scroll span{font-family:var(--sans);font-size:.57rem;letter-spacing:.2em;text-transform:uppercase;color:#fff}
+    .scroll-pip{width:4px;height:22px;border:1.5px solid rgba(255,255,255,.4);border-radius:99px;overflow:hidden;position:relative}
+    .scroll-pip::after{
+      content:'';position:absolute;left:50%;top:0;
+      width:2px;height:7px;background:#fff;
+      transform:translateX(-50%);border-radius:99px;
+      animation:pip 1.6s ease-in-out infinite;
+    }
+    @keyframes pip{0%{top:0;opacity:1}80%{top:13px;opacity:0}100%{top:0;opacity:0}}
+    @keyframes hUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+
+    /* ═══════════════════════════════════════════════
+       SECTION NAV (right-side dot pip navigation)
+    ═══════════════════════════════════════════════ */
+    .sec-nav{
+      position:fixed;top:50%;right:1.75rem;
+      transform:translateY(-50%);
+      z-index:200;
+      display:flex;flex-direction:column;
+      align-items:center;gap:.55rem;
+      opacity:0;transition:opacity .5s;
+    }
+    .sec-nav.visible{opacity:1}
+    .sec-nav-pip{
+      display:block;width:6px;height:6px;border-radius:50%;
+      background:rgba(10,30,60,.22);border:1.5px solid rgba(0,113,227,.28);
+      cursor:pointer;transition:all var(--tr);position:relative;
+    }
+    .sec-nav-pip::before{
+      content:attr(data-label);
+      position:absolute;right:calc(100% + 10px);top:50%;transform:translateY(-50%);
+      font-family:var(--sans);font-size:.6rem;font-weight:600;
+      letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted);
+      white-space:nowrap;opacity:0;transition:opacity var(--tr);
+      pointer-events:none;
+    }
+    .sec-nav-pip:hover::before,.sec-nav-pip.active::before{opacity:1}
+    .sec-nav-pip.active{background:var(--accent);border-color:var(--accent);width:8px;height:8px;box-shadow:0 0 0 3px rgba(0,113,227,.18)}
+    .sec-nav-pip:hover:not(.active){background:rgba(0,113,227,.4);border-color:var(--accent)}
+    .sec-nav-line{width:1px;height:16px;background:rgba(0,113,227,.15);border-radius:1px}
+    @media(max-width:900px){.sec-nav{display:none}}
+
+    /* ═══════════════════════════════════════════════
+       §2  OVERVIEW INTRO
+    ═══════════════════════════════════════════════ */
+    #overview{scroll-margin-top:calc(var(--header-total) + 1rem)}
+    .overview-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start}
+    .overview-lead{font-family:var(--serif);font-size:clamp(1.3rem,2vw,1.7rem);font-weight:400;font-style:italic;color:var(--text-primary);line-height:1.55;margin-bottom:1.6rem;padding-left:1.4rem;border-left:3px solid var(--gold);opacity:.88}
+    .overview-badge{display:inline-flex;align-items:center;gap:.55rem;padding:.42rem 1.1rem;border-radius:999px;background:var(--gold-soft);border:1px solid rgba(212,175,55,.25);font-family:var(--sans);font-size:.67rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--warm);margin-bottom:2rem}
+    .overview-badge i{font-size:.9rem}
+    .pillars{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin-top:2rem}
+    .pillar{background:var(--bg-white);border:1px solid rgba(0,113,227,.07);border-radius:var(--radius);padding:1.1rem 1.2rem;display:flex;gap:.75rem;align-items:flex-start;box-shadow:var(--shadow-soft);transition:box-shadow var(--tr),transform var(--tr)}
+    .pillar:hover{box-shadow:var(--shadow-lift);transform:translateY(-2px)}
+    .pillar-icon{width:36px;height:36px;flex-shrink:0;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1rem;background:var(--accent-soft);color:var(--accent)}
+    .pillar-title{font-family:var(--sans);font-size:.8rem;font-weight:600;color:var(--text-primary);margin-bottom:.25rem}
+    .pillar-text{font-family:var(--sans);font-size:.77rem;color:var(--text-muted);line-height:1.65}
+    /* right visual card */
+    .overview-visual{background:var(--bg-white);border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow-card);border:1px solid rgba(0,113,227,.07)}
+    .ov-card-header{background:linear-gradient(135deg,#071428,#0a1c38);padding:2rem 2rem 1.5rem;position:relative;overflow:hidden}
+    .ov-card-header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(to right,transparent,var(--gold),transparent)}
+    .ov-card-icon-ring{width:64px;height:64px;border-radius:50%;border:1.5px solid rgba(212,175,55,.3);display:flex;align-items:center;justify-content:center;margin-bottom:1rem;background:rgba(212,175,55,.07)}
+    .ov-card-icon-ring i{font-size:1.6rem;color:rgba(212,175,55,.85)}
+    .ov-card-title{font-family:var(--serif);font-size:1.3rem;font-weight:700;color:#fff}
+    .ov-card-sub{font-family:var(--sans);font-size:.78rem;color:rgba(160,195,230,.55);margin-top:.3rem}
+    .ov-card-body{padding:1.6rem 2rem}
+    .ov-stat-row{display:flex;gap:1rem;margin-bottom:1.4rem}
+    .ov-stat{flex:1;text-align:center;background:var(--bg-page);border-radius:var(--radius-sm);padding:.9rem .6rem}
+    .ov-stat-n{font-family:var(--serif);font-size:1.6rem;font-weight:700;color:var(--text-primary);line-height:1}
+    .ov-stat-n span{font-size:.6em;color:var(--accent);vertical-align:super}
+    .ov-stat-l{font-family:var(--sans);font-size:.6rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--text-muted);margin-top:.3rem}
+    .ov-list{list-style:none;display:flex;flex-direction:column;gap:.7rem}
+    .ov-list li{display:flex;align-items:flex-start;gap:.65rem;font-family:var(--sans);font-size:.84rem;color:var(--text-body)}
+    .ov-list li i{font-size:.95rem;color:var(--accent);margin-top:.12rem;flex-shrink:0}
+
+    /* ═══════════════════════════════════════════════
+       §3  HOUSES
+    ═══════════════════════════════════════════════ */
+    #houses{scroll-margin-top:calc(var(--header-total) + 1rem)}
+    .houses-intro{text-align:center;max-width:720px;margin-inline:auto;margin-bottom:4rem}
+    .houses-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:1rem}
+    .house-card{
+      background:var(--bg-white);border-radius:var(--radius-lg);
+      overflow:hidden;border:1px solid rgba(0,0,0,.06);
+      box-shadow:var(--shadow-card);
+      display:flex;flex-direction:column;
+      transition:transform var(--tr),box-shadow var(--tr);
+    }
+    .house-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lift)}
+    .house-top{height:80px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+    .house-top::before{content:'';position:absolute;inset:0;opacity:.15;background:repeating-linear-gradient(45deg,rgba(255,255,255,.1) 0,rgba(255,255,255,.1) 1px,transparent 1px,transparent 8px)}
+    .house-emblem{width:48px;height:48px;border-radius:50%;background:rgba(255,255,255,.18);border:2px solid rgba(255,255,255,.3);display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:1.3rem;font-weight:900;color:#fff;position:relative;z-index:1}
+    .house-body{padding:1.2rem 1rem;flex:1;display:flex;flex-direction:column;gap:.5rem}
+    .house-name{font-family:var(--serif);font-size:1rem;font-weight:700;color:var(--text-primary)}
+    .house-type{font-family:var(--sans);font-size:.63rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--text-muted)}
+    .house-meta{display:flex;flex-direction:column;gap:.3rem;margin-top:auto}
+    .house-meta-row{display:flex;align-items:center;gap:.4rem;font-family:var(--sans);font-size:.75rem;color:var(--text-muted)}
+    .house-meta-row i{font-size:.85rem;color:var(--text-xmuted)}
+    /* house colours */
+    .house-ramseyer .house-top{background:linear-gradient(135deg,#8b1520,#c0392b)}
+    .house-kumi      .house-top{background:linear-gradient(135deg,#92580a,#d4890a)}
+    .house-lochman   .house-top{background:linear-gradient(135deg,#4a5a72,#8896a8)}
+    .house-okoh      .house-top{background:linear-gradient(135deg,#00519c,#0071e3)}
+    .house-volta     .house-top{background:linear-gradient(135deg,#0a6632,#00a855)}
+
+    /* ═══════════════════════════════════════════════
+       §4  DAILY LIFE
+    ═══════════════════════════════════════════════ */
+    #daily{scroll-margin-top:calc(var(--header-total) + 1rem)}
+    .daily-bg{background:var(--bg-white)}
+    .daily-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start}
+    /* schedule timeline */
+    .schedule{display:flex;flex-direction:column;gap:0}
+    .sched-item{display:flex;gap:1.2rem;position:relative;padding-bottom:1.5rem}
+    .sched-item:last-child{padding-bottom:0}
+    .sched-left{display:flex;flex-direction:column;align-items:center;flex-shrink:0;width:56px}
+    .sched-time{font-family:var(--sans);font-size:.66rem;font-weight:700;color:var(--accent);letter-spacing:.06em;white-space:nowrap;background:var(--accent-soft);border:1px solid var(--accent-mid);border-radius:6px;padding:.22rem .45rem;text-align:center}
+    .sched-line{flex:1;width:1px;background:rgba(0,113,227,.1);margin-top:.4rem}
+    .sched-item:last-child .sched-line{display:none}
+    .sched-dot{width:8px;height:8px;border-radius:50%;background:var(--accent);border:2px solid #fff;box-shadow:0 0 0 3px rgba(0,113,227,.15);flex-shrink:0;margin-top:.3rem}
+    .sched-body{padding-top:.1rem}
+    .sched-title{font-family:var(--sans);font-size:.84rem;font-weight:600;color:var(--text-primary)}
+    .sched-desc{font-family:var(--sans);font-size:.77rem;color:var(--text-muted);margin-top:.2rem;line-height:1.6}
+
+    /* amenities grid */
+    .amenities{display:grid;grid-template-columns:1fr 1fr;gap:.85rem}
+    .amenity{background:var(--bg-page);border:1px solid rgba(0,0,0,.05);border-radius:var(--radius);padding:1.1rem 1rem;display:flex;gap:.8rem;align-items:flex-start;transition:box-shadow var(--tr)}
+    .amenity:hover{box-shadow:var(--shadow-soft)}
+    .amenity-icon{width:38px;height:38px;flex-shrink:0;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.05rem}
+    .amenity-title{font-family:var(--sans);font-size:.8rem;font-weight:600;color:var(--text-primary);margin-bottom:.2rem}
+    .amenity-text{font-family:var(--sans);font-size:.75rem;color:var(--text-muted);line-height:1.6}
+
+    /* ═══════════════════════════════════════════════
+       §5  PASTORAL CARE
+    ═══════════════════════════════════════════════ */
+    #pastoral{scroll-margin-top:calc(var(--header-total) + 1rem)}
+    .pastoral-wrap{background:linear-gradient(160deg,#f7f4ee 0%,#f4f6f9 100%);border-radius:var(--radius-lg);border:1px solid rgba(212,175,55,.15);padding:4rem 3.5rem;position:relative;overflow:hidden}
+    .pastoral-wrap::before{content:'';position:absolute;top:-60px;right:-60px;width:320px;height:320px;border-radius:50%;background:radial-gradient(circle,rgba(212,175,55,.07) 0%,transparent 70%);pointer-events:none}
+    .pastoral-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start}
+    .pastoral-cards{display:flex;flex-direction:column;gap:1rem}
+    .pc-card{background:var(--bg-white);border-radius:var(--radius);padding:1.4rem 1.5rem;display:flex;gap:1rem;align-items:flex-start;border:1px solid rgba(212,175,55,.1);box-shadow:var(--shadow-soft);transition:transform var(--tr),box-shadow var(--tr)}
+    .pc-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-lift)}
+    .pc-card-icon{width:42px;height:42px;flex-shrink:0;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.05rem;background:var(--gold-soft);color:var(--warm)}
+    .pc-card-title{font-family:var(--sans);font-size:.84rem;font-weight:600;color:var(--text-primary);margin-bottom:.3rem}
+    .pc-card-text{font-family:var(--sans);font-size:.78rem;color:var(--text-body);line-height:1.68}
+    /* counsellor profile */
+    .counsellor-card{background:var(--bg-white);border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow-card);border:1px solid rgba(212,175,55,.12)}
+    .cc-header{background:linear-gradient(135deg,#071428 0%,#10203a 100%);padding:2rem;position:relative;overflow:hidden}
+    .cc-header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(to right,transparent,var(--gold),transparent)}
+    .cc-avatar{width:68px;height:68px;border-radius:50%;border:2px solid rgba(212,175,55,.35);background:rgba(212,175,55,.1);display:flex;align-items:center;justify-content:center;font-size:1.6rem;color:rgba(212,175,55,.8);margin-bottom:1rem}
+    .cc-name{font-family:var(--serif);font-size:1.15rem;font-weight:700;color:#fff}
+    .cc-role{font-family:var(--sans);font-size:.7rem;color:rgba(212,175,55,.65);font-weight:600;letter-spacing:.14em;text-transform:uppercase;margin-top:.25rem}
+    .cc-body{padding:1.6rem 2rem}
+    .cc-quote{font-family:var(--lora);font-style:italic;font-size:.9rem;color:var(--text-body);line-height:1.8;padding-left:1rem;border-left:2.5px solid rgba(212,175,55,.35);margin-bottom:1.4rem}
+    .cc-contacts{display:flex;flex-direction:column;gap:.6rem}
+    .cc-contact-row{display:flex;align-items:center;gap:.6rem;font-family:var(--sans);font-size:.8rem;color:var(--text-muted)}
+    .cc-contact-row i{font-size:.95rem;color:var(--accent);flex-shrink:0}
+    .cc-contact-row a{color:var(--accent);text-decoration:none}
+    .cc-contact-row a:hover{text-decoration:underline}
+
+    /* ═══════════════════════════════════════════════
+       §6  HEALTH & WELFARE
+    ═══════════════════════════════════════════════ */
+    #health{scroll-margin-top:calc(var(--header-total) + 1rem)}
+    .health-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem;margin-top:3.5rem}
+    .health-card{background:var(--bg-white);border-radius:var(--radius-lg);border:1px solid rgba(0,0,0,.06);overflow:hidden;box-shadow:var(--shadow-card);transition:transform var(--tr),box-shadow var(--tr)}
+    .health-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-lift)}
+    .health-card-top{height:6px}
+    .health-card-body{padding:1.8rem 1.6rem}
+    .health-icon{width:48px;height:48px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;margin-bottom:1.1rem}
+    .health-title{font-family:var(--sans);font-size:.93rem;font-weight:700;color:var(--text-primary);margin-bottom:.5rem}
+    .health-text{font-family:var(--sans);font-size:.82rem;color:var(--text-body);line-height:1.72}
+    .health-card-footer{padding:.9rem 1.6rem;border-top:1px solid rgba(0,0,0,.05);background:var(--bg-page);font-family:var(--sans);font-size:.73rem;color:var(--text-muted);display:flex;align-items:center;gap:.4rem}
+    .health-card-footer i{color:var(--accent)}
+    /* card colour accents */
+    .hc-blue .health-card-top{background:var(--accent)}
+    .hc-blue .health-icon{background:var(--accent-soft);color:var(--accent)}
+    .hc-green .health-card-top{background:#00a855}
+    .hc-green .health-icon{background:rgba(0,168,85,.09);color:#00a855}
+    .hc-amber .health-card-top{background:var(--warm)}
+    .hc-amber .health-icon{background:var(--warm-soft);color:var(--warm)}
+
+    /* ═══════════════════════════════════════════════
+       §7  PARENTS & COMMUNICATION
+    ═══════════════════════════════════════════════ */
+    #parents{scroll-margin-top:calc(var(--header-total) + 1rem)}
+    .parents-bg{background:var(--bg-darkblue);color:#fff}
+    .parents-inner{padding-block:5.5rem}
+    .parents-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center}
+    .parents-copy .section-tag{color:rgba(0,180,255,.7)}
+    .parents-copy .section-tag::before,.parents-copy .section-tag::after{background:rgba(0,180,255,.4)}
+    .parents-copy .section-heading{color:#fff}
+    .parents-copy .section-heading em{color:rgba(0,200,255,.85)}
+    .parents-copy .section-subheading{color:rgba(180,210,240,.55)}
+    .comm-channels{display:flex;flex-direction:column;gap:.75rem;margin-top:2rem}
+    .comm-ch{display:flex;align-items:flex-start;gap:1rem;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:var(--radius);padding:1rem 1.2rem;transition:background var(--tr)}
+    .comm-ch:hover{background:rgba(255,255,255,.07)}
+    .comm-ch-icon{width:38px;height:38px;flex-shrink:0;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1rem;background:rgba(0,113,227,.15);color:rgba(100,185,255,.8)}
+    .comm-ch-title{font-family:var(--sans);font-size:.83rem;font-weight:600;color:rgba(220,235,255,.9);margin-bottom:.22rem}
+    .comm-ch-desc{font-family:var(--sans);font-size:.76rem;color:rgba(150,185,220,.5);line-height:1.62}
+    /* visit schedule card */
+    .visit-card{background:rgba(255,255,255,.04);border:1px solid rgba(212,175,55,.16);border-radius:var(--radius-lg);padding:2rem}
+    .visit-card-title{font-family:var(--serif);font-size:1.1rem;font-weight:700;color:#fff;margin-bottom:1.4rem;display:flex;align-items:center;gap:.6rem}
+    .visit-card-title i{color:rgba(212,175,55,.75)}
+    .visit-rows{display:flex;flex-direction:column;gap:.8rem}
+    .visit-row{display:flex;justify-content:space-between;align-items:center;padding:.7rem 0;border-bottom:1px solid rgba(255,255,255,.05)}
+    .visit-row:last-child{border-bottom:none}
+    .visit-day{font-family:var(--sans);font-size:.82rem;font-weight:600;color:rgba(200,220,255,.75)}
+    .visit-time{font-family:var(--sans);font-size:.79rem;color:rgba(0,180,255,.7);background:rgba(0,113,227,.1);border:1px solid rgba(0,113,227,.2);border-radius:6px;padding:.18rem .55rem}
+    .visit-note{font-family:var(--sans);font-size:.7rem;color:rgba(140,170,210,.4);margin-top:.3rem}
+
+    /* ═══════════════════════════════════════════════
+       §8  FAQ / ENROLMENT CTA
+    ═══════════════════════════════════════════════ */
+    #enrolment{scroll-margin-top:calc(var(--header-total) + 1rem)}
+    .faq-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:5rem;align-items:start}
+    .faq-list{display:flex;flex-direction:column;gap:.6rem}
+    .faq-item{background:var(--bg-white);border:1px solid rgba(0,0,0,.06);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow-soft)}
+    .faq-q{width:100%;text-align:left;background:none;border:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;padding:1.05rem 1.3rem;gap:1rem;font-family:var(--sans);font-size:.85rem;font-weight:600;color:var(--text-primary);transition:background var(--tr)}
+    .faq-q:hover{background:var(--accent-soft)}
+    .faq-q i{flex-shrink:0;font-size:1rem;color:var(--text-muted);transition:transform var(--tr)}
+    .faq-item.open .faq-q i{transform:rotate(180deg);color:var(--accent)}
+    .faq-a{max-height:0;overflow:hidden;transition:max-height .4s ease,padding .3s}
+    .faq-item.open .faq-a{max-height:300px}
+    .faq-a-inner{padding:.6rem 1.3rem 1.2rem;font-family:var(--sans);font-size:.81rem;color:var(--text-body);line-height:1.75}
+    /* CTA card */
+    .enrol-cta-card{background:linear-gradient(160deg,#071428,#0a1c38);border-radius:var(--radius-lg);padding:2.5rem;text-align:center;border:1px solid rgba(212,175,55,.14);position:relative;overflow:hidden}
+    .enrol-cta-card::before{content:'';position:absolute;top:-80px;left:-80px;width:280px;height:280px;border-radius:50%;background:radial-gradient(circle,rgba(212,175,55,.08) 0%,transparent 70%)}
+    .enrol-cta-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(to right,transparent,var(--gold),transparent)}
+    .enrol-icon{width:68px;height:68px;border-radius:50%;border:1.5px solid rgba(212,175,55,.3);background:rgba(212,175,55,.07);display:flex;align-items:center;justify-content:center;font-size:1.7rem;color:rgba(212,175,55,.8);margin:0 auto 1.4rem}
+    .enrol-title{font-family:var(--serif);font-size:1.55rem;font-weight:700;color:#fff;line-height:1.2;margin-bottom:.7rem}
+    .enrol-title em{font-style:italic;color:rgba(212,175,55,.9)}
+    .enrol-text{font-family:var(--lora);font-style:italic;font-size:.91rem;color:rgba(185,210,240,.55);line-height:1.8;margin-bottom:1.8rem}
+    .enrol-cta-btns{display:flex;flex-direction:column;gap:.75rem}
+    .enrol-detail{display:flex;align-items:center;gap:.5rem;font-family:var(--sans);font-size:.73rem;color:rgba(150,185,220,.45);justify-content:center;margin-top:1.2rem}
+    .enrol-detail i{font-size:.85rem;color:rgba(212,175,55,.5)}
+
+    /* ═══════════════════════════════════════════════
+       RESPONSIVE
+    ═══════════════════════════════════════════════ */
+    @media(max-width:1100px){
+      .houses-grid{grid-template-columns:repeat(3,1fr)}
+      .house-card:nth-child(4),.house-card:nth-child(5){grid-column:span 1}
+    }
+    @media(max-width:900px){
+      .overview-grid,.daily-grid,.pastoral-grid,.parents-grid,.faq-grid{grid-template-columns:1fr}
+      .pillars{grid-template-columns:1fr}
+      .houses-grid{grid-template-columns:repeat(2,1fr)}
+      .health-cards{grid-template-columns:1fr 1fr}
+      .pastoral-wrap{padding:2.5rem 1.75rem}
+    }
+    @media(max-width:600px){
+      .hero-h1{font-size:clamp(2rem,8vw,3rem)}
+      .hstat{padding:.8rem 1.4rem}
+      .houses-grid{grid-template-columns:1fr}
+      .health-cards{grid-template-columns:1fr}
+      .amenities{grid-template-columns:1fr}
+      .pillars{grid-template-columns:1fr}
+      /* stats stay horizontal on mobile */
+      .hstat{padding:.65rem .5rem}
+    }
+    @media(max-width:480px){
+      .hero-scroll{display:none}
+      .hero-cta{flex-direction:column;align-items:stretch;text-align:center}
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ─── HEADER MOUNT ─── -->
+  <div id="ansec-header"></div>
+
+  <!-- ════════════════════════════════════════════════
+       §1  HERO
+  ════════════════════════════════════════════════ -->
+  <section class="hero" id="hero-section">
+    <!-- Background layers -->
+    <div class="hero-bg">
+      <div class="hero-bg-gradient"></div>
+    </div>
+    <div class="hero-orb"></div>
+    <div class="hero-grid"></div>
+    <!-- SVG Decorative lines (cross-hatch / diagonal) -->
+    <svg class="hero-lines" width="420" height="320" viewBox="0 0 420 320" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <line x1="0" y1="320" x2="420" y2="0" stroke="white" stroke-width=".6"/>
+      <line x1="60" y1="320" x2="420" y2="60" stroke="white" stroke-width=".6"/>
+      <line x1="120" y1="320" x2="420" y2="120" stroke="white" stroke-width=".6"/>
+      <line x1="0" y1="260" x2="360" y2="0" stroke="white" stroke-width=".6"/>
+      <line x1="0" y1="200" x2="300" y2="0" stroke="white" stroke-width=".6"/>
+    </svg>
+    <div class="hero-overlay"></div>
+    <div class="hero-stripe"></div>
+
+    <div class="hero-content section">
+
+      <!-- Breadcrumb -->
+      <nav class="hero-breadcrumb" aria-label="Breadcrumb">
+        <a href="/index.html"><i class="ri-home-4-line"></i> Home</a>
+        <i class="ri-arrow-right-s-line"></i>
+        <a href="/pages/ansec-faith-student-life.html">Faith &amp; Student Life</a>
+        <i class="ri-arrow-right-s-line"></i>
+        <span class="crumb-cur">Boarding &amp; Pastoral Care</span>
+      </nav>
+
+      <!-- Eyebrow -->
+      <div class="hero-eyebrow">
+        <i class="ri-home-heart-line"></i>
+        Student Life &amp; Welfare
+      </div>
+
+      <!-- Heading -->
+      <h1 class="hero-h1">
+        Boarding <span class="amp">&amp;</span><br>
+        <em>Pastoral Care</em>
+      </h1>
+
+      <!-- Sub -->
+      <p class="hero-sub">
+        A home away from home — where academic ambition is nurtured within a community of faith, care, and belonging since 1897.
+      </p>
+
+      <!-- Stats -->
+      <div class="hero-stats" role="list">
+        <div class="hstat" role="listitem">
+          <span class="hstat-num">5<sup>+</sup></span>
+          <span class="hstat-lbl">Boarding Houses</span>
+        </div>
+        <div class="hstat" role="listitem">
+          <span class="hstat-num">800<sup>+</sup></span>
+          <span class="hstat-lbl">Resident Students</span>
+        </div>
+        <div class="hstat" role="listitem">
+          <span class="hstat-num">24<sup>hrs</sup></span>
+          <span class="hstat-lbl">Care &amp; Supervision</span>
+        </div>
+        <div class="hstat" role="listitem">
+          <span class="hstat-num">87</span>
+          <span class="hstat-lbl">Years of Boarding</span>
+        </div>
+      </div>
+
+      <!-- CTA -->
+      <div class="hero-cta">
+        <a href="#enrolment" class="btn-gradient"><i class="ri-door-open-line"></i> Apply for Boarding</a>
+        <a href="#pastoral" class="btn-outline-light"><i class="ri-heart-pulse-line"></i> Pastoral Support</a>
+      </div>
+
+    </div><!-- /.hero-content -->
+
+    <!-- Scroll Pip -->
+    <div class="hero-scroll" aria-hidden="true">
+      <span>Scroll</span>
+      <div class="scroll-pip"></div>
+    </div>
+
+  </section>
+
+  <!-- ════════════════════════════════════════════════
+       SECTION NAV — right side dot pip
+  ════════════════════════════════════════════════ -->
+  <nav class="sec-nav" id="sec-nav" aria-label="Page sections">
+    <button class="sec-nav-pip active" data-target="overview" data-label="Overview" aria-label="Go to Overview"></button>
+    <div class="sec-nav-line"></div>
+    <button class="sec-nav-pip" data-target="houses" data-label="Houses" aria-label="Go to Houses"></button>
+    <div class="sec-nav-line"></div>
+    <button class="sec-nav-pip" data-target="daily" data-label="Daily Life" aria-label="Go to Daily Life"></button>
+    <div class="sec-nav-line"></div>
+    <button class="sec-nav-pip" data-target="pastoral" data-label="Pastoral Care" aria-label="Go to Pastoral Care"></button>
+    <div class="sec-nav-line"></div>
+    <button class="sec-nav-pip" data-target="health" data-label="Health" aria-label="Go to Health"></button>
+    <div class="sec-nav-line"></div>
+    <button class="sec-nav-pip" data-target="parents" data-label="Parents" aria-label="Go to Parents"></button>
+    <div class="sec-nav-line"></div>
+    <button class="sec-nav-pip" data-target="enrolment" data-label="Enrolment" aria-label="Go to Enrolment"></button>
+  </nav>
+
+  <!-- ════════════════════════════════════════════════
+       §2  OVERVIEW
+  ════════════════════════════════════════════════ -->
+  <section id="overview">
+    <div class="section">
+      <div class="section-inner">
+        <div class="overview-grid">
+
+          <!-- Left copy -->
+          <div>
+            <div class="overview-badge reveal">
+              <i class="ri-home-heart-line"></i>
+              Our Boarding Philosophy
+            </div>
+            <h2 class="section-heading reveal" style="margin-bottom:1.3rem">
+              More Than a <em>School</em> —<br>A Community
+            </h2>
+            <p class="overview-lead reveal">
+              "Train up a child in the way he should go; even when he is old he will not depart from it." — Proverbs 22:6
+            </p>
+            <p class="body-text reveal">
+              At ANSEC, boarding is an integral part of our educational mission. Our residential programme extends learning beyond the classroom, building character, independence, and a lifelong sense of community rooted in Presbyterian values.
+            </p>
+            <p class="body-text reveal">
+              Every boarding student is known by name, supported by dedicated housemasters and housemistresses, and guided by our chaplaincy team — ensuring that spiritual, emotional, and academic needs are met around the clock.
+            </p>
+
+            <div class="pillars">
+              <div class="pillar reveal">
+                <div class="pillar-icon"><i class="ri-shield-check-line"></i></div>
+                <div>
+                  <div class="pillar-title">Safety &amp; Security</div>
+                  <div class="pillar-text">24-hour security personnel and secure perimeter access for all residents.</div>
+                </div>
+              </div>
+              <div class="pillar reveal">
+                <div class="pillar-icon"><i class="ri-book-read-line"></i></div>
+                <div>
+                  <div class="pillar-title">Academic Support</div>
+                  <div class="pillar-text">Supervised prep time, peer study groups and teacher availability.</div>
+                </div>
+              </div>
+              <div class="pillar reveal">
+                <div class="pillar-icon"><i class="ri-heart-pulse-line"></i></div>
+                <div>
+                  <div class="pillar-title">Holistic Wellbeing</div>
+                  <div class="pillar-text">Spiritual formation, counselling services and recreational activities.</div>
+                </div>
+              </div>
+              <div class="pillar reveal">
+                <div class="pillar-icon"><i class="ri-group-line"></i></div>
+                <div>
+                  <div class="pillar-title">Peer Community</div>
+                  <div class="pillar-text">House competitions, shared duties and lifelong friendships forged together.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right visual card -->
+          <div class="overview-visual reveal-r">
+            <div class="ov-card-header">
+              <div class="ov-card-icon-ring"><i class="ri-home-heart-line"></i></div>
+              <div class="ov-card-title">Boarding at ANSEC</div>
+              <div class="ov-card-sub">Residential Programme — Est. 1897</div>
+            </div>
+            <div class="ov-card-body">
+              <div class="ov-stat-row">
+                <div class="ov-stat">
+                  <div class="ov-stat-n">5<span>+</span></div>
+                  <div class="ov-stat-l">Houses</div>
+                </div>
+                <div class="ov-stat">
+                  <div class="ov-stat-n">800<span>+</span></div>
+                  <div class="ov-stat-l">Boarders</div>
+                </div>
+                <div class="ov-stat">
+                  <div class="ov-stat-n">24<span>h</span></div>
+                  <div class="ov-stat-l">Support</div>
+                </div>
+              </div>
+              <ul class="ov-list">
+                <li><i class="ri-check-line"></i> Dedicated Housemaster / Housemistress per house</li>
+                <li><i class="ri-check-line"></i> Three nutritious meals daily in the school dining hall</li>
+                <li><i class="ri-check-line"></i> Weekly chapel service &amp; daily morning devotion</li>
+                <li><i class="ri-check-line"></i> Fully equipped dormitories with study areas</li>
+                <li><i class="ri-check-line"></i> On-campus medical clinic with resident nurse</li>
+                <li><i class="ri-check-line"></i> Structured weekend recreational programme</li>
+                <li><i class="ri-check-line"></i> Parent-visiting schedule every half-term</li>
+              </ul>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="rule">
+
+  <!-- ════════════════════════════════════════════════
+       §3  BOARDING HOUSES
+  ════════════════════════════════════════════════ -->
+  <section id="houses">
+    <div class="section">
+      <div class="section-inner">
+        <div class="houses-intro reveal">
+          <div class="section-tag">Residential Houses</div>
+          <h2 class="section-heading" style="text-align:center">Five Houses, <em>One Family</em></h2>
+          <p class="section-subheading" style="text-align:center;margin-inline:auto">Each boarding house has its own identity, colours, and proud traditions — united under the ANSEC banner of faith, excellence, and service.</p>
+        </div>
+
+        <div class="houses-grid">
+
+          <div class="house-card house-ramseyer reveal">
+            <div class="house-top">
+              <div class="house-emblem">R</div>
+            </div>
+            <div class="house-body">
+              <div class="house-name">Ramseyer House</div>
+              <div class="house-type">Boys · Red</div>
+              <div class="house-meta">
+                <div class="house-meta-row"><i class="ri-user-line"></i> ~160 residents</div>
+                <div class="house-meta-row"><i class="ri-map-pin-line"></i> East Wing</div>
+                <div class="house-meta-row"><i class="ri-medal-line"></i> Named after Rev. Fritz Ramseyer, Basel Missionary</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="house-card house-kumi reveal" style="transition-delay:.06s">
+            <div class="house-top">
+              <div class="house-emblem">K</div>
+            </div>
+            <div class="house-body">
+              <div class="house-name">Kumi House</div>
+              <div class="house-type">Boys · Gold</div>
+              <div class="house-meta">
+                <div class="house-meta-row"><i class="ri-user-line"></i> ~155 residents</div>
+                <div class="house-meta-row"><i class="ri-map-pin-line"></i> North Wing</div>
+                <div class="house-meta-row"><i class="ri-medal-line"></i> Named after a pioneering Presby elder of Anum</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="house-card house-lochman reveal" style="transition-delay:.12s">
+            <div class="house-top">
+              <div class="house-emblem">L</div>
+            </div>
+            <div class="house-body">
+              <div class="house-name">Lochman House</div>
+              <div class="house-type">Boys · Silver</div>
+              <div class="house-meta">
+                <div class="house-meta-row"><i class="ri-user-line"></i> ~150 residents</div>
+                <div class="house-meta-row"><i class="ri-map-pin-line"></i> West Wing</div>
+                <div class="house-meta-row"><i class="ri-medal-line"></i> Named after Rev. Johannes Lochman, Basel Mission</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="house-card house-okoh reveal" style="transition-delay:.18s">
+            <div class="house-top">
+              <div class="house-emblem">O</div>
+            </div>
+            <div class="house-body">
+              <div class="house-name">Okoh House</div>
+              <div class="house-type">Girls · Blue</div>
+              <div class="house-meta">
+                <div class="house-meta-row"><i class="ri-user-line"></i> ~175 residents</div>
+                <div class="house-meta-row"><i class="ri-map-pin-line"></i> South Block</div>
+                <div class="house-meta-row"><i class="ri-medal-line"></i> Honour of a distinguished Anum community leader</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="house-card house-volta reveal" style="transition-delay:.24s">
+            <div class="house-top">
+              <div class="house-emblem">V</div>
+            </div>
+            <div class="house-body">
+              <div class="house-name">Volta House</div>
+              <div class="house-type">Girls · Green</div>
+              <div class="house-meta">
+                <div class="house-meta-row"><i class="ri-user-line"></i> ~165 residents</div>
+                <div class="house-meta-row"><i class="ri-map-pin-line"></i> South Block</div>
+                <div class="house-meta-row"><i class="ri-medal-line"></i> Named after the Volta River that borders Anum</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="rule">
+
+  <!-- ════════════════════════════════════════════════
+       §4  DAILY LIFE
+  ════════════════════════════════════════════════ -->
+  <section id="daily" class="daily-bg">
+    <div class="section">
+      <div class="section-inner">
+        <div class="daily-grid">
+
+          <!-- Schedule -->
+          <div>
+            <div class="section-tag reveal" style="justify-content:flex-start">Boarding Schedule</div>
+            <h2 class="section-heading reveal">A Structured <em>Day</em></h2>
+            <p class="section-subheading reveal" style="margin-bottom:2.5rem">Routine builds discipline. Our daily timetable balances learning, rest, faith, and recreation to shape well-rounded young people.</p>
+
+            <div class="schedule">
+              <div class="sched-item reveal">
+                <div class="sched-left">
+                  <span class="sched-time">5:00</span>
+                  <div class="sched-line"></div>
+                </div>
+                <div style="display:flex;gap:.8rem;align-items:flex-start;flex:1">
+                  <div class="sched-dot"></div>
+                  <div class="sched-body">
+                    <div class="sched-title">Reveille &amp; Morning Devotion</div>
+                    <div class="sched-desc">All students rise for a brief interdenominational morning prayer before the day begins.</div>
+                  </div>
+                </div>
+              </div>
+              <div class="sched-item reveal" style="transition-delay:.05s">
+                <div class="sched-left">
+                  <span class="sched-time">6:00</span>
+                  <div class="sched-line"></div>
+                </div>
+                <div style="display:flex;gap:.8rem;align-items:flex-start;flex:1">
+                  <div class="sched-dot"></div>
+                  <div class="sched-body">
+                    <div class="sched-title">Morning Exercises &amp; Hygiene</div>
+                    <div class="sched-desc">Physical exercise, dormitory cleaning duties and personal hygiene time.</div>
+                  </div>
+                </div>
+              </div>
+              <div class="sched-item reveal" style="transition-delay:.1s">
+                <div class="sched-left">
+                  <span class="sched-time">7:00</span>
+                  <div class="sched-line"></div>
+                </div>
+                <div style="display:flex;gap:.8rem;align-items:flex-start;flex:1">
+                  <div class="sched-dot"></div>
+                  <div class="sched-body">
+                    <div class="sched-title">Breakfast</div>
+                    <div class="sched-desc">Hot meal served in the school dining hall. All houses attend on rotation.</div>
+                  </div>
+                </div>
+              </div>
+              <div class="sched-item reveal" style="transition-delay:.15s">
+                <div class="sched-left">
+                  <span class="sched-time">7:45</span>
+                  <div class="sched-line"></div>
+                </div>
+                <div style="display:flex;gap:.8rem;align-items:flex-start;flex:1">
+                  <div class="sched-dot"></div>
+                  <div class="sched-body">
+                    <div class="sched-title">Assembly &amp; Classes</div>
+                    <div class="sched-desc">School assembly followed by the full academic timetable through the day.</div>
+                  </div>
+                </div>
+              </div>
+              <div class="sched-item reveal" style="transition-delay:.2s">
+                <div class="sched-left">
+                  <span class="sched-time">13:30</span>
+                  <div class="sched-line"></div>
+                </div>
+                <div style="display:flex;gap:.8rem;align-items:flex-start;flex:1">
+                  <div class="sched-dot"></div>
+                  <div class="sched-body">
+                    <div class="sched-title">Lunch &amp; Afternoon Break</div>
+                    <div class="sched-desc">Midday meal and free time for recreation, clubs or personal errands.</div>
+                  </div>
+                </div>
+              </div>
+              <div class="sched-item reveal" style="transition-delay:.25s">
+                <div class="sched-left">
+                  <span class="sched-time">15:00</span>
+                  <div class="sched-line"></div>
+                </div>
+                <div style="display:flex;gap:.8rem;align-items:flex-start;flex:1">
+                  <div class="sched-dot"></div>
+                  <div class="sched-body">
+                    <div class="sched-title">Afternoon Classes &amp; Sports</div>
+                    <div class="sched-desc">Optional afternoon academic sessions followed by structured sports activities.</div>
+                  </div>
+                </div>
+              </div>
+              <div class="sched-item reveal" style="transition-delay:.3s">
+                <div class="sched-left">
+                  <span class="sched-time">18:00</span>
+                  <div class="sched-line"></div>
+                </div>
+                <div style="display:flex;gap:.8rem;align-items:flex-start;flex:1">
+                  <div class="sched-dot"></div>
+                  <div class="sched-body">
+                    <div class="sched-title">Supper</div>
+                    <div class="sched-desc">Evening meal. Students return to dormitories to prepare for prep time.</div>
+                  </div>
+                </div>
+              </div>
+              <div class="sched-item reveal" style="transition-delay:.35s">
+                <div class="sched-left">
+                  <span class="sched-time">19:00</span>
+                  <div class="sched-line"></div>
+                </div>
+                <div style="display:flex;gap:.8rem;align-items:flex-start;flex:1">
+                  <div class="sched-dot"></div>
+                  <div class="sched-body">
+                    <div class="sched-title">Supervised Prep (Study)</div>
+                    <div class="sched-desc">Two-hour structured self-study period in dormitory study rooms, supervised by housemasters.</div>
+                  </div>
+                </div>
+              </div>
+              <div class="sched-item reveal" style="transition-delay:.4s">
+                <div class="sched-left">
+                  <span class="sched-time">21:30</span>
+                  <div class="sched-line"></div>
+                </div>
+                <div style="display:flex;gap:.8rem;align-items:flex-start;flex:1">
+                  <div class="sched-dot"></div>
+                  <div class="sched-body">
+                    <div class="sched-title">Lights Out</div>
+                    <div class="sched-desc">Evening devotion, roll call and lights-out for all students. Night duty staff on watch.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Amenities -->
+          <div>
+            <div class="section-tag reveal" style="justify-content:flex-start">Facilities &amp; Amenities</div>
+            <h2 class="section-heading reveal">Life in the <em>Dorms</em></h2>
+            <p class="section-subheading reveal" style="margin-bottom:2.5rem">Our boarding facilities are continuously upgraded to provide a comfortable, conducive residential environment for every student.</p>
+
+            <div class="amenities">
+              <div class="amenity reveal">
+                <div class="amenity-icon" style="background:var(--accent-soft);color:var(--accent)"><i class="ri-hotel-bed-line"></i></div>
+                <div>
+                  <div class="amenity-title">Dormitories</div>
+                  <div class="amenity-text">Clean, well-ventilated dormitories with lockable storage for each student's personal belongings.</div>
+                </div>
+              </div>
+              <div class="amenity reveal" style="transition-delay:.06s">
+                <div class="amenity-icon" style="background:rgba(0,168,85,.08);color:#00a855"><i class="ri-restaurant-line"></i></div>
+                <div>
+                  <div class="amenity-title">Dining Hall</div>
+                  <div class="amenity-text">Central cafeteria serving three balanced Ghanaian and continental meals daily.</div>
+                </div>
+              </div>
+              <div class="amenity reveal" style="transition-delay:.12s">
+                <div class="amenity-icon" style="background:var(--warm-soft);color:var(--warm)"><i class="ri-book-2-line"></i></div>
+                <div>
+                  <div class="amenity-title">Study Rooms</div>
+                  <div class="amenity-text">Dedicated supervised study rooms within each house for evening prep sessions.</div>
+                </div>
+              </div>
+              <div class="amenity reveal" style="transition-delay:.18s">
+                <div class="amenity-icon" style="background:rgba(139,0,0,.07);color:var(--presby-red)"><i class="ri-heart-pulse-line"></i></div>
+                <div>
+                  <div class="amenity-title">Medical Clinic</div>
+                  <div class="amenity-text">On-campus clinic with a resident nurse and referral services to Anum Government Hospital.</div>
+                </div>
+              </div>
+              <div class="amenity reveal" style="transition-delay:.24s">
+                <div class="amenity-icon" style="background:var(--gold-soft);color:var(--warm)"><i class="ri-droplet-line"></i></div>
+                <div>
+                  <div class="amenity-title">Water Supply</div>
+                  <div class="amenity-text">Reliable piped and storage water supply with adequate shower and ablution facilities.</div>
+                </div>
+              </div>
+              <div class="amenity reveal" style="transition-delay:.3s">
+                <div class="amenity-icon" style="background:var(--accent-soft);color:var(--accent)"><i class="ri-phone-line"></i></div>
+                <div>
+                  <div class="amenity-title">Communication</div>
+                  <div class="amenity-text">Designated phone-call hours for parents to contact students and vice versa.</div>
+                </div>
+              </div>
+              <div class="amenity reveal" style="transition-delay:.36s">
+                <div class="amenity-icon" style="background:rgba(0,168,85,.08);color:#00a855"><i class="ri-football-line"></i></div>
+                <div>
+                  <div class="amenity-title">Recreation Areas</div>
+                  <div class="amenity-text">Sports fields, courts and common room spaces for leisure and weekend activities.</div>
+                </div>
+              </div>
+              <div class="amenity reveal" style="transition-delay:.42s">
+                <div class="amenity-icon" style="background:var(--warm-soft);color:var(--warm)"><i class="ri-flashlight-line"></i></div>
+                <div>
+                  <div class="amenity-title">Power Supply</div>
+                  <div class="amenity-text">Generator backup ensures uninterrupted lighting during prep hours and evening routines.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="rule">
+
+  <!-- ════════════════════════════════════════════════
+       §5  PASTORAL CARE
+  ════════════════════════════════════════════════ -->
+  <section id="pastoral">
+    <div class="section">
+      <div class="section-inner">
+        <div class="pastoral-wrap">
+          <div class="pastoral-grid">
+
+            <!-- Left cards -->
+            <div>
+              <div class="section-tag reveal" style="justify-content:flex-start;color:var(--warm)">
+                <span style="background:rgba(180,83,9,.35);width:32px;height:1.5px;display:block;border-radius:1px"></span>
+                Pastoral Care
+                <span style="background:rgba(180,83,9,.35);width:32px;height:1.5px;display:block;border-radius:1px"></span>
+              </div>
+              <h2 class="section-heading reveal">Caring for the <em>Whole Person</em></h2>
+              <p class="section-subheading reveal" style="margin-bottom:2rem">Our pastoral programme ensures every student — regardless of background — feels seen, heard, and supported in their growth journey.</p>
+
+              <div class="pastoral-cards">
+                <div class="pc-card reveal">
+                  <div class="pc-card-icon"><i class="ri-mental-health-line"></i></div>
+                  <div>
+                    <div class="pc-card-title">Individual Counselling</div>
+                    <div class="pc-card-text">One-on-one sessions with our trained school counsellor for academic, emotional or personal challenges. Confidential and student-centred.</div>
+                  </div>
+                </div>
+                <div class="pc-card reveal" style="transition-delay:.07s">
+                  <div class="pc-card-icon"><i class="ri-group-2-line"></i></div>
+                  <div>
+                    <div class="pc-card-title">Housemaster / Housemistress Mentorship</div>
+                    <div class="pc-card-text">Each house has a dedicated staff member who is the first point of contact for student concerns, discipline and welfare.</div>
+                  </div>
+                </div>
+                <div class="pc-card reveal" style="transition-delay:.14s">
+                  <div class="pc-card-icon"><i class="ri-cross-line"></i></div>
+                  <div>
+                    <div class="pc-card-title">Chaplaincy &amp; Spiritual Direction</div>
+                    <div class="pc-card-text">Weekly one-on-ones with the school chaplain. Prayer groups, Bible studies and spiritual guidance are available to all students.</div>
+                  </div>
+                </div>
+                <div class="pc-card reveal" style="transition-delay:.21s">
+                  <div class="pc-card-icon"><i class="ri-parent-line"></i></div>
+                  <div>
+                    <div class="pc-card-title">Family Liaison</div>
+                    <div class="pc-card-text">Regular communication with parents on student progress, concerns and welfare. Parents are invited to be active partners in the pastoral process.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right: counsellor card -->
+            <div class="reveal-r">
+              <div class="counsellor-card">
+                <div class="cc-header">
+                  <div class="cc-avatar"><i class="ri-user-heart-line"></i></div>
+                  <div class="cc-name">School Counsellor</div>
+                  <div class="cc-role">Pastoral &amp; Welfare Office</div>
+                </div>
+                <div class="cc-body">
+                  <p class="cc-quote">
+                    "Every student who walks through this school deserves to feel that they matter — not just academically, but as a whole person created in God's image."
+                  </p>
+                  <div class="cc-contacts">
+                    <div class="cc-contact-row"><i class="ri-time-line"></i> Mon – Fri, 8:00 AM – 5:00 PM</div>
+                    <div class="cc-contact-row"><i class="ri-map-pin-2-line"></i> Welfare Block, Admin Building</div>
+                    <div class="cc-contact-row"><i class="ri-mail-line"></i> <a href="/cdn-cgi/l/email-protection#8bfceee7edeaf9eecbeae5f8eee8a5eeeffea5ece3"><span class="__cf_email__" data-cfemail="394e5c555f584b5c7958574a5c5a175c5d4c175e51">[email&#160;protected]</span></a></div>
+                    <div class="cc-contact-row"><i class="ri-phone-line"></i> <a href="tel:+233000000000">+233 (0) 00 000 0000</a></div>
+                    <div class="cc-contact-row"><i class="ri-door-open-line"></i> Walk-in sessions available all day</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Referral note -->
+              <div style="margin-top:1.2rem;background:rgba(212,175,55,.08);border:1px solid rgba(212,175,55,.18);border-radius:var(--radius);padding:1.1rem 1.3rem;display:flex;gap:.75rem;align-items:flex-start">
+                <i class="ri-information-line" style="color:var(--warm);font-size:1.1rem;flex-shrink:0;margin-top:.12rem"></i>
+                <div style="font-family:var(--sans);font-size:.79rem;color:var(--text-body);line-height:1.7">
+                  <strong style="color:var(--text-primary)">Confidentiality Notice:</strong> All counselling sessions are confidential unless there is a risk to the student's safety. Students are encouraged to speak freely.
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="rule">
+
+  <!-- ════════════════════════════════════════════════
+       §6  HEALTH & WELFARE
+  ════════════════════════════════════════════════ -->
+  <section id="health">
+    <div class="section">
+      <div class="section-inner">
+        <div style="text-align:center;max-width:700px;margin-inline:auto" class="reveal">
+          <div class="section-tag">Health &amp; Welfare</div>
+          <h2 class="section-heading">Student Health is <em>Our Priority</em></h2>
+          <p class="section-subheading" style="margin-inline:auto">From routine health checks to emergency referrals, our welfare systems are designed to keep every boarder healthy, safe and thriving.</p>
+        </div>
+
+        <div class="health-cards">
+
+          <div class="health-card hc-blue reveal">
+            <div class="health-card-top"></div>
+            <div class="health-card-body">
+              <div class="health-icon"><i class="ri-nurse-line"></i></div>
+              <div class="health-title">On-Campus Medical Clinic</div>
+              <div class="health-text">A dedicated school clinic staffed by a resident nurse provides first-response care, medication management and health monitoring for all boarding students throughout the term.</div>
+            </div>
+            <div class="health-card-footer"><i class="ri-time-line"></i> Open 7 days a week, 24-hour emergency access</div>
+          </div>
+
+          <div class="health-card hc-green reveal" style="transition-delay:.07s">
+            <div class="health-card-top"></div>
+            <div class="health-card-body">
+              <div class="health-icon"><i class="ri-hospital-line"></i></div>
+              <div class="health-title">Hospital Referral Network</div>
+              <div class="health-text">For cases beyond on-campus care, students are referred to Anum Government Hospital or Koforidua Regional Hospital. Staff escort all students during medical visits.</div>
+            </div>
+            <div class="health-card-footer"><i class="ri-map-pin-line"></i> Anum Government Hospital — 2 km from campus</div>
+          </div>
+
+          <div class="health-card hc-amber reveal" style="transition-delay:.14s">
+            <div class="health-card-top"></div>
+            <div class="health-card-body">
+              <div class="health-icon"><i class="ri-apple-line"></i></div>
+              <div class="health-title">Nutrition &amp; Dietary Care</div>
+              <div class="health-text">Our catering team prepares balanced, varied meals following nutritional guidelines. Special dietary needs and food allergies are accommodated with prior notice to the Welfare Office.</div>
+            </div>
+            <div class="health-card-footer"><i class="ri-restaurant-line"></i> Three meals daily, varied weekly menu</div>
+          </div>
+
+        </div>
+
+        <!-- Health checklist -->
+        <div style="margin-top:3rem;background:var(--bg-white);border-radius:var(--radius-lg);border:1px solid rgba(0,0,0,.06);padding:2.2rem 2.5rem;box-shadow:var(--shadow-card)" class="reveal">
+          <div style="display:flex;align-items:center;gap:.8rem;margin-bottom:1.4rem">
+            <div style="width:40px;height:40px;border-radius:12px;background:var(--accent-soft);display:flex;align-items:center;justify-content:center;color:var(--accent);font-size:1.1rem;flex-shrink:0"><i class="ri-file-list-3-line"></i></div>
+            <div>
+              <div style="font-family:var(--sans);font-size:.9rem;font-weight:700;color:var(--text-primary)">What Students Must Bring at Resumption</div>
+              <div style="font-family:var(--sans);font-size:.76rem;color:var(--text-muted)">Health &amp; welfare requirements for all boarding students</div>
+            </div>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:.6rem">
+            <div style="display:flex;align-items:center;gap:.6rem;font-family:var(--sans);font-size:.82rem;color:var(--text-body)"><i class="ri-checkbox-circle-line" style="color:var(--accent);font-size:1rem;flex-shrink:0"></i> Completed medical history form (signed by parent)</div>
+            <div style="display:flex;align-items:center;gap:.6rem;font-family:var(--sans);font-size:.82rem;color:var(--text-body)"><i class="ri-checkbox-circle-line" style="color:var(--accent);font-size:1rem;flex-shrink:0"></i> National Health Insurance (NHIS) card</div>
+            <div style="display:flex;align-items:center;gap:.6rem;font-family:var(--sans);font-size:.82rem;color:var(--text-body)"><i class="ri-checkbox-circle-line" style="color:var(--accent);font-size:1rem;flex-shrink:0"></i> Prescribed medications (with doctor's note)</div>
+            <div style="display:flex;align-items:center;gap:.6rem;font-family:var(--sans);font-size:.82rem;color:var(--text-body)"><i class="ri-checkbox-circle-line" style="color:var(--accent);font-size:1rem;flex-shrink:0"></i> Emergency contact card (at least 2 contacts)</div>
+            <div style="display:flex;align-items:center;gap:.6rem;font-family:var(--sans);font-size:.82rem;color:var(--text-body)"><i class="ri-checkbox-circle-line" style="color:var(--accent);font-size:1rem;flex-shrink:0"></i> Vaccination record / immunisation history</div>
+            <div style="display:flex;align-items:center;gap:.6rem;font-family:var(--sans);font-size:.82rem;color:var(--text-body)"><i class="ri-checkbox-circle-line" style="color:var(--accent);font-size:1rem;flex-shrink:0"></i> Allergen &amp; dietary restriction declaration</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <hr class="rule">
+
+  <!-- ════════════════════════════════════════════════
+       §7  PARENTS & COMMUNICATION
+  ════════════════════════════════════════════════ -->
+  <section id="parents" class="parents-bg">
+    <div class="section">
+      <div class="parents-inner">
+        <div class="parents-grid">
+
+          <!-- Copy -->
+          <div class="parents-copy">
+            <div class="section-tag reveal">Parents &amp; Guardians</div>
+            <h2 class="section-heading reveal">Staying <em>Connected</em></h2>
+            <p class="section-subheading reveal">We believe the partnership between school and home is essential. Our communication systems keep parents informed, involved and reassured.</p>
+
+            <div class="comm-channels">
+              <div class="comm-ch reveal" style="transition-delay:.05s">
+                <div class="comm-ch-icon"><i class="ri-phone-line"></i></div>
+                <div>
+                  <div class="comm-ch-title">Direct Phone Contact</div>
+                  <div class="comm-ch-desc">Parents may call the school's welfare line during business hours. Students have designated phone-call periods daily.</div>
+                </div>
+              </div>
+              <div class="comm-ch reveal" style="transition-delay:.1s">
+                <div class="comm-ch-icon"><i class="ri-mail-send-line"></i></div>
+                <div>
+                  <div class="comm-ch-title">Term-End Reports &amp; Email Updates</div>
+                  <div class="comm-ch-desc">Formal progress reports at the end of each term, supplemented by mid-term welfare updates from housemasters.</div>
+                </div>
+              </div>
+              <div class="comm-ch reveal" style="transition-delay:.15s">
+                <div class="comm-ch-icon"><i class="ri-parent-line"></i></div>
+                <div>
+                  <div class="comm-ch-title">Parents' Day</div>
+                  <div class="comm-ch-desc">Annual Parent-Teacher-Student meetings allow face-to-face discussions on academic and pastoral progress.</div>
+                </div>
+              </div>
+              <div class="comm-ch reveal" style="transition-delay:.2s">
+                <div class="comm-ch-icon"><i class="ri-notification-3-line"></i></div>
+                <div>
+                  <div class="comm-ch-title">Emergency Notification</div>
+                  <div class="comm-ch-desc">Parents are contacted immediately in the event of any health issue, discipline matter, or emergency affecting their ward.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Visit schedule -->
+          <div class="reveal-r">
+            <div class="visit-card">
+              <div class="visit-card-title">
+                <i class="ri-calendar-2-line"></i>
+                Visiting Schedule
+              </div>
+              <div class="visit-rows">
+                <div class="visit-row">
+                  <div>
+                    <div class="visit-day">Half-Term Visiting Day</div>
+                    <div class="visit-note">Once per term — official visiting day for parents</div>
+                  </div>
+                  <span class="visit-time">7 AM – 5 PM</span>
+                </div>
+                <div class="visit-row">
+                  <div>
+                    <div class="visit-day">Sunday Visiting</div>
+                    <div class="visit-note">With prior written permission from housemaster</div>
+                  </div>
+                  <span class="visit-time">2 PM – 5 PM</span>
+                </div>
+                <div class="visit-row">
+                  <div>
+                    <div class="visit-day">Emergency Visits</div>
+                    <div class="visit-note">Medical or welfare reasons — contact welfare office first</div>
+                  </div>
+                  <span class="visit-time">Anytime</span>
+                </div>
+                <div class="visit-row">
+                  <div>
+                    <div class="visit-day">End-of-Term Collection</div>
+                    <div class="visit-note">Students released after formal sign-out procedures</div>
+                  </div>
+                  <span class="visit-time">As announced</span>
+                </div>
+              </div>
+            </div>
+
+            <div style="margin-top:1.4rem;background:rgba(212,175,55,.07);border:1px solid rgba(212,175,55,.15);border-radius:var(--radius);padding:1.1rem 1.3rem;display:flex;gap:.7rem;align-items:flex-start">
+              <i class="ri-information-line" style="color:rgba(212,175,55,.75);font-size:1.05rem;flex-shrink:0;margin-top:.1rem"></i>
+              <div style="font-family:var(--sans);font-size:.78rem;color:rgba(170,200,230,.55);line-height:1.7">
+                All visitors must present valid ID at the security gate and sign the visitor register. Unscheduled visits outside the timetable above must be pre-approved by the housemaster.
+              </div>
+            </div>
+
+            <div style="margin-top:1.2rem;display:flex;gap:.9rem">
+              <a href="/cdn-cgi/l/email-protection#0176646d6760736441606f7264622f6465742f6669" class="btn-gradient" style="flex:1;justify-content:center"><i class="ri-mail-line"></i> Contact Welfare</a>
+              <a href="/pages/ansec-contact.html" class="btn-outline-light" style="flex:1;justify-content:center"><i class="ri-phone-line"></i> School Line</a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="rule">
+
+  <!-- ════════════════════════════════════════════════
+       §8  FAQ & ENROLMENT
+  ════════════════════════════════════════════════ -->
+  <section id="enrolment">
+    <div class="section">
+      <div class="section-inner">
+        <div class="faq-grid">
+
+          <!-- FAQ -->
+          <div>
+            <div class="section-tag reveal" style="justify-content:flex-start">Boarding FAQs</div>
+            <h2 class="section-heading reveal">Common <em>Questions</em></h2>
+            <p class="section-subheading reveal" style="margin-bottom:2.2rem">Everything prospective boarding families need to know before admission.</p>
+
+            <div class="faq-list">
+              <div class="faq-item reveal">
+                <button class="faq-q" aria-expanded="false">
+                  What is the minimum age to board at ANSEC?
+                  <i class="ri-arrow-down-s-line"></i>
+                </button>
+                <div class="faq-a" aria-hidden="true">
+                  <div class="faq-a-inner">All students in Forms 1–3 who are admitted to ANSEC are eligible for boarding. Boarding is strongly encouraged for students coming from outside Anum and surrounding communities. There is no separate minimum age — eligibility follows standard SHS admission requirements.</div>
+                </div>
+              </div>
+              <div class="faq-item reveal" style="transition-delay:.05s">
+                <button class="faq-q" aria-expanded="false">
+                  Can students choose which house they are placed in?
+                  <i class="ri-arrow-down-s-line"></i>
+                </button>
+                <div class="faq-a" aria-hidden="true">
+                  <div class="faq-a-inner">House placement is managed by the boarding coordinator based on gender, available space, and other factors. Students may indicate preferences on their admission forms, but the school cannot guarantee specific placements. Requests to change houses are considered on a case-by-case basis.</div>
+                </div>
+              </div>
+              <div class="faq-item reveal" style="transition-delay:.1s">
+                <button class="faq-q" aria-expanded="false">
+                  What items should students bring to the dormitory?
+                  <i class="ri-arrow-down-s-line"></i>
+                </button>
+                <div class="faq-a" aria-hidden="true">
+                  <div class="faq-a-inner">The official boarding kit list is included in the admission pack. Generally, students should bring: bedding (mattress, sheets, pillow), toiletries, a bucket, school uniforms, sports kit, casual wear, and approved study materials. Electronic devices such as phones and tablets are subject to the school's ICT policy.</div>
+                </div>
+              </div>
+              <div class="faq-item reveal" style="transition-delay:.15s">
+                <button class="faq-q" aria-expanded="false">
+                  Are there extra boarding fees beyond school fees?
+                  <i class="ri-arrow-down-s-line"></i>
+                </button>
+                <div class="faq-a" aria-hidden="true">
+                  <div class="faq-a-inner">Boarding fees cover accommodation, meals, and basic welfare services and are included in the overall school fees structure as regulated by the Ghana Education Service (GES). Any supplementary levies approved by the Parent-Teacher Association (PTA) are communicated officially at the beginning of each academic year.</div>
+                </div>
+              </div>
+              <div class="faq-item reveal" style="transition-delay:.2s">
+                <button class="faq-q" aria-expanded="false">
+                  What happens if a boarder falls ill at night?
+                  <i class="ri-arrow-down-s-line"></i>
+                </button>
+                <div class="faq-a" aria-hidden="true">
+                  <div class="faq-a-inner">Night duty staff are always present in the dormitories. In the event of illness, the duty staff will administer first aid, contact the school nurse, and — if necessary — arrange transport to the hospital. Parents are notified promptly for any significant health concern.</div>
+                </div>
+              </div>
+              <div class="faq-item reveal" style="transition-delay:.25s">
+                <button class="faq-q" aria-expanded="false">
+                  Can day students convert to boarding status?
+                  <i class="ri-arrow-down-s-line"></i>
+                </button>
+                <div class="faq-a" aria-hidden="true">
+                  <div class="faq-a-inner">Yes. Day students who wish to convert to boarding status may apply to the head of boarding at the beginning of any academic term, subject to available dormitory space. A formal application and parent consent form must be submitted.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- CTA card -->
+          <div>
+            <div class="enrol-cta-card reveal-r">
+              <div class="enrol-icon"><i class="ri-door-open-line"></i></div>
+              <h3 class="enrol-title">Apply for <em>Boarding</em></h3>
+              <p class="enrol-text">Join hundreds of students who call ANSEC home. Our boarding programme shapes scholars, leaders, and people of faith.</p>
+              <div class="enrol-cta-btns">
+                <a href="/pages/ansec-admissions.html" class="btn-gradient"><i class="ri-file-add-line"></i> Start Application</a>
+                <a href="/cdn-cgi/l/email-protection#c1a0a5aca8b2b2a8aeafb281a0afb2a4a2efa4a5b4efa6a9" class="btn-outline-light"><i class="ri-mail-line"></i> Email Admissions</a>
+                <a href="/pages/ansec-contact.html" class="btn-outline-light"><i class="ri-phone-line"></i> Speak to Welfare</a>
+              </div>
+              <div class="enrol-detail"><i class="ri-calendar-check-line"></i> Applications open each academic year</div>
+              <div class="enrol-detail"><i class="ri-file-list-3-line"></i> Download boarding kit list at admissions office</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── FOOTER MOUNT ─── -->
+  <div id="ansec-footer"></div>
+
+  <!-- ════════════════════════════════════════════════
+       SCRIPTS
+  ════════════════════════════════════════════════ -->
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="/assets/js/ansec-layout.js" defer></script>
+  <script>
+  (() => {
+
+    /* ── Scroll reveal ── */
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); observer.unobserve(e.target); } });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.reveal,.reveal-l,.reveal-r').forEach(el => observer.observe(el));
+
+    /* ── FAQ accordion ── */
+    document.querySelectorAll('.faq-q').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const item = btn.closest('.faq-item');
+        const isOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item.open').forEach(i => {
+          i.classList.remove('open');
+          i.querySelector('.faq-q').setAttribute('aria-expanded','false');
+          i.querySelector('.faq-a').setAttribute('aria-hidden','true');
+        });
+        if (!isOpen) {
+          item.classList.add('open');
+          btn.setAttribute('aria-expanded','true');
+          item.querySelector('.faq-a').setAttribute('aria-hidden','false');
+        }
+      });
+    });
+
+    /* ── Section nav (scroll pip nav) ── */
+    const secNav   = document.getElementById('sec-nav');
+    const sections = ['overview','houses','daily','pastoral','health','parents','enrolment'];
+    const pips     = document.querySelectorAll('.sec-nav-pip');
+    const HEADER   = 130;
+
+    // Show nav after scrolling past hero
+    const heroEl = document.getElementById('hero-section');
+    const showObserver = new IntersectionObserver(entries => {
+      secNav.classList.toggle('visible', !entries[0].isIntersecting);
+    }, { threshold: 0.1 });
+    showObserver.observe(heroEl);
+
+    // Active pip on scroll
+    const sectionEls = sections.map(id => document.getElementById(id));
+    function updateActivePip() {
+      const scrollY = window.scrollY + HEADER + 80;
+      let active = 0;
+      sectionEls.forEach((el, i) => {
+        if (el && el.offsetTop <= scrollY) active = i;
+      });
+      pips.forEach((p, i) => p.classList.toggle('active', i === active));
+    }
+    window.addEventListener('scroll', updateActivePip, { passive: true });
+    updateActivePip();
+
+    // Click to scroll
+    pips.forEach

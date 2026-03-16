@@ -1,0 +1,1765 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>ANSEC · Content Management System</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/remixicon@4.0.0/fonts/remixicon.css" rel="stylesheet"/>
+<style>
+:root {
+  --bg:       #0a0f1a;
+  --bg2:      #0f1625;
+  --bg3:      #141e2e;
+  --bg4:      #1a2740;
+  --border:   rgba(255,255,255,.07);
+  --border2:  rgba(255,255,255,.12);
+  --accent:   #3b82f6;
+  --accent-h: #2563eb;
+  --accent-s: rgba(59,130,246,.12);
+  --red:      #8b0000;
+  --red-s:    rgba(139,0,0,.15);
+  --gold:     #d4af37;
+  --gold-s:   rgba(212,175,55,.12);
+  --green:    #10b981;
+  --green-s:  rgba(16,185,129,.12);
+  --amber:    #f59e0b;
+  --purple:   #8b5cf6;
+  --text:     #e2e8f0;
+  --text2:    #94a3b8;
+  --text3:    #64748b;
+  --serif:    'Playfair Display', Georgia, serif;
+  --sans:     'DM Sans', system-ui, sans-serif;
+  --mono:     'JetBrains Mono', monospace;
+  --r:        8px;
+  --r-sm:     5px;
+  --tr:       .22s cubic-bezier(.22,1,.36,1);
+  --sidebar:  240px;
+}
+*,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--sans);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── TOPBAR ── */
+.topbar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  height: 52px;
+  background: var(--bg2);
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center;
+  padding-inline: 1.5rem;
+  gap: 1rem;
+}
+.topbar-brand {
+  display: flex; align-items: center; gap: .7rem;
+  font-family: var(--serif); font-size: 1.1rem; font-weight: 700; color: var(--text);
+  text-decoration: none; flex-shrink: 0;
+}
+.topbar-brand .crest {
+  width: 30px; height: 30px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--red), #c0392b);
+  display: flex; align-items: center; justify-content: center;
+  font-size: .75rem; font-weight: 900; color: #fff;
+  border: 1.5px solid var(--gold); flex-shrink: 0;
+}
+.topbar-brand em { color: var(--red); font-style: normal; }
+.topbar-sub {
+  font-family: var(--sans); font-size: .65rem; font-weight: 600;
+  letter-spacing: .18em; text-transform: uppercase; color: var(--text3);
+  padding: .28rem .7rem; border-radius: 999px;
+  background: var(--bg3); border: 1px solid var(--border);
+}
+.topbar-right { margin-left: auto; display: flex; align-items: center; gap: .6rem; }
+.tb-btn {
+  display: inline-flex; align-items: center; gap: .35rem;
+  padding: .38rem .85rem; border-radius: var(--r-sm);
+  font-family: var(--sans); font-size: .78rem; font-weight: 600;
+  border: 1px solid var(--border2); background: var(--bg3);
+  color: var(--text2); cursor: pointer; transition: all var(--tr);
+  text-decoration: none;
+}
+.tb-btn:hover { background: var(--bg4); color: var(--text); border-color: var(--accent); }
+.tb-btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+.tb-btn.primary:hover { background: var(--accent-h); }
+.save-indicator {
+  font-size: .72rem; color: var(--green); display: none; align-items: center; gap: .3rem;
+}
+.save-indicator.show { display: flex; }
+
+/* ── LAYOUT ── */
+.layout { display: flex; padding-top: 52px; min-height: 100vh; }
+
+/* ── SIDEBAR ── */
+.sidebar {
+  width: var(--sidebar); flex-shrink: 0;
+  background: var(--bg2);
+  border-right: 1px solid var(--border);
+  position: fixed; top: 52px; bottom: 0; left: 0;
+  overflow-y: auto; overflow-x: hidden;
+  scrollbar-width: thin; scrollbar-color: var(--bg4) transparent;
+  z-index: 100;
+}
+.sidebar-section { padding: .5rem 0; border-bottom: 1px solid var(--border); }
+.sidebar-section:last-child { border-bottom: none; }
+.sidebar-label {
+  font-family: var(--sans); font-size: .58rem; font-weight: 700;
+  letter-spacing: .2em; text-transform: uppercase; color: var(--text3);
+  padding: .8rem 1.1rem .3rem;
+}
+.nav-item {
+  display: flex; align-items: center; gap: .6rem;
+  padding: .55rem 1.1rem;
+  font-family: var(--sans); font-size: .8rem; font-weight: 500; color: var(--text2);
+  cursor: pointer; transition: all var(--tr); border-left: 2.5px solid transparent;
+  user-select: none;
+}
+.nav-item:hover { background: var(--bg3); color: var(--text); }
+.nav-item.active {
+  background: var(--accent-s); color: var(--accent);
+  border-left-color: var(--accent); font-weight: 600;
+}
+.nav-item i { font-size: .95rem; flex-shrink: 0; }
+.nav-badge {
+  margin-left: auto; font-size: .6rem; font-weight: 700;
+  padding: .1rem .4rem; border-radius: 3px;
+  background: var(--bg4); color: var(--text3);
+}
+.nav-item.active .nav-badge { background: var(--accent-s); color: var(--accent); }
+
+/* ── MAIN CONTENT ── */
+.main { margin-left: var(--sidebar); flex: 1; min-width: 0; }
+
+/* ── PANELS ── */
+.panel { display: none; padding: 2rem; max-width: 1000px; }
+.panel.active { display: block; }
+
+/* ── PAGE HEADER ── */
+.panel-header { margin-bottom: 2rem; }
+.panel-title { font-family: var(--serif); font-size: 1.6rem; font-weight: 700; color: var(--text); }
+.panel-title em { font-style: italic; color: var(--accent); }
+.panel-desc {
+  font-family: var(--sans); font-size: .85rem; color: var(--text2);
+  margin-top: .35rem; line-height: 1.6;
+}
+.panel-meta { display: flex; align-items: center; gap: .6rem; margin-top: .7rem; flex-wrap: wrap; }
+.meta-tag {
+  display: inline-flex; align-items: center; gap: .35rem;
+  font-size: .68rem; font-weight: 600; letter-spacing: .06em;
+  padding: .22rem .65rem; border-radius: 999px;
+}
+.meta-tag.page { background: var(--accent-s); color: var(--accent); }
+.meta-tag.warn { background: rgba(245,158,11,.12); color: var(--amber); }
+.meta-tag.ok   { background: var(--green-s); color: var(--green); }
+
+/* ── CARDS / SECTIONS ── */
+.card {
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: var(--r); padding: 1.5rem; margin-bottom: 1.2rem;
+}
+.card-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 1.2rem; padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
+}
+.card-title {
+  font-family: var(--sans); font-size: .82rem; font-weight: 700;
+  color: var(--text); display: flex; align-items: center; gap: .5rem;
+}
+.card-title i { color: var(--accent); font-size: 1rem; }
+.card-sub { font-size: .72rem; color: var(--text3); margin-top: .15rem; }
+
+/* ── FIELDS ── */
+.field { margin-bottom: 1rem; }
+.field:last-child { margin-bottom: 0; }
+.field-row { display: grid; grid-template-columns: 1fr 1fr; gap: .85rem; }
+.field-row-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: .85rem; }
+@media(max-width:700px) { .field-row,.field-row-3 { grid-template-columns: 1fr; } }
+label {
+  display: block; font-family: var(--sans); font-size: .67rem; font-weight: 700;
+  letter-spacing: .08em; text-transform: uppercase; color: var(--text3);
+  margin-bottom: .32rem;
+}
+label .hint { font-weight: 400; text-transform: none; letter-spacing: 0; color: var(--text3); margin-left: .3rem; font-size: .65rem; }
+input[type="text"], input[type="email"], input[type="tel"], input[type="number"],
+input[type="url"], input[type="date"], select, textarea {
+  width: 100%; padding: .68rem .9rem;
+  border: 1.5px solid var(--border2);
+  border-radius: var(--r-sm);
+  background: var(--bg3); color: var(--text);
+  font-family: var(--sans); font-size: .85rem;
+  outline: none; transition: border-color var(--tr), box-shadow var(--tr);
+  appearance: none;
+}
+input:focus, select:focus, textarea:focus {
+  border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-s);
+}
+textarea { resize: vertical; min-height: 80px; line-height: 1.6; }
+select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2364748b' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right .9rem center; padding-right: 2.4rem;
+}
+.field-code { font-family: var(--mono); font-size: .8rem; }
+.field-note { font-size: .69rem; color: var(--text3); margin-top: .3rem; }
+
+/* Stat group */
+.stat-group { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px,1fr)); gap: .75rem; }
+.stat-item { background: var(--bg3); border: 1px solid var(--border); border-radius: var(--r-sm); padding: .9rem 1rem; }
+.stat-item label { color: var(--text3); }
+.stat-item input { background: var(--bg4); border-color: var(--border); padding: .5rem .7rem; font-size: .88rem; font-weight: 700; }
+
+/* ── REPEATABLE LISTS ── */
+.rep-list { display: flex; flex-direction: column; gap: .6rem; }
+.rep-item {
+  display: flex; align-items: stretch; gap: .5rem;
+  background: var(--bg3); border: 1px solid var(--border);
+  border-radius: var(--r-sm); overflow: hidden;
+}
+.rep-handle {
+  width: 32px; flex-shrink: 0; display: flex; align-items: center; justify-content: center;
+  color: var(--text3); cursor: grab; border-right: 1px solid var(--border);
+  background: var(--bg4); font-size: .85rem;
+}
+.rep-fields { flex: 1; padding: .8rem 1rem; display: grid; gap: .5rem; }
+.rep-fields-2 { grid-template-columns: 1fr 1fr; }
+.rep-fields-3 { grid-template-columns: 1fr 1fr 1fr; }
+@media(max-width:600px) { .rep-fields-2,.rep-fields-3 { grid-template-columns: 1fr; } }
+.rep-fields input, .rep-fields select, .rep-fields textarea { margin: 0; }
+.rep-fields label { margin-bottom: .2rem; font-size: .62rem; }
+.rep-delete {
+  width: 36px; flex-shrink: 0; display: flex; align-items: center; justify-content: center;
+  color: var(--text3); cursor: pointer; border-left: 1px solid var(--border);
+  background: var(--bg4); font-size: .9rem; transition: all var(--tr);
+}
+.rep-delete:hover { background: rgba(239,68,68,.15); color: #ef4444; }
+.add-btn {
+  display: inline-flex; align-items: center; gap: .4rem;
+  padding: .55rem 1.1rem; border-radius: var(--r-sm);
+  background: var(--bg3); border: 1.5px dashed var(--border2);
+  color: var(--text2); font-family: var(--sans); font-size: .78rem; font-weight: 600;
+  cursor: pointer; transition: all var(--tr); margin-top: .5rem;
+}
+.add-btn:hover { background: var(--bg4); border-color: var(--accent); color: var(--accent); }
+
+/* ── TOGGLE ── */
+.toggle-row {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: .75rem 0; border-bottom: 1px solid var(--border);
+}
+.toggle-row:last-child { border-bottom: none; }
+.toggle-info { font-size: .82rem; color: var(--text); }
+.toggle-info small { display: block; font-size: .7rem; color: var(--text3); margin-top: .1rem; }
+.toggle {
+  position: relative; width: 40px; height: 22px; flex-shrink: 0;
+}
+.toggle input { opacity: 0; width: 0; height: 0; }
+.toggle-slider {
+  position: absolute; inset: 0; border-radius: 11px;
+  background: var(--bg4); border: 1.5px solid var(--border2);
+  transition: all var(--tr); cursor: pointer;
+}
+.toggle-slider::before {
+  content: ''; position: absolute; width: 14px; height: 14px; border-radius: 50%;
+  background: var(--text3); top: 2.5px; left: 2.5px;
+  transition: all var(--tr);
+}
+.toggle input:checked + .toggle-slider { background: var(--accent); border-color: var(--accent); }
+.toggle input:checked + .toggle-slider::before { transform: translateX(18px); background: #fff; }
+
+/* ── COLOUR SWATCH PICKER ── */
+.colour-field { display: flex; align-items: center; gap: .6rem; }
+.colour-swatch {
+  width: 36px; height: 36px; border-radius: var(--r-sm);
+  border: 2px solid var(--border2); cursor: pointer; flex-shrink: 0;
+  overflow: hidden;
+}
+.colour-swatch input[type="color"] { width: 100%; height: 100%; border: none; cursor: pointer; padding: 0; }
+
+/* ── IMAGE FIELD ── */
+.img-field {
+  display: flex; align-items: center; gap: .85rem;
+  background: var(--bg3); border: 1.5px dashed var(--border2);
+  border-radius: var(--r-sm); padding: .85rem 1rem;
+}
+.img-preview {
+  width: 56px; height: 56px; border-radius: var(--r-sm);
+  background: var(--bg4); border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--text3); font-size: 1.4rem; flex-shrink: 0; overflow: hidden;
+}
+.img-preview img { width: 100%; height: 100%; object-fit: cover; }
+.img-info { flex: 1; min-width: 0; }
+.img-info input { margin-bottom: .3rem; }
+.img-hint { font-size: .67rem; color: var(--text3); }
+
+/* ── TABS ── */
+.tabs { display: flex; gap: 0; border-bottom: 1px solid var(--border); margin-bottom: 1.5rem; }
+.tab-btn {
+  padding: .7rem 1.2rem; font-family: var(--sans); font-size: .78rem; font-weight: 600;
+  color: var(--text3); cursor: pointer; border-bottom: 2px solid transparent;
+  transition: all var(--tr); background: none; border-top: none; border-left: none; border-right: none;
+  display: flex; align-items: center; gap: .4rem;
+}
+.tab-btn:hover { color: var(--text); }
+.tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+
+/* ── ALERT BANNER ── */
+.alert {
+  display: flex; align-items: flex-start; gap: .7rem;
+  padding: .85rem 1rem; border-radius: var(--r-sm); margin-bottom: 1.2rem;
+  font-size: .8rem; line-height: 1.5;
+}
+.alert i { font-size: 1rem; flex-shrink: 0; margin-top: .05rem; }
+.alert.info { background: var(--accent-s); border: 1px solid rgba(59,130,246,.25); color: #93c5fd; }
+.alert.warn { background: rgba(245,158,11,.1); border: 1px solid rgba(245,158,11,.25); color: #fcd34d; }
+.alert.success { background: var(--green-s); border: 1px solid rgba(16,185,129,.25); color: #6ee7b7; }
+
+/* ── EXPORT/PREVIEW SECTION ── */
+.export-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.export-card {
+  background: var(--bg3); border: 1px solid var(--border);
+  border-radius: var(--r); padding: 1.2rem; display: flex; flex-direction: column; gap: .6rem;
+}
+.export-card-title { font-size: .82rem; font-weight: 700; color: var(--text); display: flex; align-items: center; gap: .5rem; }
+.export-card-title i { color: var(--accent); }
+.export-card p { font-size: .76rem; color: var(--text3); line-height: 1.5; }
+.export-btn {
+  display: inline-flex; align-items: center; gap: .45rem;
+  padding: .6rem 1.1rem; border-radius: var(--r-sm);
+  font-family: var(--sans); font-size: .78rem; font-weight: 600;
+  cursor: pointer; border: 1.5px solid var(--border2); transition: all var(--tr);
+  margin-top: auto;
+}
+.export-btn.blue { background: var(--accent-s); border-color: rgba(59,130,246,.3); color: var(--accent); }
+.export-btn.blue:hover { background: var(--accent); color: #fff; }
+.export-btn.green { background: var(--green-s); border-color: rgba(16,185,129,.3); color: var(--green); }
+.export-btn.green:hover { background: var(--green); color: #fff; }
+.export-btn.gold { background: var(--gold-s); border-color: rgba(212,175,55,.3); color: var(--gold); }
+.export-btn.gold:hover { background: var(--gold); color: #000; }
+
+/* ── CODE OUTPUT ── */
+.code-block {
+  background: var(--bg); border: 1px solid var(--border); border-radius: var(--r-sm);
+  padding: 1rem; font-family: var(--mono); font-size: .76rem; color: #a5f3fc;
+  max-height: 300px; overflow-y: auto; white-space: pre-wrap; word-break: break-all;
+  display: none;
+}
+.code-block.show { display: block; }
+
+/* ── DASHBOARD ── */
+.dash-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1rem; margin-bottom: 1.5rem; }
+@media(max-width:760px) { .dash-grid { grid-template-columns: 1fr 1fr; } }
+.dash-card {
+  background: var(--bg2); border: 1px solid var(--border); border-radius: var(--r);
+  padding: 1.2rem; position: relative; overflow: hidden;
+}
+.dash-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+}
+.dash-card.red::before { background: var(--red); }
+.dash-card.blue::before { background: var(--accent); }
+.dash-card.gold::before { background: var(--gold); }
+.dash-card.green::before { background: var(--green); }
+.dash-card.purple::before { background: var(--purple); }
+.dash-num { font-family: var(--serif); font-size: 2rem; font-weight: 700; color: var(--text); line-height: 1; }
+.dash-lbl { font-size: .7rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--text3); margin-top: .3rem; }
+.dash-icon { position: absolute; right: 1rem; top: 1.1rem; font-size: 1.4rem; color: var(--border2); }
+
+/* ── QUICK-ACCESS LINKS ── */
+.page-links { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px,1fr)); gap: .7rem; }
+.page-link {
+  display: flex; align-items: center; gap: .6rem;
+  padding: .75rem 1rem; border-radius: var(--r-sm);
+  background: var(--bg3); border: 1px solid var(--border);
+  color: var(--text2); font-size: .78rem; font-weight: 600;
+  cursor: pointer; transition: all var(--tr); text-decoration: none;
+}
+.page-link:hover { background: var(--bg4); color: var(--text); border-color: var(--accent); }
+.page-link i { font-size: 1rem; color: var(--accent); flex-shrink: 0; }
+
+/* ── SCHEDULE TABLE ── */
+.sched-table { width: 100%; border-collapse: collapse; font-size: .8rem; }
+.sched-table th {
+  text-align: left; padding: .6rem .8rem;
+  background: var(--bg3); color: var(--text3);
+  font-size: .65rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+  border-bottom: 1px solid var(--border);
+}
+.sched-table td { padding: .55rem .8rem; border-bottom: 1px solid var(--border); vertical-align: middle; }
+.sched-table tr:last-child td { border-bottom: none; }
+.sched-table tr:hover td { background: var(--bg3); }
+.sched-table td input { background: transparent; border: none; color: var(--text); font-family: var(--sans); font-size: .8rem; width: 100%; outline: none; }
+.sched-table td input:focus { background: var(--bg4); border-radius: 4px; padding: .2rem .4rem; }
+
+/* ── RESPONSIVE ── */
+@media(max-width:768px) {
+  .sidebar { transform: translateX(-100%); transition: transform .3s ease; }
+  .sidebar.open { transform: translateX(0); }
+  .main { margin-left: 0; }
+  .mobile-menu { display: flex !important; }
+  .export-grid { grid-template-columns: 1fr; }
+  .dash-grid { grid-template-columns: 1fr 1fr; }
+}
+
+/* ── MOBILE MENU BTN ── */
+.mobile-menu {
+  display: none; width: 36px; height: 36px; border-radius: 6px;
+  background: var(--bg3); border: 1px solid var(--border);
+  align-items: center; justify-content: center;
+  cursor: pointer; color: var(--text2); font-size: 1.1rem;
+}
+.sidebar-overlay {
+  display: none; position: fixed; inset: 0; background: rgba(0,0,0,.5);
+  z-index: 99; backdrop-filter: blur(2px);
+}
+.sidebar-overlay.show { display: block; }
+
+/* ── MISC ── */
+hr.divider { border: none; border-top: 1px solid var(--border); margin: 1.4rem 0; }
+.section-gap { margin-bottom: 2rem; }
+.inline-flex { display: flex; align-items: center; gap: .5rem; }
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<header class="topbar">
+  <button class="mobile-menu" id="mobileMenu"><i class="ri-menu-line"></i></button>
+  <a href="#" class="topbar-brand">
+    <div class="crest">A</div>
+    <span>ANSEC <em>CMS</em></span>
+  </a>
+  <span class="topbar-sub">Content Administration</span>
+  <div class="topbar-right">
+    <span class="save-indicator" id="saveIndicator"><i class="ri-checkbox-circle-fill"></i> Saved</span>
+    <button class="tb-btn" onclick="exportAll()"><i class="ri-download-line"></i> Export JSON</button>
+    <button class="tb-btn primary" id="saveAllBtn" onclick="saveAll()"><i class="ri-save-line"></i> Save All</button>
+  </div>
+</header>
+
+<!-- SIDEBAR OVERLAY (mobile) -->
+<div class="sidebar-overlay" id="overlay" onclick="closeSidebar()"></div>
+
+<!-- LAYOUT -->
+<div class="layout">
+
+  <!-- SIDEBAR -->
+  <nav class="sidebar" id="sidebar">
+
+    <div class="sidebar-section">
+      <div class="sidebar-label">Overview</div>
+      <div class="nav-item active" data-panel="dashboard" onclick="showPanel(this)">
+        <i class="ri-dashboard-2-line"></i> Dashboard
+      </div>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-label">School Identity</div>
+      <div class="nav-item" data-panel="school-info" onclick="showPanel(this)">
+        <i class="ri-school-line"></i> School Info
+      </div>
+      <div class="nav-item" data-panel="contact-info" onclick="showPanel(this)">
+        <i class="ri-phone-line"></i> Contact Info
+      </div>
+      <div class="nav-item" data-panel="social-media" onclick="showPanel(this)">
+        <i class="ri-share-line"></i> Social Media
+      </div>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-label">Leadership</div>
+      <div class="nav-item" data-panel="headteacher" onclick="showPanel(this)">
+        <i class="ri-user-star-line"></i> Headteacher
+      </div>
+      <div class="nav-item" data-panel="chaplain" onclick="showPanel(this)">
+        <i class="ri-cross-line"></i> Chaplain
+      </div>
+      <div class="nav-item" data-panel="senior-admin" onclick="showPanel(this)">
+        <i class="ri-group-line"></i> Senior Administration
+      </div>
+      <div class="nav-item" data-panel="hods" onclick="showPanel(this)">
+        <i class="ri-book-open-line"></i> Heads of Department
+      </div>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-label">Academic</div>
+      <div class="nav-item" data-panel="academic-calendar" onclick="showPanel(this)">
+        <i class="ri-calendar-2-line"></i> Academic Calendar
+        <span class="nav-badge">Year</span>
+      </div>
+      <div class="nav-item" data-panel="programmes" onclick="showPanel(this)">
+        <i class="ri-file-list-3-line"></i> Programmes
+      </div>
+      <div class="nav-item" data-panel="departments" onclick="showPanel(this)">
+        <i class="ri-building-4-line"></i> Departments
+      </div>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-label">Campus Life</div>
+      <div class="nav-item" data-panel="clubs" onclick="showPanel(this)">
+        <i class="ri-group-2-line"></i> Clubs & Activities
+      </div>
+      <div class="nav-item" data-panel="sports" onclick="showPanel(this)">
+        <i class="ri-trophy-line"></i> Sports & Records
+      </div>
+      <div class="nav-item" data-panel="boarding" onclick="showPanel(this)">
+        <i class="ri-home-5-line"></i> Boarding & Houses
+      </div>
+      <div class="nav-item" data-panel="events" onclick="showPanel(this)">
+        <i class="ri-calendar-event-line"></i> Events Calendar
+      </div>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-label">Alumni & Community</div>
+      <div class="nav-item" data-panel="featured-alumni" onclick="showPanel(this)">
+        <i class="ri-award-line"></i> Featured Alumnus
+      </div>
+      <div class="nav-item" data-panel="alumni-stats" onclick="showPanel(this)">
+        <i class="ri-bar-chart-line"></i> Alumni Statistics
+      </div>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-label">Admissions</div>
+      <div class="nav-item" data-panel="admissions" onclick="showPanel(this)">
+        <i class="ri-door-open-line"></i> Admissions Info
+      </div>
+      <div class="nav-item" data-panel="admissions-dates" onclick="showPanel(this)">
+        <i class="ri-time-line"></i> Key Dates & Fees
+      </div>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="sidebar-label">Support</div>
+      <div class="nav-item" data-panel="donate" onclick="showPanel(this)">
+        <i class="ri-heart-3-line"></i> Donations & MoMo
+      </div>
+      <div class="nav-item" data-panel="gallery" onclick="showPanel(this)">
+        <i class="ri-image-2-line"></i> Gallery Settings
+      </div>
+      <div class="nav-item" data-panel="site-settings" onclick="showPanel(this)">
+        <i class="ri-settings-3-line"></i> Site Settings
+      </div>
+      <div class="nav-item" data-panel="export" onclick="showPanel(this)">
+        <i class="ri-code-box-line"></i> Export & Deploy
+      </div>
+    </div>
+
+  </nav>
+
+  <!-- MAIN -->
+  <main class="main" id="mainContent">
+
+    <!-- ════════════════════════════════ DASHBOARD ════ -->
+    <div class="panel active" id="panel-dashboard">
+      <div class="panel-header">
+        <div class="panel-title">Content <em>Dashboard</em></div>
+        <div class="panel-desc">Manage all editable content across the ANSEC website from one place. Changes are stored in your browser until you export and deploy.</div>
+      </div>
+
+      <div class="alert info"><i class="ri-information-line"></i> <div>This CMS stores content in your browser's localStorage. Use <strong>Export JSON</strong> to download your data, and <strong>Export CSS Variables</strong> to generate a deployable config file. No server required.</div></div>
+
+      <div class="dash-grid">
+        <div class="dash-card red">
+          <div class="dash-icon"><i class="ri-school-line"></i></div>
+          <div class="dash-num">19</div>
+          <div class="dash-lbl">Pages Managed</div>
+        </div>
+        <div class="dash-card blue">
+          <div class="dash-icon"><i class="ri-edit-line"></i></div>
+          <div class="dash-num" id="dashChanges">0</div>
+          <div class="dash-lbl">Unsaved Changes</div>
+        </div>
+        <div class="dash-card gold">
+          <div class="dash-icon"><i class="ri-user-3-line"></i></div>
+          <div class="dash-num">7</div>
+          <div class="dash-lbl">Staff Profiles</div>
+        </div>
+        <div class="dash-card green">
+          <div class="dash-icon"><i class="ri-group-line"></i></div>
+          <div class="dash-num">8</div>
+          <div class="dash-lbl">Clubs Managed</div>
+        </div>
+        <div class="dash-card purple">
+          <div class="dash-icon"><i class="ri-trophy-line"></i></div>
+          <div class="dash-num">9</div>
+          <div class="dash-lbl">Sports Records</div>
+        </div>
+        <div class="dash-card blue">
+          <div class="dash-icon"><i class="ri-calendar-line"></i></div>
+          <div class="dash-num">2</div>
+          <div class="dash-lbl">Academic Semesters</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div><div class="card-title"><i class="ri-flashlight-line"></i> Quick Access</div><div class="card-sub">Jump directly to the most frequently updated content</div></div>
+        </div>
+        <div class="page-links">
+          <div class="page-link" onclick="showPanelById('contact-info')"><i class="ri-phone-line"></i> Contact Numbers</div>
+          <div class="page-link" onclick="showPanelById('headteacher')"><i class="ri-user-star-line"></i> Headteacher</div>
+          <div class="page-link" onclick="showPanelById('academic-calendar')"><i class="ri-calendar-2-line"></i> Academic Year</div>
+          <div class="page-link" onclick="showPanelById('admissions-dates')"><i class="ri-time-line"></i> Admissions Dates</div>
+          <div class="page-link" onclick="showPanelById('sports')"><i class="ri-trophy-line"></i> Sports Records</div>
+          <div class="page-link" onclick="showPanelById('featured-alumni')"><i class="ri-award-line"></i> Featured Alumnus</div>
+          <div class="page-link" onclick="showPanelById('donate')"><i class="ri-heart-3-line"></i> MoMo Numbers</div>
+          <div class="page-link" onclick="showPanelById('boarding')"><i class="ri-home-5-line"></i> Boarding Houses</div>
+          <div class="page-link" onclick="showPanelById('clubs')"><i class="ri-group-2-line"></i> Club Schedules</div>
+          <div class="page-link" onclick="showPanelById('chaplain')"><i class="ri-cross-line"></i> Chaplain</div>
+          <div class="page-link" onclick="showPanelById('events')"><i class="ri-calendar-event-line"></i> School Events</div>
+          <div class="page-link" onclick="showPanelById('export')"><i class="ri-code-box-line"></i> Export & Deploy</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ════════════════════════════ SCHOOL INFO ════ -->
+    <div class="panel" id="panel-school-info">
+      <div class="panel-header">
+        <div class="panel-title">School <em>Information</em></div>
+        <div class="panel-desc">Core identity fields used across all pages — school name, motto, founding year, CSSPS code, and hero statistics.</div>
+        <div class="panel-meta"><span class="meta-tag page"><i class="ri-pages-line"></i> All pages</span></div>
+      </div>
+      <div class="card">
+        <div class="card-header"><div><div class="card-title"><i class="ri-school-line"></i> Identity</div></div></div>
+        <div class="field-row">
+          <div class="field"><label>Full School Name</label><input type="text" id="si-fullname" data-key="schoolFullName" value="Anum Presbyterian Senior High School"/></div>
+          <div class="field"><label>Short Name / Acronym</label><input type="text" id="si-short" data-key="schoolShort" value="ANSEC"/></div>
+        </div>
+        <div class="field-row">
+          <div class="field"><label>Year Founded</label><input type="number" id="si-founded" data-key="schoolFounded" value="1897"/></div>
+          <div class="field"><label>CSSPS Code</label><input type="text" id="si-cssps" data-key="schoolCSSPS" value="EPSAS"/></div>
+        </div>
+        <div class="field-row">
+          <div class="field"><label>Location</label><input type="text" id="si-location" data-key="schoolLocation" value="Anum, Eastern Region, Ghana"/></div>
+          <div class="field"><label>District / Region</label><input type="text" id="si-region" data-key="schoolRegion" value="Eastern Region"/></div>
+        </div>
+        <div class="field"><label>School Motto</label><input type="text" id="si-motto" data-key="schoolMotto" value="Service and Sacrifice"/></div>
+        <div class="field"><label>Mission Statement <span class="hint">(used on MVV page)</span></label><textarea id="si-mission" data-key="schoolMission">To provide quality secondary education grounded in Christian values, academic discipline, and service to community, equipping every student with knowledge, character, and moral resolve to serve Ghana and the world with distinction.</textarea></div>
+        <div class="field"><label>Vision Statement</label><textarea id="si-vision" data-key="schoolVision">To be a leading Senior High School in Ghana known for academic excellence, moral integrity, and the holistic development of students who lead with service and sacrifice.</textarea></div>
+      </div>
+      <div class="card">
+        <div class="card-header"><div><div class="card-title"><i class="ri-bar-chart-line"></i> Hero Statistics <span class="card-sub" style="display:inline;margin-left:.5rem">(shown on hero sections across the site)</span></div></div></div>
+        <div class="stat-group">
+          <div class="stat-item"><label>Years of Service</label><input type="text" data-key="statYears" value="128+"/></div>
+          <div class="stat-item"><label>Students Enrolled</label><input type="text" data-key="statStudents" value="3,000+"/></div>
+          <div class="stat-item"><label>Academic Programmes</label><input type="text" data-key="statProgrammes" value="6"/></div>
+          <div class="stat-item"><label>Teaching Staff</label><input type="text" data-key="statStaff" value="60+"/></div>
+          <div class="stat-item"><label>Boarding Houses</label><input type="text" data-key="statHouses" value="5"/></div>
+          <div class="stat-item"><label>Alumni Worldwide</label><input type="text" data-key="statAlumni" value="15,000+"/></div>
+          <div class="stat-item"><label>Departments</label><input type="text" data-key="statDepts" value="7"/></div>
+          <div class="stat-item"><label>Active Clubs</label><input type="text" data-key="statClubs" value="8"/></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"><div><div class="card-title"><i class="ri-image-line"></i> Branding</div></div></div>
+        <div class="img-field">
+          <div class="img-preview"><i class="ri-image-line"></i></div>
+          <div class="img-info">
+            <label>School Logo / Crest Path</label>
+            <input type="text" data-key="schoolLogo" value="/assets/images/ansecLogo.jpg" placeholder="/assets/images/ansecLogo.jpg"/>
+            <div class="img-hint">Relative path from site root. Used in header and footer.</div>
+          </div>
+        </div>
+        <div class="field" style="margin-top:.8rem"><label>Favicon Path</label><input type="text" data-key="schoolFavicon" value="/assets/images/favicon.ico"/></div>
+      </div>
+    </div>
+
+    <!-- ════════════════════════════ CONTACT INFO ════ -->
+    <div class="panel" id="panel-contact-info">
+      <div class="panel-header">
+        <div class="panel-title">Contact <em>Information</em></div>
+        <div class="panel-desc">All phone numbers, emails, and addresses. These populate the Contact page, footer, and admissions sections.</div>
+        <div class="panel-meta"><span class="meta-tag page">contact · admissions · footer</span><span class="meta-tag warn"><i class="ri-error-warning-line"></i> Update before launch</span></div>
+      </div>
+      <div class="card">
+        <div class="card-header"><div><div class="card-title"><i class="ri-phone-line"></i> Primary Contact Numbers</div></div></div>
+        <div class="field-row">
+          <div class="field"><label>Main Office Line</label><input type="tel" data-key="phoneMain" value="+233 (0) XXX XXX XXXX" placeholder="+233 XX XXX XXXX"/></div>
+          <div class="field"><label>Admissions Office</label><input type="tel" data-key="phoneAdmissions" value="+233 (0) XX XXX XXXX"/></div>
+        </div>
+        <div class="field-row">
+          <div class="field"><label>Headteacher's Office</label><input type="tel" data-key="phoneHT" value="+233 (0) XX XXX XXXX"/></div>
+          <div class="field"><label>Boarding / Welfare</label><input type="tel" data-key="phoneBoarding" value="+233 (0) XX XXX XXXX"/></div>
+        </div>
+        <div class="field-row">
+          <div class="field"><label>Bursary / Finance</label><input type="tel" data-key="phoneBursary" value="+233 (0) XX XXX XXXX"/></div>
+          <div class="field"><label>Registry</label><input type="tel" data-key="phoneRegistry" value="+233 (0) XX XXX XXXX"/></div>
+        </div>
+        <div class="field-row">
+          <div class="field"><label>WhatsApp Enquiries</label><input type="tel" data-key="phoneWhatsApp" value="+233 24 XXX XXXX"/></div>
+          <div class="field"><label>Emergency / Out of Hours</label><input type="tel" data-key="phoneEmergency" value="+233 (0) XX XXX XXXX"/></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"><div><div class="card-title"><i class="ri-mail-line"></i> Email Addresses</div></div></div>
+        <div class="field-row">
+          <div class="field"><label>General Enquiries</label><input type="email" data-key="emailInfo" value="info@ansec.edu.gh"/></div>
+          <div class="field"><label>Admissions</label><input type="email" data-key="emailAdmissions" value="admissions@ansec.edu.gh"/></div>
+        </div>
+        <div class="field-row">
+          <div class="field"><label>Headteacher</label><input type="email" data-key="emailHT" value="headteacher@ansec.edu.gh"/></div>
+          <div class="field"><label>Bursary</label><input type="email" data-key="emailBursary" value="bursary@ansec.edu.gh"/></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"><div><div class="card-title"><i class="ri-map-pin-line"></i> Address & Location</div></div></div>
+        <div class="field"><label>Physical Address</label><input type="text" data-key="addrPhysical" value="Anum, Asuogyaman District, Eastern Region, Ghana"/></div>
+        <div class="field-row">
+          <div class="field"><label>GPS / Digital Address</label><input type="text" data-key="addrGPS" value="ER-0123-4567" placeholder="Ghana Post GPS Address"/></div>
+          <div class="field"><label>Post Box</label><input type="text" data-key="addrPO" value="P.O. Box XX, Anum"/></div>
+        </div>
+        <div class="field-row">
+          <div class="field"><label>Google Maps Latitude</label><input type="text" data-key="mapLat" value="6.3456" placeholder="6.XXXX"/></div>
+          <div class="field"><label>Google Maps Longitude</label><input type="text" data-key="mapLng" value="-0.1234" placeholder="0.XXXX"/></div>
+        </div>
+        <div class="field"><label>Office Hours</label><input type="text" data-key="officeHours" value="Monday – Friday · 7:30 am – 4:30 pm"/></div>
+      </div>
+    </div>
+
+    <!-- ════════════════════════════ SOCIAL MEDIA ════ -->
+    <div class="panel" id="panel-social-media">
+      <div class="panel-header">
+        <div class="panel-title">Social <em>Media</em></div>
+        <div class="panel-desc">Social media profile URLs and handles used in the footer and sharing features.</div>
+      </div>
+      <div class="card">
+        <div class="card-header"><div><div class="card-title"><i class="ri-share-line"></i> Profiles</div></div></div>
+        <div class="field-row">
+          <div class="field"><label>Facebook Page URL</label><input type="url" data-key="socialFacebook" value="" placeholder="https://facebook.com/ansec.edu.gh"/></div>
+          <div class="field"><label>Instagram Handle</label><input type="text" data-key="socialInstagram" value="" placeholder="@ansec_anum"/></div>
+        </div>
+        <div class="field-row">
+          <div class="field"><label>Twitter / X Handle</label><input type="text" data-key="socialTwitter" value="" placeholder="@ansec_anum"/></div>
+          <div class="field"><label>YouTube Channel URL</label><input type="url" data-key="socialYouTube" value="" placeholder="https://youtube.com/@ansec"/></div>
+        </div>
+        <div class="field-row">
+          <div class="field"><label>WhatsApp Community Link</label><input type="url" data-key="socialWhatsApp" value="" placeholder="https://chat.whatsapp.com/..."/></div>
+          <div class="field"><label>LinkedIn Page URL</label><input type="url" data-key="socialLinkedIn" value="" placeholder="https://linkedin.com/school/ansec"/></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ════════════════════════════ HEADTEACHER ════ -->
+    <div class="panel" id="panel-headteacher">
+      <div class="panel-header">
+        <div class="panel-title"><em>Headteacher</em> Profile</div>
+        <div class="panel-desc">Displayed on the Administration & Staff page, the index testimonial section, and the footer.</div>
+        <div class="panel-meta"><span class="meta-tag page">admin-staff · index</span></div>
+      </div>
+      <div class="card">
+        <div class="card-header"><div><div class="card-title"><i class="ri-user-star-line"></i> Personal Details</div></div></div>
+        <div class="field-row">
+          <div class="field"><label>Full Name</label><input type="text" data-key="htName" value="Mrs. Stella Naa Enyo Atiase"/></div>
+          <div class="field"><label>Title / Position</label><input type="text" data-key="htTitle" value="Head Teacher, ANSEC"/></div>
+        </div>
+        <div class="field-row">
+          <div class="field"><label>Appointed Since (year)</label><input type="text" data-key="htSince" value="2018"/></div>
+          <div class="field"><label>Qualification</label><input type="text" data-key="htQual" value="M.Ed. Educational Administration"/></div>
+        </div>
+        <div class="field"><label>Welcome Message / Bio <span class="hint">(shown on admin-staff page)</span></label><textarea data-key="htMessage" rows="5">Welcome to Anum Presbyterian Senior High School — an institution built on a foundation of faith, discipline, and an unwavering commitment to academic excellence. For over eight decades, ANSEC has stood as a beacon of purposeful education in the Eastern Region, and it is both a privilege and a profound responsibility to lead this great school.</textarea></div>
+        <div class="field"><label>Signature Quote <span class="hint">(shorter, for index page)</span></label><textarea data-key="htQuote" rows="2">Excellence is not an event — it is a culture, patiently nurtured by dedicated teachers and embraced by students of ambition and integrity.</textarea></div>
+        <div class="img-field">
+          <div class="img-preview"><i class="ri-user-line"></i></div>
+          <div class="img-info">
+            <label>Portrait Photo Path</label>
+            <input type="text" data-key="htPhoto" value="../assets/images/headtecher-eny0.jpg"/>
+            <div class="img-hint">File relative to /pages/ directory</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ════════════════════════════ CHAPLAIN ════ -->
+    <div class="panel" id="panel-chaplain">
+      <div class="panel-header">
+        <div class="panel-title"><em>Chaplain</em> Profile</div>
+        <div class="panel-desc">Displayed on the Chaplaincy & Worship page.</div>
+        <div class="panel-meta"><span class="meta-tag page">chaplaincy</span></div>
+      </div>
+      <div class="card">
+        <div class="card-header"><div><div class="card-title"><i class="ri-cross-line"></i> Details</div></div></div>
+        <div class="field-row">
+          <div class="field"><label>Full Name</label><input type="text" data-key="chapName" value="Rev. John Kwame Atta Donkor"/></div>
+          <div class="field"><label>Title</label><input type="text" data-key="chapTitle" value="School Chaplain, ANSEC"/></div>
+        </div>
+        <div class="field-row">
+          <div class="field"><label>Years Serving at ANSEC</label><input type="text" data-key="chapYears" value="12+"/></div>
+          <div class="field"><label>Denomination</label><input type="text" data-key="chapDenom" value="Presbyterian Church of Ghana"/></div>
+        </div>
+        <div class="field"><label>Bio / Description</label><textarea data-key="chapBio" rows="4">Rev. Donkor has served as School Chaplain at ANSEC for over twelve years, bringing pastoral wisdom, spiritual depth, and a genuine commitment to the wellbeing of every student.</textarea></div>
+        <div class="field"><label>Qualification</label><input type="text" data-key="chapQual" value="B.Th. (Pastoral Ministry) · Trinity Theological College, Legon"/></div>
+        <div class="field"><label>Office Hours</label><input type="text" data-key="chapOfficeHours" value="Mon – Fri · 8:00 am – 12:00 pm · Chaplaincy Office, Admin Block"/></div>
+      </div>
+      <div class="card">
+        <div class="card-header"><div><div class="card-title"><i class="ri-calendar-event-line"></i> Weekly Worship Schedule</div></div></div>
+        <table class="sched-table">
+          <thead><tr><th>Day</th><th>Time</th><th>Activity</th><th>Venue</th><th>Who</th></tr></thead>
+          <tbody id="worshipSchedule">
+            <tr><td><input data-key="ws-0-day" value="Monday"/></td><td><input data-key="ws-0-time" value="6:30 am"/></td><td><input data-key="ws-0-act" value="Morning Devotion"/></td><td><input data-key="ws-0-venue" value="Assembly Hall"/></td><td><input data-key="ws-0-who" value="All Students"/></td></tr>
+            <tr><td><input data-key="ws-1-day" value="Wednesday"/></td><td><input data-key="ws-1-time" value="7:00 pm"/></td><td><input data-key="ws-1-act" value="SU Fellowship"/></td><td><input data-key="ws-1-venue" value="Chapel"/></td><td><input data-key="ws-1-who" value="Christian Students"/></td></tr>
+            <tr><td><input data-key="ws-2-day" value="Friday"/></td><td><input data-key="ws-2-time" value="7:00 pm"/></td><td><input data-key="ws-2-act" value="Jumu'ah Prayer"/></td><td><input data-key="ws-2-venue" value="Prayer Room"/></td><td><input data-key="ws-2-who" value="Muslim Students"/></td></tr>
+            <tr><td><input data-key="ws-3-day" value="Sunday"/></td><td><input data-key="ws-3-time" value="8:00 am"/></td><td><input data-key="ws-3-act" value="Sunday Chapel Service"/></td><td><input data-key="ws-3-venue" value="Chapel"/></td><td><input data-key="ws-3-who" value="All Boarders"/></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ════════════════════════ SENIOR ADMIN ════ -->
+    <div class="panel" id="panel-senior-admin">
+      <div class="panel-header">
+        <div class="panel-title">Senior <em>Administration</em></div>
+        <div class="panel-desc">The five senior administrators shown on the Administration & Staff page.</div>
+        <div class="panel-meta"><span class="meta-tag page">admin-staff</span></div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <div><div class="card-title"><i class="ri-group-line"></i> Senior Administrators</div><div class="card-sub">Up to 5 members</div></div>
+          <button class="add-btn" onclick="addSeniorAdmin()"><i class="ri-add-line"></i> Add Member</button>
+        </div>
+        <div class="rep-list" id="seniorAdminList">
+          <!-- filled by JS -->
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════ HODS ════ -->
+    <div class="panel" id="panel-hods">
+      <div class="panel-header">
+        <div class="panel-title">Heads of <em>Department</em></div>
+        <div class="panel-desc">One HOD per academic department. Displayed on the Administration & Staff page.</div>
+        <div class="panel-meta"><span class="meta-tag page">admin-staff</span></div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <div><div class="card-title"><i class="ri-book-open-line"></i> Department Heads</div></div>
+          <button class="add-btn" onclick="addHOD()"><i class="ri-add-line"></i> Add HOD</button>
+        </div>
+        <div class="rep-list" id="hodList"></div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════ ACADEMIC CALENDAR ════ -->
+    <div class="panel" id="panel-academic-calendar">
+      <div class="panel-header">
+        <div class="panel-title">Academic <em>Calendar</em></div>
+        <div class="panel-desc">Academic year dates, semester boundaries, holidays, and key exam periods. Updated each year before the new academic year begins.</div>
+        <div class="panel-meta"><span class="meta-tag page">academic-calendar</span><span class="meta-tag warn"><i class="ri-refresh-line"></i> Update annually</span></div>
+      </div>
+      <div class="card">
+        <div class="card-header"><div><div class="card-title"><i class="ri-calendar-2-line"></i> Academic Year</div></div></div>
+        <div class="field-row">
+          <div class="field"><label>Academic Year Label</label><input type="text" data-key="calYear" value="2024 / 2025"/></div>
+          <div class="field"><label>Year Range (for page title)</label><input type="text" data-key="calYearRange" value="September 2024 – August 2025"/></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"><div><div class="card-title"><i class="ri-sun-line"></i> Semester 1 (September – January)</div></div></div>
+        <div class="field-row">
+          <div class="field"><label>School Opens</label><input type="date" data-key="s1Open" value="2024-09-02"/></div>
+          <div class="field"><label>Mid-Semester Break Start</label><input type="date" data-key="s1MidStart" value="2024-10-26"/></div>
+        </div>
+        <div class="field-row">
+          <div class="field"><label>Mid-Semester Break End</label><input type="date" data-key="s1MidEnd" value="2024-11-04"/></div>
+          <div class="field"><label>Semester Exams Start</label><input type="date" data-key="s1ExamStart" value="2024-12-09"/></div>
+        </div>
+        <div class="field-row">
+          <div class="field"><label>Semester Ends / Vacation</label><input type="date" data-key="s1End" value="2025-01-04"/></div>
+          <div class="field"><label>Teaching Weeks Count</label><input type="number" data-key="s1TeachWeeks" value="13" min="10" max="20"/></div>
+        </div>
+        <div class="field-row">
+          <div class="field"><label>Exam Weeks Count</label><input type="number" data-key="s1ExamWeeks" value="2"/></div>
+          <div class="field"><label>Holiday Weeks Count</label><input type="number" data-key="s1HolWeeks" value="3"/></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"><div><div class="card-title"><i class="ri-moon-line"></i> Semester 2 (January – August)</div></div></div>
+        <div class="field-row">
+          <div class="field"><label>School Reopens</label><input type="date" data-key="s2Open" value="2025-01-06"/></div>
+          <div class="field"><label>Mid-Semester Break Start</label><input type="date" data-key="s2MidStart" value="2025-04-12"/></div>
+        </div>
+        <div class="field-row">
+          <div class="field"><label>Mid-Semester Break End</label><input type="date" data-key="s2MidEnd" value="2025-04-28"/></div>
+          <div class="field"><label>WASSCE Mock Start</label><input type="date" data-key="s2MockStart" value="2025-04-07"/></div>
+        </div>
+        <div class="field-row">
+          <div class="field"><label>WASSCE Proper Start</label><input type="date" data-key="s2WASSCEStart" value="2025-05-12"/></div>
+          <div class="field"><label>Semester / Year Ends</label><input type="date" data-key="s2End" value="2025-08-01"/></div>
+        </div>
+        <div class="field-row">
+          <div class="field"><label>Teaching Weeks Count</label><input type="number" data-key="s2TeachWeeks" value="13"/></div>
+          <div class="field"><label>Holiday Weeks Count</label><input type="number" data-key="s2HolWeeks" value="5"/></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <div><div class="card-title"><i class="ri-flag-line"></i> Public Holidays</div><div class="card-sub">National holidays within the academic year</div></div>
+          <button class="add-btn" onclick="addHoliday()"><i class="ri-add-line"></i> Add Holiday</button>
+        </div>
+        <div class="rep-list" id="holidayList">
+          <!-- JS fills -->
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════ PROGRAMMES ════ -->
+    <div class="panel" id="panel-programmes">
+      <div class="panel-header">
+        <div class="panel-title">Academic <em>Programmes</em></div>
+        <div class="panel-desc">The six academic programmes offered at ANSEC. Edit names, descriptions, and WASSCE subjects.</div>
+        <div class="panel-meta"><span class="meta-tag page">programmes · admissions</span></div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <div><div class="card-title"><i class="ri-file-list-3-line"></i> Programmes of Study</div></div>
+          <button class="add-btn" onclick="addProgramme()"><i class="ri-add-line"></i> Add Programme</button>
+        </div>
+        <div class="rep-list" id="programmeList"></div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════ DEPARTMENTS ════ -->
+    <div class="panel" id="panel-departments">
+      <div class="panel-header">
+        <div class="panel-title">Academic <em>Departments</em></div>
+        <div class="panel-desc">The seven academic departments. Edit names, descriptions, and the subjects they cover.</div>
+        <div class="panel-meta"><span class="meta-tag page">departments</span></div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <div><div class="card-title"><i class="ri-building-4-line"></i> Departments</div></div>
+          <button class="add-btn" onclick="addDepartment()"><i class="ri-add-line"></i> Add Dept</button>
+        </div>
+        <div class="rep-list" id="deptList"></div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════ CLUBS ════ -->
+    <div class="panel" id="panel-clubs">
+      <div class="panel-header">
+        <div class="panel-title">Clubs &amp; <em>Activities</em></div>
+        <div class="panel-desc">Meeting times, venues, and descriptions for all 8 clubs. Shown on the Clubs page and the Join-a-Club form.</div>
+        <div class="panel-meta"><span class="meta-tag page">clubs · join-a-club</span></div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <div><div class="card-title"><i class="ri-group-2-line"></i> Club Roster</div></div>
+          <button class="add-btn" onclick="addClub()"><i class="ri-add-line"></i> Add Club</button>
+        </div>
+        <div class="rep-list" id="clubList"></div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════ SPORTS ════ -->
+    <div class="panel" id="panel-sports">
+      <div class="panel-header">
+        <div class="panel-title">Sports &amp; <em>Records</em></div>
+        <div class="panel-desc">Inter-house competition records, sports disciplines, and athletic achievements. Records are unbroken until updated here.</div>
+        <div class="panel-meta"><span class="meta-tag page">sports</span></div>
+      </div>
+      <div class="card">
+        <div class="card-header"><div><div class="card-title"><i class="ri-trophy-line"></i> School Sports Statistics</div></div></div>
+        <div class="stat-group">
+          <div class="stat-item"><label>Sports Disciplines</label><input type="text" data-key="sportDisciplines" value="5+"/></div>
+          <div class="stat-item"><label>Competing Houses</label><input type="text" data-key="sportHouses" value="5"/></div>
+          <div class="stat-item"><label>Years of Competition</label><input type="text" data-key="sportYears" value="128+"/></div>
+          <div class="stat-item"><label>Annual Sports Day</label><input type="text" data-key="sportDays" value="1"/></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <div><div class="card-title"><i class="ri-run-line"></i> Unbroken Records</div><div class="card-sub">Update when a record is broken at Sports Day</div></div>
+          <button class="add-btn" onclick="addRecord()"><i class="ri-add-line"></i> Add Record</button>
+        </div>
+        <div class="rep-list" id="recordList"></div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <div><div class="card-title"><i class="ri-shield-line"></i> Competing Houses</div></div>
+        </div>
+        <div class="rep-list" id="houseList"></div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════ BOARDING ════ -->
+    <div class="panel" id="panel-boarding">
+      <div class="panel-header">
+        <div class="panel-title">Boarding &amp; <em>Houses</em></div>
+        <div class="panel-desc">The five boarding houses, matron contacts, and boarding statistics.</div>
+        <div class="panel-meta"><span class="meta-tag page">boarding</span></div>
+      </div>
+      <div class="card">
+        <div class="card-header"><div><div class="card-title"><i class="ri-home-5-line"></i> Boarding Statistics</div></div></div>
+        <div class="stat-group">
+          <div class="stat-item"><label>Number of Houses</label><input type="text" data-key="boardHouses" value="5"/></div>
+          <div class="stat-item"><label>Boarding Capacity</label><input type="text" data-key="boardCapacity" value="800+"/></div>
+          <div class="stat-item"><label>Dining Capacity</label><input type="text" data-key="boardDining" value="1,000+"/></div>
+          <div class="stat-item"><label>Matrons on Duty</label><input type="text" data-key="boardMatrons" value="10"/></div>
+        </div>
+        <div class="field-row" style="margin-top:.8rem">
+          <div class="field"><label>Boarding Enquiries Phone</label><input type="tel" data-key="boardPhone" value="+233 (0) 00 000 0000"/></div>
+          <div class="field"><label>Boarding Fee (per semester)</label><input type="text" data-key="boardFee" value="Contact admissions office"/></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <div><div class="card-title"><i class="ri-building-2-line"></i> Boarding Houses</div></div>
+          <button class="add-btn" onclick="addHouse()"><i class="ri-add-line"></i> Add House</button>
+        </div>
+        <div class="rep-list" id="boardingHouseList"></div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════ EVENTS ════ -->
+    <div class="panel" id="panel-events">
+      <div class="panel-header">
+        <div class="panel-title">School <em>Events</em></div>
+        <div class="panel-desc">Annual school events and the events calendar. Key events shown on the Events page.</div>
+        <div class="panel-meta"><span class="meta-tag page">events</span><span class="meta-tag warn">Update yearly</span></div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <div><div class="card-title"><i class="ri-calendar-event-line"></i> Annual Events</div><div class="card-sub">Key events shown on the events page</div></div>
+          <button class="add-btn" onclick="addEvent()"><i class="ri-add-line"></i> Add Event</button>
+        </div>
+        <div class="rep-list" id="eventList"></div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════ FEATURED ALUMNI ════ -->
+    <div class="panel" id="panel-featured-alumni">
+      <div class="panel-header">
+        <div class="panel-title">Featured <em>Alumnus</em></div>
+        <div class="panel-desc">The distinguished alumnus spotlight on the Alumni page. Update when the featured person changes.</div>
+        <div class="panel-meta"><span class="meta-tag page">alumni</span></div>
+      </div>
+      <div class="card">
+        <div class="card-header"><div><div class="card-title"><i class="ri-award-line"></i> Alumnus Details</div></div></div>
+        <div class="field-row">
+          <div class="field"><label>Full Name</label><input type="text" data-key="alumFeatName" value="Hon. Thomas Nyarko Ampem"/></div>
+          <div class="field"><label>Current Title / Role</label><input type="text" data-key="alumFeatRole" value="Deputy Minister for Finance, Republic of Ghana"/></div>
+        </div>
+        <div class="field-row">
+          <div class="field"><label>ANSEC Years Attended</label><input type="text" data-key="alumFeatYears" value="1992 – 1994"/></div>
+          <div class="field"><label>Class of Year</label><input type="text" data-key="alumFeatClass" value="1994"/></div>
+        </div>
+        <div class="field-row">
+          <div class="field"><label>Constituency / Region</label><input type="text" data-key="alumFeatConstit" value="Asuogyaman Constituency"/></div>
+          <div class="field"><label>Year of Birth</label><input type="text" data-key="alumFeatBirth" value="14th February 1978"/></div>
+        </div>
+        <div class="field"><label>Featured Quote</label><textarea data-key="alumFeatQuote" rows="3">Every cedi lost through corruption translates into unbuilt schools, unpaved roads, and lives adversely affected. We must uphold the highest standards — transparency, accountability, and service to the nation.</textarea></div>
+        <div class="field"><label>Biography <span class="hint">(first paragraph)</span></label><textarea data-key="alumFeatBio" rows="4">Born right here in Anum on 14th February 1978, Hon. Thomas Nyarko Ampem walked through the gates of ANSEC in 1992 — a young son of the Eastern Region with a curious mind and an instinct for public service.</textarea></div>
+        <div class="img-field">
+          <div class="img-preview"><i class="ri-user-line"></i></div>
+          <div class="img-info">
+            <label>Portrait Photo Path</label>
+            <input type="text" data-key="alumFeatPhoto" value="../assets/images/Hon Thomas-Ampem-Nyarko.jpeg"/>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"><div><div class="card-title"><i class="ri-bar-chart-line"></i> Achievement Metrics</div></div></div>
+        <div class="stat-group">
+          <div class="stat-item"><label>Years in Parliament</label><input type="text" data-key="alumFeatStat1" value="8+"/></div>
+          <div class="stat-item"><label>Times Re-elected</label><input type="text" data-key="alumFeatStat2" value="3×"/></div>
+          <div class="stat-item"><label>MSc Year</label><input type="text" data-key="alumFeatStat3" value="2010"/></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <div><div class="card-title"><i class="ri-time-line"></i> Career Timeline</div></div>
+          <button class="add-btn" onclick="addAlumTimeline()"><i class="ri-add-line"></i> Add Entry</button>
+        </div>
+        <div class="rep-list" id="alumTimeline"></div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════ ALUMNI STATS ════ -->
+    <div class="panel" id="panel-alumni-stats">
+      <div class="panel-header">
+        <div class="panel-title">Alumni <em>Statistics</em></div>
+        <div class="panel-desc">Stats shown in the alumni stats band section.</div>
+        <div class="panel-meta"><span class="meta-tag page">alumni</span></div>
+      </div>
+      <div class="card">
+        <div class="card-header"><div><div class="card-title"><i class="ri-global-line"></i> Alumni Network Stats</div></div></div>
+        <div class="stat-group">
+          <div class="stat-item"><label>Alumni Worldwide</label><input type="text" data-key="aStat1" value="15k+"/></div>
+          <div class="stat-item"><label>Continents</label><input type="text" data-key="aStat2" value="6"/></div>
+          <div class="stat-item"><label>Industries</label><input type="text" data-key="aStat3" value="40+"/></div>
+          <div class="stat-item"><label>In Public Office</label><input type="text" data-key="aStat4" value="12+"/></div>
+          <div class="stat-item"><label>Years of Excellence</label><input type="text" data-key="aStat5" value="128"/></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════ ADMISSIONS ════ -->
+    <div class="panel" id="panel-admissions">
+      <div class="panel-header">
+        <div class="panel-title">Admissions <em>Information</em></div>
+        <div class="panel-desc">General admissions requirements, contact, and CSSPS information.</div>
+        <div class="panel-meta"><span class="meta-tag page">admissions</span></div>
+      </div>
+      <div class="card">
+        <div class="card-header"><div><div class="card-title"><i class="ri-door-open-line"></i> General Info</div></div></div>
+        <div class="field-row">
+          <div class="field"><label>CSSPS Placement Code</label><input type="text" data-key="adCSSPS" value="EPSAS"/></div>
+          <div class="field"><label>Current Academic Year</label><input type="text" data-key="adYear" value="2025 / 2026"/></div>
+        </div>
+        <div class="field-row">
+          <div class="field"><label>Admissions Phone</label><input type="tel" data-key="adPhone" value="+233 XX XXX XXXX"/></div>
+          <div class="field"><label>Admissions Email</label><input type="email" data-key="adEmail" value="admissions@ansec.edu.gh"/></div>
+        </div>
+        <div class="field"><label>BECE Minimum Aggregate Required</label><input type="text" data-key="adAggregate" value="Aggregate 30 or better for core subjects"/></div>
+        <div class="field"><label>Admissions Status</label>
+          <select data-key="adStatus">
+            <option value="open">Open — Accepting Applications</option>
+            <option value="closed">Closed for Current Year</option>
+            <option value="cssps-only">CSSPS Placement Only</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════ ADMISSIONS DATES ════ -->
+    <div class="panel" id="panel-admissions-dates">
+      <div class="panel-header">
+        <div class="panel-title">Key Dates &amp; <em>Fees</em></div>
+        <div class="panel-desc">Admission dates, reporting dates, and school fees. Updated every year before admissions open.</div>
+        <div class="panel-meta"><span class="meta-tag page">admissions</span><span class="meta-tag warn"><i class="ri-refresh-line"></i> Update annually</span></div>
+      </div>
+      <div class="card">
+        <div class="card-header"><div><div class="card-title"><i class="ri-calendar-check-line"></i> Important Dates</div></div></div>
+        <div class="field-row">
+          <div class="field"><label>CSSPS Results Release</label><input type="text" data-key="adDateCSSPS" value="Late August 2025"/></div>
+          <div class="field"><label>First Reporting Date (Sem 1)</label><input type="date" data-key="adDateReport1" value="2025-09-01"/></div>
+        </div>
+        <div class="field-row">
+          <div class="field"><label>Registration Deadline</label><input type="date" data-key="adDateRegDeadline" value="2025-09-05"/></div>
+          <div class="field"><label>Orientation Day</label><input type="date" data-key="adDateOrientation" value="2025-09-02"/></div>
+        </div>
+        <div class="field-row">
+          <div class="field"><label>SHS 1 Classes Begin</label><input type="date" data-key="adDateClassesStart" value="2025-09-03"/></div>
+          <div class="field"><label>Self-placement Deadline</label><input type="text" data-key="adDateSelfPlacement" value="Contact admissions"/></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"><div><div class="card-title"><i class="ri-money-cny-circle-line"></i> School Fees (per semester)</div><div class="card-sub">Approximate — confirm with bursary before each year</div></div></div>
+        <div class="field-row">
+          <div class="field"><label>Day Student (per sem)</label><input type="text" data-key="feeDay" value="Contact bursary"/></div>
+          <div class="field"><label>Boarding Student (per sem)</label><input type="text" data-key="feeBoarding" value="Contact bursary"/></div>
+        </div>
+        <div class="field-row">
+          <div class="field"><label>Registration Fee (once-off)</label><input type="text" data-key="feeReg" value="Contact admissions"/></div>
+          <div class="field"><label>Uniform / Kitting Approx.</label><input type="text" data-key="feeUniform" value="Contact admissions"/></div>
+        </div>
+        <div class="field"><label>Bursary Note <span class="hint">(shown on fees section)</span></label><textarea data-key="feeNote" rows="2">All fee amounts are set by the Ghana Education Service and may be adjusted annually. Contact the school bursary for the latest confirmed figures before payment.</textarea></div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <div><div class="card-title"><i class="ri-file-list-line"></i> Required Admission Documents</div></div>
+          <button class="add-btn" onclick="addAdmDoc()"><i class="ri-add-line"></i> Add Document</button>
+        </div>
+        <div class="rep-list" id="admDocList"></div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════ DONATE / MOMO ════ -->
+    <div class="panel" id="panel-donate">
+      <div class="panel-header">
+        <div class="panel-title">Donations &amp; <em>MoMo</em></div>
+        <div class="panel-desc">Mobile Money numbers, bank details, and donation areas shown on the Donate page.</div>
+        <div class="panel-meta"><span class="meta-tag page">donate</span><span class="meta-tag warn">Verify before publishing</span></div>
+      </div>
+      <div class="card">
+        <div class="card-header"><div><div class="card-title"><i class="ri-smartphone-line"></i> Mobile Money Numbers</div></div></div>
+        <div class="field-row">
+          <div class="field"><label>MTN MoMo Number</label><input type="tel" data-key="momoMTN" value="+233 24 XXX XXXX" placeholder="+233 24 XXX XXXX"/></div>
+          <div class="field"><label>MTN Account Name</label><input type="text" data-key="momoMTNName" value="Anum Presbyterian SHS"/></div>
+        </div>
+        <div class="field-row">
+          <div class="field"><label>Vodafone Cash / Telecel Number</label><input type="tel" data-key="momoVoda" value="+233 20 XXX XXXX"/></div>
+          <div class="field"><label>Vodafone Account Name</label><input type="text" data-key="momoVodaName" value="Anum Presbyterian SHS"/></div>
+        </div>
+        <div class="field-row">
+          <div class="field"><label>AirtelTigo Money Number</label><input type="tel" data-key="momoAirtel" value="+233 27 XXX XXXX"/></div>
+          <div class="field"><label>Donation Contact WhatsApp</label><input type="tel" data-key="momoWA" value="+233 24 XXX XXXX"/></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"><div><div class="card-title"><i class="ri-bank-line"></i> Bank Details</div></div></div>
+        <div class="field-row">
+          <div class="field"><label>Bank Name</label><input type="text" data-key="bankName" value="Ghana Commercial Bank"/></div>
+          <div class="field"><label>Account Name</label><input type="text" data-key="bankAccName" value="Anum Presbyterian Senior High School"/></div>
+        </div>
+        <div class="field-row">
+          <div class="field"><label>Account Number</label><input type="text" data-key="bankAccNum" value="XXXX XXXX XXXX"/></div>
+          <div class="field"><label>Branch</label><input type="text" data-key="bankBranch" value="Anum Branch"/></div>
+        </div>
+        <div class="field"><label>Sort Code / Swift</label><input type="text" data-key="bankSort" value=""/></div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <div><div class="card-title"><i class="ri-heart-3-line"></i> Donation Areas</div><div class="card-sub">Areas donors can choose to support</div></div>
+          <button class="add-btn" onclick="addDonationArea()"><i class="ri-add-line"></i> Add Area</button>
+        </div>
+        <div class="rep-list" id="donationAreaList"></div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════ GALLERY ════ -->
+    <div class="panel" id="panel-gallery">
+      <div class="panel-header">
+        <div class="panel-title">Gallery <em>Settings</em></div>
+        <div class="panel-desc">Photo gallery categories and submission contact for the Gallery page.</div>
+        <div class="panel-meta"><span class="meta-tag page">gallery</span></div>
+      </div>
+      <div class="card">
+        <div class="card-header"><div><div class="card-title"><i class="ri-image-2-line"></i> Gallery Submission Contact</div></div></div>
+        <div class="field-row">
+          <div class="field"><label>Photo Submission Email</label><input type="email" data-key="galleryEmail" value="photos@ansec.edu.gh"/></div>
+          <div class="field"><label>Media Team Contact</label><input type="tel" data-key="galleryPhone" value="+233 XX XXX XXXX"/></div>
+        </div>
+        <div class="field"><label>Submission Guidelines <span class="hint">(shown on gallery page)</span></label><textarea data-key="galleryGuidelines" rows="3">Submit high-resolution JPG or PNG images. Include a caption, date, and event name. Images must feature current or former ANSEC students or staff. Submitted photos may be used on the website and school social media.</textarea></div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <div><div class="card-title"><i class="ri-folder-image-line"></i> Gallery Albums</div><div class="card-sub">Album categories shown on the gallery page</div></div>
+          <button class="add-btn" onclick="addGalleryAlbum()"><i class="ri-add-line"></i> Add Album</button>
+        </div>
+        <div class="rep-list" id="galleryAlbumList"></div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════ SITE SETTINGS ════ -->
+    <div class="panel" id="panel-site-settings">
+      <div class="panel-header">
+        <div class="panel-title">Site <em>Settings</em></div>
+        <div class="panel-desc">Feature toggles, announcement banners, and maintenance mode controls.</div>
+      </div>
+      <div class="card">
+        <div class="card-header"><div><div class="card-title"><i class="ri-toggle-line"></i> Feature Toggles</div></div></div>
+        <div class="toggle-row">
+          <div class="toggle-info">Admissions Banner Active<small>Shows "Admissions Open" banner on relevant pages</small></div>
+          <label class="toggle"><input type="checkbox" data-key="featAdmissionsBanner" checked/><span class="toggle-slider"></span></label>
+        </div>
+        <div class="toggle-row">
+          <div class="toggle-info">Online Enquiry Form Active<small>Enables contact form submissions on contact page</small></div>
+          <label class="toggle"><input type="checkbox" data-key="featContactForm" checked/><span class="toggle-slider"></span></label>
+        </div>
+        <div class="toggle-row">
+          <div class="toggle-info">Alumni Network Registration<small>Shows alumni registration form on alumni page</small></div>
+          <label class="toggle"><input type="checkbox" data-key="featAlumniReg" checked/><span class="toggle-slider"></span></label>
+        </div>
+        <div class="toggle-row">
+          <div class="toggle-info">Join-a-Club Form Active<small>Enables the club application form</small></div>
+          <label class="toggle"><input type="checkbox" data-key="featClubForm" checked/><span class="toggle-slider"></span></label>
+        </div>
+        <div class="toggle-row">
+          <div class="toggle-info">Donation MoMo Section Visible<small>Shows MoMo payment section on donate page</small></div>
+          <label class="toggle"><input type="checkbox" data-key="featDonate" checked/><span class="toggle-slider"></span></label>
+        </div>
+        <div class="toggle-row">
+          <div class="toggle-info">Gallery Page Public<small>Gallery is visible and indexed</small></div>
+          <label class="toggle"><input type="checkbox" data-key="featGallery" checked/><span class="toggle-slider"></span></label>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"><div><div class="card-title"><i class="ri-megaphone-line"></i> Announcement Banner</div><div class="card-sub">Shows at the top of all pages when active</div></div></div>
+        <div class="toggle-row" style="margin-bottom:.8rem">
+          <div class="toggle-info">Banner Active</div>
+          <label class="toggle"><input type="checkbox" data-key="bannerActive"/><span class="toggle-slider"></span></label>
+        </div>
+        <div class="field"><label>Banner Text</label><input type="text" data-key="bannerText" value="🎓 Admissions Open for 2025/2026 Academic Year — CSSPS Code: EPSAS"/></div>
+        <div class="field-row">
+          <div class="field"><label>Banner Link URL</label><input type="url" data-key="bannerUrl" value="/pages/ansec-admissions.html"/></div>
+          <div class="field"><label>Banner Type</label>
+            <select data-key="bannerType">
+              <option value="info">Info (Blue)</option>
+              <option value="success">Success (Green)</option>
+              <option value="warning">Warning (Amber)</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ════════════════════════ EXPORT & DEPLOY ════ -->
+    <div class="panel" id="panel-export">
+      <div class="panel-header">
+        <div class="panel-title">Export &amp; <em>Deploy</em></div>
+        <div class="panel-desc">Download your content as JSON or CSS variables to apply changes to the live site.</div>
+      </div>
+      <div class="alert info"><i class="ri-information-line"></i> <div>This CMS is <strong>client-side only</strong>. Export your content as JSON to save externally or share with a developer. The CSS Variables export generates a file you can include in your site to apply text changes via <code>var()</code> references.</div></div>
+      <div class="export-grid">
+        <div class="export-card">
+          <div class="export-card-title"><i class="ri-file-code-line"></i> JSON Export</div>
+          <p>Downloads all CMS data as a structured JSON file. Save this as your master content backup. Reload it at any time using Import JSON.</p>
+          <button class="export-btn blue" onclick="exportAll()"><i class="ri-download-line"></i> Download ansec-content.json</button>
+        </div>
+        <div class="export-card">
+          <div class="export-card-title"><i class="ri-upload-line"></i> JSON Import</div>
+          <p>Load a previously exported JSON file to restore your content. This will overwrite current CMS data.</p>
+          <label class="export-btn gold" style="cursor:pointer"><i class="ri-folder-open-line"></i> Import JSON File<input type="file" accept=".json" style="display:none" onchange="importJSON(event)"/></label>
+        </div>
+        <div class="export-card">
+          <div class="export-card-title"><i class="ri-css3-line"></i> CSS Variables</div>
+          <p>Generates a <code>ansec-content-vars.css</code> file with all text content as CSS custom properties. Include this in your HTML <code>&lt;head&gt;</code>.</p>
+          <button class="export-btn green" onclick="exportCSS()"><i class="ri-download-line"></i> Download CSS Variables</button>
+        </div>
+        <div class="export-card">
+          <div class="export-card-title"><i class="ri-clipboard-line"></i> Copy as JSON</div>
+          <p>Copy the full content data object to clipboard. Paste directly into a <code>ansec-content.js</code> file or your build script.</p>
+          <button class="export-btn blue" onclick="copyJSON()"><i class="ri-clipboard-line"></i> Copy to Clipboard</button>
+        </div>
+      </div>
+      <hr class="divider"/>
+      <div class="card">
+        <div class="card-header"><div><div class="card-title"><i class="ri-eye-line"></i> Content Preview</div><div class="card-sub">Current CMS data snapshot</div></div>
+          <button class="add-btn" onclick="document.getElementById('codePreview').classList.toggle('show')"><i class="ri-code-line"></i> Toggle View</button>
+        </div>
+        <div class="code-block" id="codePreview"></div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<script>
+'use strict';
+
+const STORE_KEY = 'ansec_cms_v1';
+let cmsData = {};
+let changeCount = 0;
+
+/* ═══════════════════════ INIT DATA ═══════════════════ */
+const DEFAULT_LISTS = {
+  seniorAdmin: [
+    {rank:'01', role:'Asst Headmaster — Academics', name:'Mr. Emmanuel Akita', desc:'Oversees all academic programmes, curriculum planning, timetabling, and departmental performance.'},
+    {rank:'02', role:'Asst Headmaster — Admin Operations', name:'Mr. Daniel K. Acquah', desc:'Responsible for day-to-day administrative operations, staff welfare, and records management.'},
+    {rank:'03', role:'Asst Headmaster — Domestic', name:'Mrs. Abena Frimpomaa Agyei', desc:'Manages domestic and residential affairs including boarding facilities and catering.'},
+    {rank:'04', role:'Senior House Master', name:'Mr. Kwabena Asumah Poku', desc:'Coordinates all male boarding houses and pastoral care for male students.'},
+    {rank:'05', role:'Senior House Mistress', name:'Mrs. Esther Ababio Dewi', desc:'Oversees all female boarding houses and female student welfare.'},
+  ],
+  hods: [
+    {dept:'Sciences', name:'Mr. Akwasi Amoah Elvis', subjects:'Physics · Elective Maths · Chemistry · Biology'},
+    {dept:'ICT / Computing', name:'Mr. Emmanuel Shardey Cels', subjects:'ICT · Computing Studies'},
+    {dept:'Arts & Humanities', name:'Mr. George Arms', subjects:'History · Literature · Government · Geography'},
+    {dept:'Business', name:'Mr. Philip Ofori Atta', subjects:'Accounting · Business Mgmt · Economics · Commerce'},
+    {dept:'Technical & Vocational', name:'Mr. Nana Yaw Prempeh', subjects:'Tech Drawing · Visual Arts · Food & Nutrition'},
+    {dept:'Languages', name:'Mr. Desmond Antwi', subjects:'English · French · Twi · R.M.E.'},
+    {dept:'Mathematics', name:'TBC', subjects:'Core Mathematics · Elective Mathematics'},
+  ],
+  programmes: [
+    {name:'General Science', code:'sci', desc:'Rigorous training in Physics, Chemistry, Biology, and Elective Mathematics for students pursuing medicine, engineering, and the sciences.'},
+    {name:'General Arts', code:'arts', desc:'A broad humanities education covering Literature, History, Government, Geography, Economics, and French.'},
+    {name:'Business Studies', code:'biz', desc:'Accounting, Business Management, Economics, and Commerce — preparing students for business, finance, and entrepreneurship.'},
+    {name:'Visual Arts', code:'va', desc:'Graphic Design, Ceramics, Sculpture, Picture Making, and Textiles for creatively driven students.'},
+    {name:'Home Economics', code:'he', desc:'Food & Nutrition, Clothing & Textiles, Management in Living — practical skills for health and household management.'},
+    {name:'Agricultural Science', code:'agric', desc:'Crop Science, Animal Husbandry, and Agricultural Economics — vital for Ghana\'s food security future.'},
+  ],
+  departments: [
+    {name:'Sciences', head:'Mr. Akwasi Amoah Elvis', subjects:'Physics, Chemistry, Biology, Integrated Science'},
+    {name:'ICT / Computing Studies', head:'Mr. Emmanuel Shardey Cels', subjects:'ICT, Computing Studies, Elective ICT'},
+    {name:'Mathematics', head:'TBC', subjects:'Core Mathematics, Elective Mathematics'},
+    {name:'Arts & Humanities', head:'Mr. George Arms', subjects:'History, Literature in English, Government, Geography'},
+    {name:'Business', head:'Mr. Philip Ofori Atta', subjects:'Accounting, Business Management, Economics, Commerce'},
+    {name:'Technical & Vocational', head:'Mr. Nana Yaw Prempeh', subjects:'Technical Drawing, Visual Arts, Food & Nutrition'},
+    {name:'Languages', head:'Mr. Desmond Antwi', subjects:'English Language, French, Twi, R.M.E.'},
+  ],
+  clubs: [
+    {name:'STEM Robotics', color:'#0ea5e9', day:'Saturday', time:'2:00 pm', venue:'ICT Lab', desc:'Build robots, learn to code, compete regionally.'},
+    {name:'Media Team', color:'#8b5cf6', day:'Friday', time:'3:00 pm', venue:'Media Room', desc:'Photography, video, journalism & broadcasting.'},
+    {name:'Cadet Corps', color:'#16a34a', day:'Wednesday', time:'4:00 pm', venue:'Parade Ground', desc:'Discipline, leadership & national service.'},
+    {name:'ANSEC Choir', color:'#f59e0b', day:'Thursday', time:'6:30 pm', venue:'Chapel Vestry', desc:'Choral music, voice training & performances.'},
+    {name:'Scripture Union', color:'#dc2626', day:'Wednesday', time:'7:00 pm', venue:'Chapel', desc:'Bible study, faith fellowship & outreach.'},
+    {name:'Dream Team Dance', color:'#ec4899', day:'Tue & Fri', time:'4:30 pm', venue:'Assembly Hall', desc:'Afrobeat, contemporary & traditional Ghanaian dance.'},
+    {name:'Quiz Club', color:'#0071e3', day:'Monday', time:'7:00 pm', venue:'Classroom 1A', desc:'General knowledge, NSMQ training & competitions.'},
+    {name:'ANSEC Brass Band', color:'#b45309', day:'Mon & Thu', time:'5:00 pm', venue:'Assembly Hall', desc:'Trumpet, trombone, percussion & ensemble performance.'},
+  ],
+  records: [
+    {event:'100m Sprint (Boys)', holder:'', year:'2009', value:'10.84s'},
+    {event:'Long Jump (Boys)', holder:'', year:'2014', value:'6.92m'},
+    {event:'400m Sprint (Boys)', holder:'', year:'2011', value:'49.3s'},
+    {event:'100m Sprint (Girls)', holder:'', year:'2016', value:'12.1s'},
+    {event:'Football — Most Goals (Season)', holder:'', year:'2017', value:'24 goals'},
+    {event:'Volleyball — Most Aces (Season)', holder:'', year:'2013', value:'38 aces'},
+    {event:'Shot Put (Boys)', holder:'', year:'2008', value:'13.4m'},
+    {event:'Table Tennis (Tournament)', holder:'', year:'2019', value:'7-0'},
+    {event:'High Jump (Boys)', holder:'', year:'2015', value:'1.85m'},
+  ],
+  houses: [
+    {name:'Ramseyer House', color:'#dc2626', desc:'Named after F.A.L. Ramseyer, Basel missionary who laid foundations for education in Anum.'},
+    {name:'Kumi House', color:'#f59e0b', desc:''},
+    {name:'Lochman House', color:'#94a3b8', desc:'Named after J. Lochmann, founder of the school in 1897.'},
+    {name:'Okoh House', color:'#3b82f6', desc:''},
+    {name:'Volta House', color:'#16a34a', desc:''},
+  ],
+  boardingHouses: [
+    {name:'Ramseyer Hall (Boys)', capacity:'~160', housemaster:'TBC', contact:''},
+    {name:'Kumi Hall (Boys)', capacity:'~160', housemaster:'TBC', contact:''},
+    {name:'Lochman Hall (Girls)', capacity:'~160', housemistress:'TBC', contact:''},
+    {name:'Okoh Hall (Girls)', capacity:'~160', housemistress:'TBC', contact:''},
+    {name:'Volta Hall (Mixed — Day)', capacity:'—', housemaster:'TBC', contact:''},
+  ],
+  holidays: [
+    {name:"New Year's Day", date:'2025-01-01', type:'National'},
+    {name:'Independence Day', date:'2025-03-06', type:'National'},
+    {name:'Good Friday', date:'2025-04-18', type:'National'},
+    {name:'Easter Monday', date:'2025-04-21', type:'National'},
+    {name:'May Day', date:'2025-05-01', type:'National'},
+    {name:'Eid al-Adha', date:'2025-06-07', type:'National'},
+    {name:'Republic Day', date:'2025-07-01', type:'National'},
+    {name:'Founders Day', date:'2025-08-04', type:'National'},
+    {name:'Kwame Nkrumah Day', date:'2025-09-21', type:'National'},
+    {name:'Christmas Day', date:'2025-12-25', type:'National'},
+    {name:'Boxing Day', date:'2025-12-26', type:'National'},
+  ],
+  events: [
+    {name:'Prize-Giving & Speech Day', month:'August', desc:'Annual prize-giving ceremony celebrating academic and extracurricular achievement.'},
+    {name:'Inter-House Athletics & Sports Day', month:'May/June', desc:'Full-day inter-house competition across all athletic disciplines.'},
+    {name:'Valedictory Service (SHS 3)', month:'June/July', desc:'Farewell service and ceremony for graduating SHS 3 students.'},
+    {name:'Founders Day Celebration', month:'August', desc:'Annual celebration commemorating the founding of the school in 1897.'},
+    {name:'SRC Week', month:'March', desc:'Student Representative Council week featuring cultural performances, competitions, and community events.'},
+    {name:'Carol Service', month:'December', desc:'End-of-year carol service by the ANSEC Choir and school community.'},
+    {name:'Inter-House Debate', month:'October', desc:'Annual debate competition between the five houses.'},
+  ],
+  alumTimeline: [
+    {year:'1992 – 1994', event:'Anum Presbyterian Senior High School (ANSEC)', detail:'Completed O-Level studies at ANSEC — where the seeds of leadership were planted.'},
+    {year:'1995 – 1998', event:'Teacher\'s Certificate — Peki Training College', detail:'Earned 3-Year Teacher\'s Certificate.'},
+    {year:'BSc', event:'Economics & Geography — KNUST', detail:'Built a strong foundation in economics at Kwame Nkrumah University of Science and Technology.'},
+    {year:'2010', event:'MSc Finance — Virginia Commonwealth University, USA', detail:'Earned a Master\'s degree in Finance.'},
+    {year:'January 2017', event:'Member of Parliament — Asuogyaman Constituency', detail:'Began parliamentary career representing the people of Asuogyaman over three consecutive terms.'},
+    {year:'2025 – Present', event:'Deputy Minister for Finance — Republic of Ghana', detail:'Appointed Deputy Minister for Finance, overseeing Ghana\'s fiscal policy and infrastructure plan.'},
+  ],
+  admDocs: [
+    {doc:'Original BECE Certificate or Result Slip'},
+    {doc:'Admission Letter from CSSPS / GES'},
+    {doc:'Birth Certificate or Passport'},
+    {doc:'Four (4) recent passport photographs'},
+    {doc:'National Health Insurance Card'},
+    {doc:'Transfer Certificate (if applicable)'},
+  ],
+  donationAreas: [
+    {area:'Scholarship Fund', target:'Support financially disadvantaged students', icon:'ri-graduation-cap-line'},
+    {area:'Library Development', target:'Books, computers, and digital resources', icon:'ri-book-2-line'},
+    {area:'Science Laboratory', target:'Equipment and chemicals for practical work', icon:'ri-flask-line'},
+    {area:'Sports Facilities', target:'Athletic tracks, courts, and equipment', icon:'ri-trophy-line'},
+    {area:'Boarding Infrastructure', target:'Dormitory renovation and welfare', icon:'ri-home-5-line'},
+    {area:'ICT & Technology', target:'Computers, networking, and digital tools', icon:'ri-computer-line'},
+  ],
+  galleryAlbums: [
+    {name:'Sports Day 2024', year:'2024', count:'32', cover:''},
+    {name:'Speech Day & Prize-Giving 2024', year:'2024', count:'28', cover:''},
+    {name:'SRC Week 2024', year:'2024', count:'45', cover:''},
+    {name:'Valedictory Service 2024', year:'2024', count:'22', cover:''},
+    {name:'Campus & Daily Life', year:'Ongoing', count:'60+', cover:''},
+  ],
+};
+
+/* ═══════════════════════ LOAD/SAVE ═══════════════════ */
+function loadData() {
+  try {
+    const saved = localStorage.getItem(STORE_KEY);
+    if (saved) { cmsData = JSON.parse(saved); }
+    else { cmsData = { lists: JSON.parse(JSON.stringify(DEFAULT_LISTS)) }; }
+    if (!cmsData.lists) cmsData.lists = JSON.parse(JSON.stringify(DEFAULT_LISTS));
+    // Merge missing list keys
+    for (const k of Object.keys(DEFAULT_LISTS)) {
+      if (!cmsData.lists[k]) cmsData.lists[k] = JSON.parse(JSON.stringify(DEFAULT_LISTS[k]));
+    }
+  } catch(e) {
+    cmsData = { lists: JSON.parse(JSON.stringify(DEFAULT_LISTS)) };
+  }
+}
+
+function saveAll() {
+  // collect all inputs
+  document.querySelectorAll('[data-key]').forEach(el => {
+    const k = el.dataset.key;
+    if (el.type === 'checkbox') cmsData[k] = el.checked;
+    else if (el.tagName === 'SELECT') cmsData[k] = el.value;
+    else cmsData[k] = el.value;
+  });
+  // collect list data from renderers
+  collectAllLists();
+  localStorage.setItem(STORE_KEY, JSON.stringify(cmsData));
+  changeCount = 0;
+  document.getElementById('dashChanges').textContent = '0';
+  const ind = document.getElementById('saveIndicator');
+  ind.classList.add('show');
+  setTimeout(() => ind.classList.remove('show'), 2500);
+}
+
+function markChanged() {
+  changeCount++;
+  document.getElementById('dashChanges').textContent = changeCount;
+}
+
+/* ═══════════════════════ POPULATE FIELDS ═══════════════════ */
+function populateFields() {
+  document.querySelectorAll('[data-key]').forEach(el => {
+    const k = el.dataset.key;
+    if (cmsData[k] === undefined) return;
+    if (el.type === 'checkbox') el.checked = !!cmsData[k];
+    else el.value = cmsData[k];
+  });
+}
+
+document.addEventListener('change', e => {
+  if (e.target.dataset.key) markChanged();
+});
+document.addEventListener('input', e => {
+  if (e.target.dataset.key) markChanged();
+});
+
+/* ═══════════════════════ NAVIGATION ═══════════════════ */
+function showPanel(el) {
+  const id = el.dataset.panel;
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  el.classList.add('active');
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  const panel = document.getElementById('panel-' + id);
+  if (panel) panel.classList.add('active');
+  closeSidebar();
+  // refresh code preview
+  if (id === 'export') refreshCodePreview();
+}
+function showPanelById(id) {
+  const navItem = document.querySelector(`[data-panel="${id}"]`);
+  if (navItem) showPanel(navItem);
+}
+function closeSidebar() {
+  if (window.innerWidth <= 768) {
+    document.getElementById('sidebar').classList.remove('open');
+    document.getElementById('overlay').classList.remove('show');
+  }
+}
+document.getElementById('mobileMenu').addEventListener('click', () => {
+  document.getElementById('sidebar').classList.toggle('open');
+  document.getElementById('overlay').classList.toggle('show');
+});
+
+/* ═══════════════════════ LIST RENDERERS ═══════════════════ */
+
+function makeRepItem(fields, deleteHandler) {
+  const item = document.createElement('div');
+  item.className = 'rep-item';
+  item.innerHTML = `<div class="rep-handle"><i class="ri-drag-move-2-line"></i></div>
+    <div class="rep-fields rep-fields-${fields.length >= 3 ? '3' : fields.length >= 2 ? '2' : '1'}">${fields.map(f =>
+      `<div><label>${f.label}</label><input type="text" value="${(f.value||'').replace(/"/g,'&quot;')}" data-f="${f.key}"/></div>`
+    ).join('')}</div>
+    <div class="rep-delete" title="Remove"><i class="ri-delete-bin-line"></i></div>`;
+  item.querySelector('.rep-delete').addEventListener('click', deleteHandler);
+  return item;
+}
+
+function renderList(containerId, listKey, fieldsDef, addFn) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+  container.innerHTML = '';
+  (cmsData.lists[listKey] || []).forEach((item, i) => {
+    const fields = fieldsDef.map(f => ({
+      label: f.label, key: f.key, value: item[f.key] || ''
+    }));
+    const el = makeRepItem(fields, () => {
+      cmsData.lists[listKey].splice(i, 1);
+      renderList(containerId, listKey, fieldsDef, addFn);
+      markChanged();
+    });
+    container.appendChild(el);
+  });
+}
+
+function collectList(containerId, listKey, fieldsDef) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+  cmsData.lists[listKey] = [];
+  container.querySelectorAll('.rep-item').forEach(item => {
+    const obj = {};
+    fieldsDef.forEach(f => {
+      const inp = item.querySelector(`[data-f="${f.key}"]`);
+      if (inp) obj[f.key] = inp.value;
+    });
+    cmsData.lists[listKey].push(obj);
+  });
+}
+
+function collectAllLists() {
+  collectList('seniorAdminList', 'seniorAdmin', ADMIN_FIELDS);
+  collectList('hodList', 'hods', HOD_FIELDS);
+  collectList('programmeList', 'programmes', PROG_FIELDS);
+  collectList('deptList', 'departments', DEPT_FIELDS);
+  collectList('clubList', 'clubs', CLUB_FIELDS);
+  collectList('recordList', 'records', RECORD_FIELDS);
+  collectList('houseList', 'houses', HOUSE_FIELDS);
+  collectList('boardingHouseList', 'boardingHouses', BHOUSE_FIELDS);
+  collectList('holidayList', 'holidays', HOLIDAY_FIELDS);
+  collectList('eventList', 'events', EVENT_FIELDS);
+  collectList('alumTimeline', 'alumTimeline', ALTL_FIELDS);
+  collectList('admDocList', 'admDocs', [{key:'doc',label:'Document Name'}]);
+  collectList('donationAreaList', 'donationAreas', DONAREA_FIELDS);
+  collectList('galleryAlbumList', 'galleryAlbums', GALLALBUM_FIELDS);
+}
+
+/* ══════════════════ FIELD DEFINITIONS ══════════════════ */
+const ADMIN_FIELDS = [
+  {key:'rank', label:'Rank'},{key:'role', label:'Role / Position'},{key:'name', label:'Full Name'}
+];
+const HOD_FIELDS = [
+  {key:'dept', label:'Department'},{key:'name', label:'Name'},{key:'subjects', label:'Subjects Covered'}
+];
+const PROG_FIELDS = [
+  {key:'name', label:'Programme Name'},{key:'code', label:'Code'},{key:'desc', label:'Description'}
+];
+const DEPT_FIELDS = [
+  {key:'name', label:'Department Name'},{key:'head', label:'Head of Dept'},{key:'subjects', label:'Subjects'}
+];
+const CLUB_FIELDS = [
+  {key:'name', label:'Club Name'},{key:'day', label:'Meeting Day'},{key:'time', label:'Time'},{key:'venue', label:'Venue'}
+];
+const RECORD_FIELDS = [
+  {key:'event', label:'Event'},{key:'value', label:'Record Value'},{key:'year', label:'Year Set'},{key:'holder', label:'Record Holder (opt.)'}
+];
+const HOUSE_FIELDS = [
+  {key:'name', label:'House Name'},{key:'color', label:'Colour (hex)'},{key:'desc', label:'Notes'}
+];
+const BHOUSE_FIELDS = [
+  {key:'name', label:'House Name'},{key:'capacity', label:'Capacity'},{key:'housemaster', label:'Housemaster/mistress'},{key:'contact', label:'Contact'}
+];
+const HOLIDAY_FIELDS = [
+  {key:'name', label:'Holiday Name'},{key:'date', label:'Date (YYYY-MM-DD)'},{key:'type', label:'Type'}
+];
+const EVENT_FIELDS = [
+  {key:'name', label:'Event Name'},{key:'month', label:'Month/Period'},{key:'desc', label:'Description'}
+];
+const ALTL_FIELDS = [
+  {key:'year', label:'Year'},{key:'event', label:'Event / Role'},{key:'detail', label:'Detail'}
+];
+const DONAREA_FIELDS = [
+  {key:'area', label:'Area Name'},{key:'target', label:'Purpose'},{key:'icon', label:'Remix Icon class'}
+];
+const GALLALBUM_FIELDS = [
+  {key:'name', label:'Album Name'},{key:'year', label:'Year'},{key:'count', label:'Photo Count'}
+];
+
+/* ═══════════════════ ADD FUNCTIONS ═════════════════════ */
+function addItem(listKey, defaults, containerId, fields, addFn) {
+  if (!cmsData.lists[listKey]) cmsData.lists[listKey] = [];
+  collectList(containerId, listKey, fields);
+  cmsData.lists[listKey].push(Object.assign({}, defaults));
+  renderList(containerId, listKey, fields, addFn);
+  markChanged();
+}
+const addSeniorAdmin = () => addItem('seniorAdmin', {rank:'',role:'',name:'',desc:''}, 'seniorAdminList', ADMIN_FIELDS, addSeniorAdmin);
+const addHOD = () => addItem('hods', {dept:'',name:'',subjects:''}, 'hodList', HOD_FIELDS, addHOD);
+const addProgramme = () => addItem('programmes', {name:'',code:'',desc:''}, 'programmeList', PROG_FIELDS, addProgramme);
+const addDepartment = () => addItem('departments', {name:'',head:'',subjects:''}, 'deptList', DEPT_FIELDS, addDepartment);
+const addClub = () => addItem('clubs', {name:'',color:'#0071e3',day:'',time:'',venue:'',desc:''}, 'clubList', CLUB_FIELDS, addClub);
+const addRecord = () => addItem('records', {event:'',value:'',year:'',holder:''}, 'recordList', RECORD_FIELDS, addRecord);
+const addHouse = () => addItem('houses', {name:'',color:'',desc:''}, 'houseList', HOUSE_FIELDS, addHouse);
+const addHouse2 = () => addItem('boardingHouses', {name:'',capacity:'',housemaster:'',contact:''}, 'boardingHouseList', BHOUSE_FIELDS, addHouse2);
+const addHoliday = () => addItem('holidays', {name:'',date:'',type:'National'}, 'holidayList', HOLIDAY_FIELDS, addHoliday);
+const addEvent = () => addItem('events', {name:'',month:'',desc:''}, 'eventList', EVENT_FIELDS, addEvent);
+const addAlumTimeline = () => addItem('alumTimeline', {year:'',event:'',detail:''}, 'alumTimeline', ALTL_FIELDS, addAlumTimeline);
+const addAdmDoc = () => addItem('admDocs', {doc:''}, 'admDocList', [{key:'doc',label:'Document Name'}], addAdmDoc);
+const addDonationArea = () => addItem('donationAreas', {area:'',target:'',icon:''}, 'donationAreaList', DONAREA_FIELDS, addDonationArea);
+const addGalleryAlbum = () => addItem('galleryAlbums', {name:'',year:'',count:''}, 'galleryAlbumList', GALLALBUM_FIELDS, addGalleryAlbum);
+
+// boarding house add (different container)
+function addHouse() { addItem('boardingHouses', {name:'',capacity:'',housemaster:'',contact:''}, 'boardingHouseList', BHOUSE_FIELDS, addHouse); }
+
+/* ═══════════════════════ EXPORT ═════════════════════════ */
+function exportAll() {
+  saveAll();
+  const blob = new Blob([JSON.stringify(cmsData, null, 2)], {type:'application/json'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob); a.download = 'ansec-content.json'; a.click();
+}
+
+function exportCSS() {
+  saveAll();
+  let css = '/* ANSEC Content Variables — generated by ANSEC CMS */\n:root {\n';
+  for (const [k,v] of Object.entries(cmsData)) {
+    if (typeof v === 'string' || typeof v === 'number') {
+      const cssKey = '--cms-' + k.replace(/([A-Z])/g, '-$1').toLowerCase();
+      css += `  ${cssKey}: "${String(v).replace(/"/g, '\\"')}";\n`;
+    }
+  }
+  css += '}\n';
+  const blob = new Blob([css], {type:'text/css'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob); a.download = 'ansec-content-vars.css'; a.click();
+}
+
+function copyJSON() {
+  saveAll();
+  navigator.clipboard.writeText(JSON.stringify(cmsData, null, 2))
+    .then(() => alert('JSON copied to clipboard!'))
+    .catch(() => alert('Copy failed — use Export JSON button instead.'));
+}
+
+function importJSON(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    try {
+      const data = JSON.parse(e.target.result);
+      cmsData = data;
+      localStorage.setItem(STORE_KEY, JSON.stringify(cmsData));
+      populateFields();
+      renderAllLists();
+      alert('Content imported successfully!');
+      markChanged();
+    } catch(err) { alert('Invalid JSON file: ' + err.message); }
+  };
+  reader.readAsText(file);
+}
+
+function refreshCodePreview() {
+  const el = document.getElementById('codePreview');
+  if (el.classList.contains('show')) {
+    el.textContent = JSON.stringify(cmsData, null, 2);
+  }
+}
+
+/* ═════════════════════ RENDER ALL LISTS ════════════════ */
+function renderAllLists() {
+  renderList('seniorAdminList', 'seniorAdmin', ADMIN_FIELDS, addSeniorAdmin);
+  renderList('hodList', 'hods', HOD_FIELDS, addHOD);
+  renderList('programmeList', 'programmes', PROG_FIELDS, addProgramme);
+  renderList('deptList', 'departments', DEPT_FIELDS, addDepartment);
+  renderList('clubList', 'clubs', CLUB_FIELDS, addClub);
+  renderList('recordList', 'records', RECORD_FIELDS, addRecord);
+  renderList('houseList', 'houses', HOUSE_FIELDS, addHouse);
+  renderList('boardingHouseList', 'boardingHouses', BHOUSE_FIELDS, addHouse);
+  renderList('holidayList', 'holidays', HOLIDAY_FIELDS, addHoliday);
+  renderList('eventList', 'events', EVENT_FIELDS, addEvent);
+  renderList('alumTimeline', 'alumTimeline', ALTL_FIELDS, addAlumTimeline);
+  renderList('admDocList', 'admDocs', [{key:'doc',label:'Document Name'}], addAdmDoc);
+  renderList('donationAreaList', 'donationAreas', DONAREA_FIELDS, addDonationArea);
+  renderList('galleryAlbumList', 'galleryAlbums', GALLALBUM_FIELDS, addGalleryAlbum);
+}
+
+/* ═══════════════════════════ BOOT ══════════════════════ */
+loadData();
+populateFields();
+renderAllLists();
+})();
+</script>
+</body>
+</html>

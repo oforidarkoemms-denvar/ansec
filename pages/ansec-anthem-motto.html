@@ -1,0 +1,1177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>School Anthem &amp; Motto — ANSEC</title>
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,900;1,400;1,600&family=Lora:ital,wght@0,400;0,500;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --accent:        #0071e3;
+      --accent-soft:   rgba(0,113,227,0.08);
+      --grad-btn:      linear-gradient(to right, #00b4ff, #6a00ff);
+      --bg-page:       #f5f7fa;
+      --bg-white:      #ffffff;
+      --bg-dark:       #060f1e;
+      --bg-darkblue:   #071428;
+      --text-primary:  #0d1b2a;
+      --text-body:     #3a4a5c;
+      --text-muted:    #7a8fa6;
+      --serif:         'Playfair Display', Georgia, serif;
+      --lora:          'Lora', Georgia, serif;
+      --sans:          'DM Sans', system-ui, sans-serif;
+      --radius:        12px;
+      --radius-sm:     8px;
+      --radius-xs:     6px;
+      --shadow-soft:   0 2px 16px rgba(0,0,0,0.06);
+      --shadow-lift:   0 8px 32px rgba(0,0,0,0.10);
+      --tr:            0.28s cubic-bezier(0.22,1,0.36,1);
+      /* Layout tokens — synced with ansec-layout.css */
+      --al-topbar-h:  56px;
+      --al-navbar-h:  64px;
+      --al-total-h:   120px;
+    }
+    *,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+    html { scroll-behavior:smooth; overflow-x:hidden; }
+    body { font-family:var(--sans); background:var(--bg-page); color:var(--text-primary); line-height:1.7; -webkit-font-smoothing:antialiased; overflow-x:hidden; }
+
+    .wrap    { max-width:1400px; padding-inline:1.5rem; margin-inline:auto; }
+    .pad-lg  { padding-block:5.5rem; }
+    .pad-md  { padding-block:4rem; }
+
+    /* ── Typography ── */
+    .section-tag { display:flex; align-items:center; justify-content:center; gap:.55rem; font-family:var(--sans); font-size:.63rem; font-weight:600; letter-spacing:.22em; text-transform:uppercase; color:var(--accent); margin-bottom:1rem; }
+    .section-tag::before,.section-tag::after { content:''; display:block; width:32px; height:1.5px; background:var(--accent); border-radius:1px; opacity:.6; }
+    .section-tag.light { color:rgba(0,180,255,.72); }
+    .section-tag.light::before,.section-tag.light::after { background:rgba(0,180,255,.38); }
+
+    h2.serif { font-family:var(--serif); font-size:clamp(1.85rem,3.2vw,2.9rem); font-weight:700; line-height:1.2; color:var(--text-primary); }
+    h2.serif em { font-style:italic; color:var(--accent); }
+    h2.serif.on-dark { color:#fff; }
+    h2.serif.on-dark em { color:#7dd3fc; }
+
+    .sub { font-family:var(--sans); font-size:.97rem; font-weight:300; color:var(--text-muted); margin-top:.65rem; line-height:1.78; }
+    .sub.on-dark { color:rgba(185,215,245,.62); }
+    .lora-body { font-family:var(--lora); font-size:.97rem; color:var(--text-body); line-height:1.88; }
+    .lora-body.on-dark { color:rgba(200,220,240,.75); }
+    .lora-body+.lora-body { margin-top:1rem; }
+
+    hr.rule { border:none; height:1px; background:linear-gradient(to right,transparent,rgba(0,113,227,.15),transparent); }
+
+    /* ── Buttons ── */
+    .btn-g { display:inline-flex; align-items:center; gap:.5rem; padding:.78rem 1.9rem; border-radius:999px; background:var(--grad-btn); color:#fff; font-family:var(--sans); font-size:.87rem; font-weight:600; text-decoration:none; border:none; cursor:pointer; box-shadow:0 5px 22px rgba(106,0,255,.2); transition:transform var(--tr),box-shadow var(--tr); position:relative; overflow:hidden; }
+    .btn-g::before { content:''; position:absolute; inset:0; background:linear-gradient(135deg,rgba(255,255,255,.14),transparent); border-radius:inherit; }
+    .btn-g:hover { transform:translateY(-2px); box-shadow:0 10px 34px rgba(106,0,255,.3); }
+    .btn-ol { display:inline-flex; align-items:center; gap:.5rem; padding:.78rem 1.9rem; border-radius:999px; background:transparent; color:rgba(210,230,255,.75); font-family:var(--sans); font-size:.87rem; font-weight:500; text-decoration:none; border:1.5px solid rgba(0,113,227,.4); cursor:pointer; transition:all var(--tr); }
+    .btn-ol:hover { border-color:rgba(0,180,255,.6); color:#fff; background:rgba(0,113,227,.1); }
+
+    /* ── Reveal ── */
+    .rv,.rv-l,.rv-r { opacity:0; transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .7s cubic-bezier(.22,1,.36,1); }
+    .rv   { transform:translateY(24px); }
+    .rv-l { transform:translateX(-24px); }
+    .rv-r { transform:translateX(24px); }
+    .rv.in,.rv-l.in,.rv-r.in { opacity:1; transform:none; }
+
+    /* ═══════════════════ §1 HERO ═══════════════════
+       Header offset: --al-total-h = 120px
+       Media layer: supports EITHER a photo OR a video.
+       One option is active; the other is commented out.
+       SVG musical-notation illustration is always the z-index 1
+       decorative layer rendered above whichever media is active.
+    ═══════════════════════════════════════════════ */
+
+    /* ── Outer wrapper ── */
+    .hero {
+      position: relative;
+      width: 100%;
+      min-height: 100svh;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      /* background: var(--bg-darkblue); — replaced by media layer */
+    }
+
+    /* ── MEDIA LAYER (image OR video) ─────────────────────────
+       .hero-media-img  → <img> path
+       .hero-media-vid  → <video autoplay muted loop playsinline>
+       Only one should be un-commented in the HTML at a time.
+       Both share these base styles:
+    ─────────────────────────────────────────────────────────── */
+    .hero-media-img,
+    .hero-media-vid {
+      position: absolute; inset: 0; z-index: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center;
+      /* Slight darken so text is always readable even without overlay */
+      filter: brightness(0.55);
+    }
+    /* Fallback background colour shown before media loads */
+    .hero-media-img { background-color: var(--bg-darkblue); }
+
+    /* ── SVG musical-notation bg layer (always visible) ── */
+    .hero-bg {
+      position: absolute; inset: 0; z-index: 1;
+      pointer-events: none;
+    }
+    .hero-bg svg { width: 100%; height: 100%; display: block; }
+
+    /* ── Colour gradient overlay ── */
+    .hero-ov {
+      position: absolute; inset: 0; z-index: 2;
+      background: linear-gradient(to bottom,
+        rgba(4,10,22,.82) 0%,
+        rgba(4,10,22,.48) 50%,
+        rgba(4,10,22,.94) 100%);
+    }
+
+    /* ── Grid texture ── */
+    .hero-grid-tex {
+      position: absolute; inset: 0; z-index: 3;
+      opacity: .032;
+      background-image:
+        linear-gradient(rgba(255,255,255,.5) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.5) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+
+    /* ── Hero text content ── */
+    .hero-body {
+      position: relative; z-index: 4;
+      width: 100%; max-width: 100%; box-sizing: border-box;
+      text-align: center;
+      padding-top: calc(var(--al-total-h, 120px) + 3rem); 
+      padding-bottom: 6rem;
+    }
+
+    /* ── Breadcrumb ── */
+    .hero-breadcrumb {
+      display: flex; align-items: center; justify-content: center;
+      flex-wrap: wrap; gap: .45rem;
+      width: 100%; box-sizing: border-box;
+      margin-bottom: 1.6rem;
+      font-family: var(--sans); font-size: .71rem; font-weight: 500;
+      color: rgba(140,175,220,.45); letter-spacing: .04em;
+      animation: hUp .8s both;
+    }
+    .hero-breadcrumb a { color: rgba(160,195,235,.5); text-decoration: none; transition: color var(--tr); }
+    .hero-breadcrumb a:hover { color: rgba(0,180,255,.8); }
+    .hero-breadcrumb i { font-size: .65rem; opacity: .4; }
+    .hero-breadcrumb .crumb-cur { color: rgba(100,185,255,.7); }
+
+    /* ── Eyebrow ── */
+    .hero-ew {
+      display: inline-flex; align-items: center; gap: .55rem;
+      font-family: var(--sans); font-size: .63rem; font-weight: 600;
+      letter-spacing: .24em; text-transform: uppercase;
+      color: rgba(0,180,255,.75);
+      margin-bottom: 1.4rem;
+      animation: hUp .85s cubic-bezier(.22,1,.36,1) both;
+    }
+    .hero-ew::before, .hero-ew::after { content: ''; display: block; width: 28px; height: 1.5px; background: rgba(0,180,255,.5); border-radius: 1px; }
+
+    /* ── H1 ── */
+    .hero-h1 {
+      font-family: var(--serif); font-size: clamp(2.4rem,5.5vw,4.5rem);
+      font-weight: 700; color: #fff; line-height: 1.1;
+      width: 100%; max-width: 840px; margin-inline: auto; box-sizing: border-box;
+      animation: hUp .85s .1s cubic-bezier(.22,1,.36,1) both;
+    }
+    .hero-h1 em { font-style: italic; color: #7dd3fc; }
+
+    /* ── Sub ── */
+    .hero-p {
+      font-family: var(--sans); font-size: 1.05rem; font-weight: 300;
+      color: rgba(200,220,240,.68);
+      width: 100%; max-width: 560px; margin: .7rem auto 0; box-sizing: border-box;
+      line-height: 1.78;
+      animation: hUp .85s .2s cubic-bezier(.22,1,.36,1) both;
+    }
+
+    /* ── Musical staff decoration ── */
+    .hero-staff {
+      width: clamp(240px,50%,460px); margin: 2.6rem auto 0;
+      opacity: .2; animation: hUp .85s .28s cubic-bezier(.22,1,.36,1) both;
+    }
+
+    /* ── Motto pill ── */
+    .hero-pill {
+      display: inline-flex; align-items: center; gap: .9rem;
+      margin: 2.2rem auto 0; padding: .68rem 1.55rem;
+      border-radius: 999px;
+      border: 1px solid rgba(0,113,227,.35);
+      background: rgba(0,113,227,.08); backdrop-filter: blur(8px);
+      animation: hUp .85s .34s cubic-bezier(.22,1,.36,1) both;
+    }
+    .pill-dot { width: 4px; height: 4px; border-radius: 50%; background: rgba(0,180,255,.6); flex-shrink: 0; }
+    .pill-txt { font-family: var(--serif); font-size: .95rem; font-weight: 500; font-style: italic; color: rgba(190,220,255,.85); letter-spacing: .02em; }
+
+    /* ── Scroll pip — bottom-right ── */
+    .hero-scroll-pip {
+      position: absolute; bottom: 1.2rem; right: 2rem; z-index: 6;
+      display: flex; flex-direction: column; align-items: center; gap: .38rem;
+      opacity: .38; pointer-events: none;
+      animation: hUp .85s .5s cubic-bezier(.22,1,.36,1) both;
+    }
+    .hero-scroll-pip span { font-family: var(--sans); font-size: .55rem; letter-spacing: .2em; text-transform: uppercase; color: #fff; }
+    .scroll-pip { width: 4px; height: 22px; border: 1.5px solid rgba(255,255,255,.4); border-radius: 99px; position: relative; overflow: hidden; }
+    .scroll-pip::after { content: ''; position: absolute; left: 50%; top: 0; width: 2px; height: 7px; background: #fff; transform: translateX(-50%); border-radius: 99px; animation: pip 1.6s ease-in-out infinite; }
+
+    @keyframes pip { 0%{top:0;opacity:1} 80%{top:13px;opacity:0} 100%{top:0;opacity:0} }
+    @keyframes hUp { from{opacity:0;transform:translateY(22px)} to{opacity:1;transform:none} }
+    .hero-bar { height: 3px; background: linear-gradient(to right,transparent,var(--accent) 30%,var(--accent) 70%,transparent); }
+
+    /* ── Mobile ── */
+    @media (max-width: 640px) {
+      .hero { min-height: 100svh; }
+      .hero-body { padding-top: calc(var(--al-total-h, 120px) + 1rem); padding-bottom: 5rem; }
+      .hero-h1 { font-size: clamp(1.9rem,7vw,2.8rem); }
+      .hero-p  { font-size: .95rem; }
+      .hero-scroll-pip { right: 1rem; }
+    }
+    @media (max-width: 375px) {
+      .hero-h1 { font-size: 1.7rem; }
+      .hero-p  { font-size: .88rem; }
+      .hero-scroll-pip { display: none; }
+    }
+
+    /* ═══════════════════ §2 MOTTO OVERVIEW ═══════════════════ */
+    #motto { background:var(--bg-white); }
+    .motto-grid { display:grid; grid-template-columns:1fr 1fr; gap:5.5rem; align-items:center; }
+
+    /* Left: large typographic display */
+    .motto-display { position:relative; }
+    .motto-ghost { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-family:var(--serif); font-size:clamp(5rem,9vw,8rem); font-weight:900; color:var(--accent); opacity:.04; white-space:nowrap; user-select:none; pointer-events:none; letter-spacing:-.04em; line-height:1; }
+    .motto-rule-top { display:block; width:48px; height:2px; background:var(--accent); border-radius:1px; margin-bottom:1.8rem; opacity:.5; }
+    .motto-eyebrow { font-family:var(--sans); font-size:.63rem; font-weight:600; letter-spacing:.22em; text-transform:uppercase; color:var(--accent); margin-bottom:1.2rem; }
+    .motto-words { display:flex; flex-direction:column; gap:.18rem; margin-bottom:1.8rem; }
+    .motto-wr { display:flex; align-items:baseline; gap:1rem; }
+    .motto-n { font-family:var(--sans); font-size:.62rem; font-weight:600; color:var(--accent); opacity:.5; width:18px; flex-shrink:0; }
+    .motto-w { font-family:var(--serif); font-size:clamp(2rem,3.8vw,3.3rem); font-weight:700; color:var(--text-primary); line-height:1.12; }
+    .motto-w em { font-style:italic; color:var(--accent); }
+    .motto-w .comma { color:var(--accent); opacity:.4; }
+    .motto-divider { width:100%; height:1px; background:linear-gradient(to right,rgba(0,113,227,.2),transparent); margin-bottom:1.5rem; }
+    .motto-phrase { font-family:var(--lora); font-size:1.05rem; font-style:italic; color:var(--text-muted); line-height:1.72; margin-bottom:1.5rem; }
+    .motto-badge { display:inline-flex; align-items:center; gap:.5rem; padding:.28rem .8rem; border-radius:999px; border:1px solid rgba(0,113,227,.2); background:var(--accent-soft); font-family:var(--sans); font-size:.7rem; font-weight:500; color:var(--accent); }
+    .motto-badge svg { width:11px; height:11px; opacity:.7; }
+
+    /* Right: three pillar cards */
+    .pillars { display:flex; flex-direction:column; gap:1.2rem; }
+    .pillar { display:flex; gap:1.2rem; align-items:flex-start; padding:1.4rem 1.3rem 1.2rem; border-radius:var(--radius); border:1px solid rgba(0,0,0,.05); background:var(--bg-page); transition:border-color var(--tr),transform var(--tr),box-shadow var(--tr); position:relative; overflow:hidden; }
+    .pillar::before { content:''; position:absolute; left:0; top:10%; bottom:10%; width:3px; background:linear-gradient(to bottom,var(--accent),#00b4ff); border-radius:2px; opacity:0; transition:opacity var(--tr); }
+    .pillar:hover { border-color:rgba(0,113,227,.18); transform:translateX(4px); box-shadow:var(--shadow-soft); }
+    .pillar:hover::before { opacity:1; }
+    .pillar-ico { width:44px; height:44px; border-radius:var(--radius-sm); background:var(--accent-soft); border:1.5px solid rgba(0,113,227,.18); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+    .pillar-ico svg { width:20px; height:20px; }
+    .pillar-ttl { font-family:var(--serif); font-size:1.06rem; font-weight:700; color:var(--text-primary); margin-bottom:.3rem; line-height:1.2; }
+    .pillar-ttl span { font-style:italic; color:var(--accent); font-size:.82em; font-weight:500; margin-left:.4rem; }
+    .pillar-dsc { font-family:var(--sans); font-size:.86rem; font-weight:300; color:var(--text-body); line-height:1.75; }
+    .pillar-num { position:absolute; bottom:.1rem; right:1rem; font-family:var(--serif); font-size:2.8rem; font-weight:900; color:var(--accent); opacity:.042; line-height:1; user-select:none; }
+
+    /* ═══════════════════ §3 ANTHEM ═══════════════════ */
+    #anthem { background:var(--bg-dark); position:relative; overflow:hidden; }
+    #anthem::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse at 50% 28%,rgba(0,113,227,.15) 0%,transparent 60%); pointer-events:none; }
+    #anthem::after  { content:''; position:absolute; inset:0; opacity:.02; background-image:repeating-linear-gradient(-45deg,transparent,transparent 20px,rgba(255,255,255,.6) 20px,rgba(255,255,255,.6) 21px); pointer-events:none; }
+    .anthem-z { position:relative; z-index:2; }
+
+    .anthem-hd { text-align:center; margin-bottom:4rem; }
+    .anthem-ttl { font-family:var(--serif); font-size:clamp(2rem,3.8vw,3.2rem); font-weight:700; color:#fff; line-height:1.18; margin-bottom:.75rem; }
+    .anthem-ttl em { font-style:italic; color:#7dd3fc; }
+    .anthem-sub2 { font-family:var(--sans); font-size:.95rem; font-weight:300; color:rgba(180,210,245,.6); max-width:500px; margin-inline:auto; line-height:1.75; }
+
+    /* Staff decoration */
+    .staff-deco { display:flex; justify-content:center; margin-bottom:3.5rem; opacity:.17; }
+    .staff-deco svg { width:clamp(200px,48%,430px); }
+
+    /* Verse grid */
+    .verses { display:grid; grid-template-columns:1fr 1fr; gap:2rem 4rem; max-width:960px; margin-inline:auto; }
+
+    .verse { position:relative; }
+    .verse-lbl { display:flex; align-items:center; gap:.6rem; margin-bottom:1rem; }
+    .v-num { width:28px; height:28px; border-radius:50%; border:1.5px solid rgba(0,113,227,.45); background:rgba(0,113,227,.12); display:flex; align-items:center; justify-content:center; font-family:var(--sans); font-size:.7rem; font-weight:700; color:rgba(0,180,255,.8); flex-shrink:0; }
+    .v-tag { font-family:var(--sans); font-size:.62rem; font-weight:600; letter-spacing:.2em; text-transform:uppercase; color:rgba(0,180,255,.5); }
+    .verse-rule { display:block; width:100%; height:1px; background:linear-gradient(to right,rgba(0,113,227,.28),transparent); margin-bottom:1.1rem; }
+    .lines { display:flex; flex-direction:column; gap:.18rem; }
+    .ln { font-family:var(--lora); font-size:1rem; color:rgba(215,235,255,.82); line-height:1.65; letter-spacing:.01em; }
+    .ln.ind { padding-left:1.4rem; font-style:italic; color:rgba(150,190,240,.65); }
+
+    /* Chorus — full width */
+    .chorus { grid-column:1 / -1; max-width:680px; margin-inline:auto; width:100%; }
+    .chorus-card { background:rgba(0,113,227,.08); border:1px solid rgba(0,113,227,.22); border-radius:var(--radius); padding:2.2rem 2.8rem; position:relative; overflow:hidden; text-align:center; }
+    .chorus-card::before { content:''; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:300px; height:300px; background:radial-gradient(circle,rgba(0,113,227,.15) 0%,transparent 70%); pointer-events:none; }
+    .ch-lbl { display:inline-flex; align-items:center; gap:.55rem; font-family:var(--sans); font-size:.6rem; font-weight:700; letter-spacing:.26em; text-transform:uppercase; color:rgba(0,180,255,.65); margin-bottom:1.4rem; }
+    .ch-lbl::before,.ch-lbl::after { content:''; display:block; width:24px; height:1px; background:rgba(0,180,255,.35); }
+    .ch-lines { position:relative; z-index:1; display:flex; flex-direction:column; gap:.22rem; }
+    .ch-ln { font-family:var(--lora); font-size:1.06rem; font-weight:500; color:rgba(220,238,255,.9); line-height:1.65; letter-spacing:.015em; }
+    .ch-ln.em { font-style:italic; color:#7dd3fc; font-size:1.12rem; }
+
+    /* Audio player */
+    .player { max-width:540px; margin:3.5rem auto 0; background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.09); border-radius:var(--radius); padding:1.6rem 2rem; display:flex; align-items:center; gap:1.4rem; }
+    .play-btn { width:48px; height:48px; border-radius:50%; background:linear-gradient(135deg,var(--accent),#00b4ff); border:none; cursor:pointer; display:flex; align-items:center; justify-content:center; flex-shrink:0; box-shadow:0 4px 18px rgba(0,113,227,.4); transition:transform var(--tr),box-shadow var(--tr); }
+    .play-btn:hover { transform:scale(1.08); box-shadow:0 8px 28px rgba(0,113,227,.5); }
+    .play-btn svg { width:18px; height:18px; margin-left:2px; }
+    .play-info { flex:1; min-width:0; }
+    .play-ttl { font-family:var(--sans); font-size:.9rem; font-weight:600; color:rgba(220,238,255,.9); margin-bottom:.28rem; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .play-meta { font-family:var(--sans); font-size:.72rem; font-weight:300; color:rgba(150,185,225,.55); }
+    .waveform { display:flex; align-items:center; gap:2px; height:28px; }
+    .waveform span { display:block; width:3px; border-radius:2px; background:rgba(0,113,227,.5); animation:wv 1.2s ease-in-out infinite; }
+    .waveform span:nth-child(1){height:8px;animation-delay:0s}
+    .waveform span:nth-child(2){height:16px;animation-delay:.1s}
+    .waveform span:nth-child(3){height:24px;animation-delay:.2s}
+    .waveform span:nth-child(4){height:12px;animation-delay:.15s}
+    .waveform span:nth-child(5){height:20px;animation-delay:.05s}
+    .waveform span:nth-child(6){height:8px;animation-delay:.25s}
+    .waveform span:nth-child(7){height:16px;animation-delay:.1s}
+    .waveform span:nth-child(8){height:22px;animation-delay:.3s}
+    .waveform span:nth-child(9){height:10px;animation-delay:.2s}
+    .waveform span:nth-child(10){height:18px;animation-delay:.08s}
+    .waveform span:nth-child(11){height:6px;animation-delay:.18s}
+    .waveform span:nth-child(12){height:14px;animation-delay:.12s}
+    @keyframes wv { 0%,100%{transform:scaleY(1);opacity:.5} 50%{transform:scaleY(1.9);opacity:.9} }
+    .play-note { font-family:var(--sans); font-size:.7rem; font-weight:300; color:rgba(120,160,210,.5); text-align:center; margin-top:.9rem; }
+
+    /* ═══════════════════ §4 CONTEXT ═══════════════════ */
+    #ctx { background:var(--bg-page); }
+    .ctx-grid { display:grid; grid-template-columns:1fr 1fr; gap:5.5rem; align-items:center; }
+    .ctx-img { position:relative; }
+    .ctx-frame { border-radius:var(--radius); overflow:hidden; box-shadow:var(--shadow-lift); position:relative; }
+    .ctx-frame svg { display:block; width:100%; }
+    .ctx-frame-ov { position:absolute; inset:0; background:linear-gradient(160deg,rgba(0,113,227,.06) 0%,rgba(6,15,30,.15) 100%); }
+    .ctx-tl { position:absolute; top:-1rem; left:-1rem; width:60px; height:60px; border-top:2px solid rgba(0,113,227,.3); border-left:2px solid rgba(0,113,227,.3); border-radius:4px 0 0 0; }
+    .ctx-br { position:absolute; bottom:-1rem; right:-1rem; width:60px; height:60px; border-bottom:2px solid rgba(0,113,227,.25); border-right:2px solid rgba(0,113,227,.25); border-radius:0 0 4px 0; }
+    .ctx-badge { position:absolute; bottom:1.4rem; left:1.4rem; background:rgba(6,15,30,.88); backdrop-filter:blur(12px); border:1px solid rgba(0,113,227,.3); border-radius:var(--radius-sm); padding:.75rem 1.05rem; display:flex; align-items:center; gap:.75rem; box-shadow:0 8px 24px rgba(0,0,0,.3); }
+    .ctx-bico { width:34px; height:34px; border-radius:50%; background:rgba(0,113,227,.18); border:1.5px solid rgba(0,180,255,.32); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+    .ctx-bico svg { width:15px; height:15px; }
+    .ctx-bval { font-family:var(--serif); font-size:1.05rem; font-weight:700; color:#fff; line-height:1; }
+    .ctx-blbl { font-family:var(--sans); font-size:.62rem; font-weight:500; letter-spacing:.1em; text-transform:uppercase; color:rgba(150,185,225,.65); margin-top:.15rem; }
+
+    .ctx-al { display:inline-flex; align-items:center; gap:.5rem; font-family:var(--sans); font-size:.64rem; font-weight:600; letter-spacing:.22em; text-transform:uppercase; color:var(--accent); margin-bottom:1rem; }
+    .ctx-al::before { content:''; display:inline-block; width:28px; height:1.5px; background:var(--accent); border-radius:1px; opacity:.7; }
+
+    .ctx-facts { display:flex; flex-direction:column; gap:.9rem; margin-top:1.8rem; }
+    .ctx-fact { display:flex; align-items:flex-start; gap:.9rem; padding:.9rem 1rem; border-radius:var(--radius-sm); border:1px solid rgba(0,0,0,.05); background:var(--bg-white); transition:border-color var(--tr),transform var(--tr); }
+    .ctx-fact:hover { border-color:rgba(0,113,227,.18); transform:translateY(-2px); }
+    .ctx-ficon { width:34px; height:34px; border-radius:var(--radius-xs); background:var(--accent-soft); border:1.5px solid rgba(0,113,227,.16); display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:.04rem; }
+    .ctx-ficon svg { width:15px; height:15px; }
+    .ctx-fttl { font-family:var(--sans); font-size:.88rem; font-weight:600; color:var(--text-primary); margin-bottom:.14rem; }
+    .ctx-fdsc { font-family:var(--sans); font-size:.81rem; font-weight:300; color:var(--text-muted); line-height:1.65; }
+
+    /* ═══════════════════ §5 MOTTO DEEP ═══════════════════ */
+    #motto-deep { background:var(--bg-white); }
+    .mhd { text-align:center; max-width:560px; margin-inline:auto; margin-bottom:4rem; }
+
+    .mrow { display:grid; grid-template-columns:1fr 1fr; gap:0 5rem; align-items:center; padding-block:3.5rem; border-bottom:1px solid rgba(0,0,0,.05); }
+    .mrow:last-child { border-bottom:none; }
+    .mrow:nth-child(even) .mc { order:2; }
+    .mrow:nth-child(even) .mv { order:1; }
+
+    .m-num { font-family:var(--sans); font-size:.6rem; font-weight:700; letter-spacing:.2em; text-transform:uppercase; color:var(--accent); opacity:.65; margin-bottom:.55rem; }
+    .m-word { font-family:var(--serif); font-size:clamp(1.9rem,3.2vw,2.8rem); font-weight:700; color:var(--text-primary); line-height:1.15; margin-bottom:.28rem; }
+    .m-word em { font-style:italic; color:var(--accent); }
+    .m-tag { font-family:var(--lora); font-size:.94rem; font-style:italic; color:var(--text-muted); margin-bottom:1.2rem; }
+    .m-desc { font-family:var(--sans); font-size:.9rem; font-weight:300; color:var(--text-body); line-height:1.82; }
+    .m-pts { list-style:none; margin-top:1rem; display:flex; flex-direction:column; gap:.38rem; }
+    .m-pts li { display:flex; align-items:flex-start; gap:.6rem; font-family:var(--sans); font-size:.84rem; font-weight:300; color:var(--text-muted); line-height:1.6; }
+    .m-pts li::before { content:''; width:5px; height:5px; border-radius:50%; background:var(--accent); opacity:.45; flex-shrink:0; margin-top:.44rem; }
+
+    .mv { display:flex; align-items:center; justify-content:center; }
+    .mv-circle { width:clamp(200px,24vw,272px); height:clamp(200px,24vw,272px); border-radius:50%; border:1.5px solid rgba(0,113,227,.14); display:flex; align-items:center; justify-content:center; position:relative; transition:border-color var(--tr); }
+    .mv-circle:hover { border-color:rgba(0,113,227,.35); }
+    .mv-circle::before { content:''; position:absolute; inset:-14px; border-radius:50%; border:1px dashed rgba(0,113,227,.12); animation:spin 22s linear infinite; }
+    @keyframes spin { to{transform:rotate(360deg)} }
+    .mv-inner { width:72%; height:72%; border-radius:50%; background:var(--accent-soft); border:1.5px solid rgba(0,113,227,.14); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:.4rem; }
+    .mv-inner svg { width:36px; height:36px; }
+    .mv-lbl { font-family:var(--serif); font-size:.68rem; font-weight:700; color:var(--accent); letter-spacing:.14em; text-transform:uppercase; }
+
+    /* ═══════════════════ §6 CLOSING ═══════════════════ */
+    #closing { background:var(--bg-dark); position:relative; overflow:hidden; }
+    #closing::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse at 60% 50%,rgba(0,113,227,.12) 0%,transparent 65%); pointer-events:none; }
+    #closing::after { content:''; position:absolute; left:-15%; top:-30%; width:500px; height:500px; background:radial-gradient(ellipse,rgba(0,90,180,.07) 0%,transparent 70%); pointer-events:none; }
+    .cl-grid { display:grid; grid-template-columns:55fr 45fr; gap:5rem; align-items:center; position:relative; z-index:2; }
+    .cl-lbl { display:inline-flex; align-items:center; gap:.5rem; font-family:var(--sans); font-size:.63rem; font-weight:600; letter-spacing:.22em; text-transform:uppercase; color:rgba(0,180,255,.7); margin-bottom:1.2rem; }
+    .cl-lbl::before { content:''; width:28px; height:1.5px; background:rgba(0,180,255,.5); border-radius:1px; }
+    .cl-btns { display:flex; align-items:center; gap:1.1rem; flex-wrap:wrap; margin-top:2.2rem; }
+    .cl-card { background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.08); border-radius:var(--radius); padding:2.8rem 2.4rem; text-align:center; position:relative; overflow:hidden; }
+    .cl-card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background:linear-gradient(to right,transparent,var(--accent) 30%,#00b4ff 70%,transparent); }
+    .cl-ew { font-family:var(--sans); font-size:.6rem; font-weight:600; letter-spacing:.24em; text-transform:uppercase; color:rgba(0,180,255,.52); margin-bottom:1.6rem; }
+    .cl-words { display:flex; flex-direction:column; align-items:center; gap:.5rem; margin-bottom:1.6rem; }
+    .cl-w { font-family:var(--serif); font-size:clamp(1.4rem,2.8vw,2.1rem); font-weight:700; color:#fff; line-height:1.2; }
+    .cl-w.it { font-style:italic; color:#7dd3fc; }
+    .cl-sep { width:28px; height:1px; background:rgba(0,113,227,.35); margin:0 auto; }
+    .cl-src { font-family:var(--sans); font-size:.72rem; font-weight:300; color:rgba(130,170,220,.55); letter-spacing:.06em; line-height:1.8; }
+
+    /* ═══════════════════ RESPONSIVE ═══════════════════ */
+    @media(max-width:900px){
+      .motto-grid,.ctx-grid,.cl-grid{grid-template-columns:1fr;gap:3rem}
+      .verses{grid-template-columns:1fr}
+      .chorus{grid-column:auto}
+      .mrow{grid-template-columns:1fr;gap:2rem}
+      .mrow:nth-child(even) .mc{order:1}
+      .mrow:nth-child(even) .mv{order:2}
+      .ctx-img{max-width:500px;margin-inline:auto}
+    }
+    @media(max-width:640px){
+      .pad-lg{padding-block:3.5rem}
+      .hero-body{padding-top:calc(var(--al-total-h,120px) + .8rem);padding-bottom:4.5rem}
+      .player{flex-direction:column;text-align:center}
+      .chorus-card{padding:1.6rem 1.2rem}
+      .cl-btns{flex-direction:column;align-items:flex-start}
+      .mv-circle{width:180px;height:180px}
+    }
+  </style>
+</head>
+<body>
+<div id="ansec-header"></div>
+
+<!-- ══════════════════════════════════════════════
+  §1 — HERO
+  ─────────────────────────────────────────────
+  MEDIA LAYER — choose ONE option, comment the other:
+
+  OPTION A — PHOTO (currently active fallback, no image set):
+    Uncomment <img> src when photo is ready.
+    Suggested:
+      • "Choir singing the school anthem at ANSEC assembly"
+        Path: /assets/images/hero/choir-singing.jpg
+      • "Students at morning assembly on the ANSEC campus"
+        Path: /assets/images/hero/students-assembly.jpg
+
+  OPTION B — VIDEO (commented out):
+    Uncomment the <video> block when a video file is ready.
+    Suggested:
+      • Assembly opening sequence
+      • Choir performance clip
+    Path example: /assets/video/hero/ansec-assembly.mp4
+
+  Only ONE block should be active at a time.
+══════════════════════════════════════════════ -->
+<section class="hero" id="hero-anthem-section" aria-label="School Anthem and Motto">
+
+  <!-- ════════════════════════════════════════════
+    OPTION A — PHOTO (activate by adding src path)
+    Alt text examples:
+      "Choir singing the ANSEC school anthem"
+      "Students at morning assembly, ANSEC campus"
+  ════════════════════════════════════════════ -->
+  <img
+    class="hero-media-img"
+    src="/assets/images/hero/ansec-choir.jpg"
+    alt="Students singing the school anthem at ANSEC assembly"
+    aria-hidden="true"
+    loading="eager"
+  />
+
+  <!-- ════════════════════════════════════════════
+    OPTION B — VIDEO (currently commented out)
+    To activate: remove the comment wrapper below,
+    then COMMENT OUT the <img> block above.
+    Attributes: autoplay muted loop playsinline
+      • autoplay  — starts immediately on page load
+      • muted     — required for autoplay to work
+      • loop      — continuous looping background
+      • playsinline — prevents fullscreen on iOS
+  ════════════════════════════════════════════ -->
+  <!--
+  <video
+    class="hero-media-vid"
+    src="/assets/video/hero/ansec-assembly.mp4"
+    autoplay
+    muted
+    loop
+    playsinline
+    aria-hidden="true"
+    preload="auto"
+  ></video>
+  -->
+
+  <!-- SVG musical-notation decorative layer (always shown) -->
+  <div class="hero-bg" aria-hidden="true">
+    <!-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 900" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <linearGradient id="hs" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%"   stop-color="#020b18"/>
+          <stop offset="100%" stop-color="#071428"/>
+        </linearGradient>
+        <radialGradient id="hg1" cx="50%" cy="40%" r="44%">
+          <stop offset="0%"   stop-color="#003a8c" stop-opacity=".3"/>
+          <stop offset="100%" stop-color="transparent"/>
+        </radialGradient>
+        <radialGradient id="hg2" cx="18%" cy="72%" r="38%">
+          <stop offset="0%"   stop-color="#001f6e" stop-opacity=".17"/>
+          <stop offset="100%" stop-color="transparent"/>
+        </radialGradient>
+        <radialGradient id="hg3" cx="84%" cy="65%" r="35%">
+          <stop offset="0%"   stop-color="#002a80" stop-opacity=".13"/>
+          <stop offset="100%" stop-color="transparent"/>
+        </radialGradient>
+      </defs>
+      <rect width="1400" height="900" fill="url(#hs)"/>
+      <rect width="1400" height="900" fill="url(#hg1)"/>
+      <rect width="1400" height="900" fill="url(#hg2)"/>
+      <rect width="1400" height="900" fill="url(#hg3)"/>
+
+   
+      <g opacity=".07" transform="rotate(-6,240,310)">
+        <line x1="-80" y1="220" x2="680" y2="220" stroke="rgba(0,180,255,1)" stroke-width="1.4"/>
+        <line x1="-80" y1="240" x2="680" y2="240" stroke="rgba(0,180,255,1)" stroke-width="1.4"/>
+        <line x1="-80" y1="260" x2="680" y2="260" stroke="rgba(0,180,255,1)" stroke-width="1.4"/>
+        <line x1="-80" y1="280" x2="680" y2="280" stroke="rgba(0,180,255,1)" stroke-width="1.4"/>
+        <line x1="-80" y1="300" x2="680" y2="300" stroke="rgba(0,180,255,1)" stroke-width="1.4"/>
+  
+        <path d="M68 192 Q88 162 108 192 Q128 232 88 252 Q52 272 72 302 Q92 342 120 322"
+              fill="none" stroke="rgba(0,180,255,1)" stroke-width="2.3" stroke-linecap="round"/>
+  
+        <ellipse cx="200" cy="250" rx="9" ry="6.5" fill="rgba(0,180,255,1)" transform="rotate(-15,200,250)"/>
+        <line x1="209" y1="250" x2="209" y2="205" stroke="rgba(0,180,255,1)" stroke-width="1.6"/>
+        <ellipse cx="270" cy="240" rx="9" ry="6.5" fill="rgba(0,180,255,1)" transform="rotate(-15,270,240)"/>
+        <line x1="279" y1="240" x2="279" y2="195" stroke="rgba(0,180,255,1)" stroke-width="1.6"/>
+        <ellipse cx="340" cy="258" rx="9" ry="6.5" fill="rgba(0,180,255,1)" transform="rotate(-15,340,258)"/>
+        <line x1="349" y1="258" x2="349" y2="213" stroke="rgba(0,180,255,1)" stroke-width="1.6"/>
+        <ellipse cx="410" cy="245" rx="9" ry="6.5" fill="rgba(0,180,255,1)" transform="rotate(-15,410,245)"/>
+        <line x1="419" y1="245" x2="419" y2="200" stroke="rgba(0,180,255,1)" stroke-width="1.6"/>
+        <line x1="209" y1="205" x2="419" y2="200" stroke="rgba(0,180,255,1)" stroke-width="4"/>
+        <line x1="209" y1="215" x2="419" y2="210" stroke="rgba(0,180,255,1)" stroke-width="4"/>
+      
+        <ellipse cx="500" cy="255" rx="9" ry="6.5" fill="rgba(0,180,255,1)" transform="rotate(-15,500,255)"/>
+        <line x1="509" y1="255" x2="509" y2="210" stroke="rgba(0,180,255,1)" stroke-width="1.6"/>
+        <ellipse cx="580" cy="268" rx="9" ry="6.5" fill="rgba(0,180,255,1)" transform="rotate(-15,580,268)"/>
+        <line x1="589" y1="268" x2="589" y2="223" stroke="rgba(0,180,255,1)" stroke-width="1.6"/>
+
+        <line x1="158" y1="218" x2="158" y2="302" stroke="rgba(0,180,255,1)" stroke-width="1.4"/>
+        <line x1="468" y1="218" x2="468" y2="302" stroke="rgba(0,180,255,1)" stroke-width="1.4"/>
+      </g>
+
+
+      <g opacity=".05" transform="rotate(5,920,560)">
+        <line x1="780" y1="500" x2="1500" y2="500" stroke="rgba(0,180,255,1)" stroke-width="1.4"/>
+        <line x1="780" y1="520" x2="1500" y2="520" stroke="rgba(0,180,255,1)" stroke-width="1.4"/>
+        <line x1="780" y1="540" x2="1500" y2="540" stroke="rgba(0,180,255,1)" stroke-width="1.4"/>
+        <line x1="780" y1="560" x2="1500" y2="560" stroke="rgba(0,180,255,1)" stroke-width="1.4"/>
+        <line x1="780" y1="580" x2="1500" y2="580" stroke="rgba(0,180,255,1)" stroke-width="1.4"/>
+        <path d="M818 490 Q838 460 858 490 Q878 530 838 550 Q798 570 818 600 Q838 640 868 620"
+              fill="none" stroke="rgba(0,180,255,1)" stroke-width="2" stroke-linecap="round"/>
+        <ellipse cx="940"  cy="540" rx="8" ry="6" fill="rgba(0,180,255,1)" transform="rotate(-15,940,540)"/>
+        <line x1="948" y1="540" x2="948" y2="498" stroke="rgba(0,180,255,1)" stroke-width="1.5"/>
+        <ellipse cx="1010" cy="528" rx="8" ry="6" fill="rgba(0,180,255,1)" transform="rotate(-15,1010,528)"/>
+        <line x1="1018" y1="528" x2="1018" y2="486" stroke="rgba(0,180,255,1)" stroke-width="1.5"/>
+        <ellipse cx="1080" cy="548" rx="8" ry="6" fill="rgba(0,180,255,1)" transform="rotate(-15,1080,548)"/>
+        <line x1="1088" y1="548" x2="1088" y2="506" stroke="rgba(0,180,255,1)" stroke-width="1.5"/>
+        <ellipse cx="1150" cy="535" rx="8" ry="6" fill="rgba(0,180,255,1)" transform="rotate(-15,1150,535)"/>
+        <line x1="1158" y1="535" x2="1158" y2="493" stroke="rgba(0,180,255,1)" stroke-width="1.5"/>
+        <line x1="948" y1="498" x2="1158" y2="493" stroke="rgba(0,180,255,1)" stroke-width="4"/>
+        <line x1="898" y1="498" x2="898" y2="582" stroke="rgba(0,180,255,1)" stroke-width="1.4"/>
+        <line x1="1118" y1="498" x2="1118" y2="582" stroke="rgba(0,180,255,1)" stroke-width="1.4"/>
+      </g>
+
+
+      <circle cx="155"  cy="118" r="1.5" fill="rgba(0,180,255,.4)"/>
+      <circle cx="330"  cy="78"  r="1.1" fill="rgba(0,180,255,.3)"/>
+      <circle cx="600"  cy="140" r="1.4" fill="rgba(0,180,255,.35)"/>
+      <circle cx="840"  cy="62"  r="1.2" fill="rgba(0,180,255,.28)"/>
+      <circle cx="1060" cy="98"  r="1.5" fill="rgba(0,180,255,.32)"/>
+      <circle cx="1270" cy="72"  r="1.1" fill="rgba(0,180,255,.28)"/>
+      <circle cx="50"   cy="400" r="1.2" fill="rgba(0,180,255,.22)"/>
+      <circle cx="1360" cy="630" r="1.3" fill="rgba(0,180,255,.22)"/>
+
+
+      <g opacity=".06" fill="rgba(0,180,255,1)">
+        <ellipse cx="92"  cy="420" rx="10" ry="7" transform="rotate(-18,92,420)"/>
+        <line x1="102" y1="420" x2="102" y2="380" stroke="rgba(0,180,255,1)" stroke-width="2"/>
+        <path d="M102 380 Q128 370 118 390" fill="none" stroke="rgba(0,180,255,1)" stroke-width="2" stroke-linecap="round"/>
+        <ellipse cx="1298" cy="248" rx="10" ry="7" transform="rotate(-18,1298,248)"/>
+        <line x1="1308" y1="248" x2="1308" y2="208" stroke="rgba(0,180,255,1)" stroke-width="2"/>
+        <path d="M1308 208 Q1334 198 1324 218" fill="none" stroke="rgba(0,180,255,1)" stroke-width="2" stroke-linecap="round"/>
+        <ellipse cx="1242" cy="718" rx="9" ry="6" transform="rotate(-18,1242,718)"/>
+        <line x1="1251" y1="718" x2="1251" y2="683" stroke="rgba(0,180,255,1)" stroke-width="1.8"/>
+        <path d="M1251 683 Q1272 673 1264 691" fill="none" stroke="rgba(0,180,255,1)" stroke-width="1.8" stroke-linecap="round"/>
+      </g>
+  
+      <rect x="0" y="750" width="1400" height="150" fill="rgba(2,8,18,.45)"/>
+    </svg> -->
+  </div>
+
+  <div class="hero-ov"></div>
+  <div class="hero-grid-tex"></div>
+
+  <!-- Scroll pip — bottom-right -->
+  <div class="hero-scroll-pip" aria-hidden="true">
+    <span>Explore</span>
+    <div class="scroll-pip"></div>
+  </div>
+
+  <!-- ── Text content ── -->
+  <div class="wrap">
+    <div class="hero-body">
+
+      <!-- Breadcrumb -->
+      <nav class="hero-breadcrumb" aria-label="Breadcrumb">
+        <a href="/index.html"><i class="ri-home-4-line"></i> Home</a>
+        <i class="ri-arrow-right-s-line"></i>
+        <a href="/pages/ansec-about.html">About ANSEC</a>
+        <i class="ri-arrow-right-s-line"></i>
+        <span class="crumb-cur">Anthem &amp; Motto</span>
+      </nav>
+
+      <!-- Eyebrow -->
+      <div class="hero-ew">Anum Presbyterian Senior High School</div>
+
+      <!-- H1 -->
+      <h1 class="hero-h1">School <em>Anthem</em> &amp; <em>Motto</em></h1>
+
+      <!-- Sub -->
+      <p class="hero-p">Words and music that have united generations of ANSEC students — our anthem is our voice, our motto is our compass.</p>
+
+      <!-- Musical staff decoration -->
+      <div class="hero-staff" aria-hidden="true">
+        <svg viewBox="0 0 480 58" xmlns="http://www.w3.org/2000/svg">
+          <line x1="20" y1="12" x2="460" y2="12" stroke="rgba(0,180,255,.9)" stroke-width="1.2"/>
+          <line x1="20" y1="22" x2="460" y2="22" stroke="rgba(0,180,255,.9)" stroke-width="1.2"/>
+          <line x1="20" y1="32" x2="460" y2="32" stroke="rgba(0,180,255,.9)" stroke-width="1.2"/>
+          <line x1="20" y1="42" x2="460" y2="42" stroke="rgba(0,180,255,.9)" stroke-width="1.2"/>
+          <line x1="20" y1="52" x2="460" y2="52" stroke="rgba(0,180,255,.9)" stroke-width="1.2"/>
+          <path d="M32 6 Q42 -6 52 6 Q66 24 42 38 Q22 52 36 68 Q50 88 64 72" fill="none" stroke="rgba(0,180,255,.9)" stroke-width="2" stroke-linecap="round"/>
+          <ellipse cx="100" cy="22" rx="7" ry="5" fill="rgba(0,180,255,.9)" transform="rotate(-15,100,22)"/>
+          <line x1="107" y1="22" x2="107" y2="2"  stroke="rgba(0,180,255,.9)" stroke-width="1.4"/>
+          <ellipse cx="140" cy="32" rx="7" ry="5" fill="rgba(0,180,255,.9)" transform="rotate(-15,140,32)"/>
+          <line x1="147" y1="32" x2="147" y2="12" stroke="rgba(0,180,255,.9)" stroke-width="1.4"/>
+          <ellipse cx="180" cy="26" rx="7" ry="5" fill="rgba(0,180,255,.9)" transform="rotate(-15,180,26)"/>
+          <line x1="187" y1="26" x2="187" y2="6"  stroke="rgba(0,180,255,.9)" stroke-width="1.4"/>
+          <ellipse cx="220" cy="16" rx="7" ry="5" fill="rgba(0,180,255,.9)" transform="rotate(-15,220,16)"/>
+          <line x1="227" y1="16" x2="227" y2="-4" stroke="rgba(0,180,255,.9)" stroke-width="1.4"/>
+          <line x1="107" y1="2"  x2="227" y2="-4" stroke="rgba(0,180,255,.9)" stroke-width="3.5"/>
+          <ellipse cx="265" cy="36" rx="7" ry="5" fill="rgba(0,180,255,.9)" transform="rotate(-15,265,36)"/>
+          <line x1="272" y1="36" x2="272" y2="16" stroke="rgba(0,180,255,.9)" stroke-width="1.4"/>
+          <ellipse cx="305" cy="22" rx="7" ry="5" fill="rgba(0,180,255,.9)" transform="rotate(-15,305,22)"/>
+          <line x1="312" y1="22" x2="312" y2="2"  stroke="rgba(0,180,255,.9)" stroke-width="1.4"/>
+          <ellipse cx="345" cy="30" rx="7" ry="5" fill="rgba(0,180,255,.9)" transform="rotate(-15,345,30)"/>
+          <line x1="352" y1="30" x2="352" y2="10" stroke="rgba(0,180,255,.9)" stroke-width="1.4"/>
+          <ellipse cx="385" cy="18" rx="7" ry="5" fill="rgba(0,180,255,.9)" transform="rotate(-15,385,18)"/>
+          <line x1="392" y1="18" x2="392" y2="-2" stroke="rgba(0,180,255,.9)" stroke-width="1.4"/>
+          <line x1="312" y1="2"  x2="392" y2="-2" stroke="rgba(0,180,255,.9)" stroke-width="3.5"/>
+          <line x1="20"  y1="10" x2="20"  y2="54" stroke="rgba(0,180,255,.65)" stroke-width="1.4"/>
+          <line x1="244" y1="10" x2="244" y2="54" stroke="rgba(0,180,255,.65)" stroke-width="1.4"/>
+          <line x1="420" y1="10" x2="420" y2="54" stroke="rgba(0,180,255,.65)" stroke-width="1.4"/>
+          <line x1="452" y1="10" x2="452" y2="54" stroke="rgba(0,180,255,.65)" stroke-width="1.8"/>
+          <line x1="458" y1="10" x2="458" y2="54" stroke="rgba(0,180,255,.65)" stroke-width="1.8"/>
+        </svg>
+      </div>
+
+      <!-- Motto pill — updated to match Mission, Vision & Values page -->
+      <div class="hero-pill">
+        <div class="pill-dot"></div>
+        <span class="pill-txt">"Service and Sacrifice"</span>
+        <div class="pill-dot"></div>
+      </div>
+
+    </div>
+  </div>
+
+</section>
+<div class="hero-bar"></div>
+
+
+<!-- ══════════════════════════════════════════════
+  §2 — THE MOTTO
+══════════════════════════════════════════════ -->
+<section id="motto">
+  <div class="wrap">
+    <div class="pad-lg">
+      <div class="motto-grid">
+
+        <!-- Left: typographic display -->
+        <div class="rv-l">
+          <div class="motto-display">
+            <div class="motto-ghost" aria-hidden="true">MOTTO</div>
+            <span class="motto-rule-top"></span>
+            <div class="motto-eyebrow">The School Motto</div>
+            <div class="motto-words">
+              <div class="motto-wr">
+                <span class="motto-n">01</span>
+                <span class="motto-w">Service<span class="comma">,</span></span>
+              </div>
+              <div class="motto-wr">
+                <span class="motto-n">02</span>
+                <span class="motto-w">and <em>Sacrifice</em></span>
+              </div>
+            </div>
+            <div class="motto-divider"></div>
+            <p class="motto-phrase">"Service and Sacrifice" — the two words upon which Anum Presbyterian Senior High School was founded, and by which every student, teacher, and alumnus is called to live. <em>Upon the mountain, we are perched to be seen.</em></p>
+            <div class="motto-badge">
+              <svg viewBox="0 0 11 11" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"><circle cx="5.5" cy="5.5" r="4.5"/><path d="M3 5.5h5M5.5 1.5a8 8 0 010 8M5.5 1.5a8 8 0 000 8"/></svg>
+              School Motto · "Service and Sacrifice" · Est. 1897
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: two pillar cards — Service & Sacrifice -->
+        <div class="pillars rv-r">
+          <div class="pillar">
+            <div class="pillar-ico">
+              <!-- Hands/heart icon — Service -->
+              <svg viewBox="0 0 20 20" fill="none" stroke="#0071e3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2l1.5 4.5H16L12.5 9l1.5 4.5L10 11l-4 2.5 1.5-4.5L4 6.5h4.5z"/></svg>
+            </div>
+            <div>
+              <div class="pillar-ttl">Service <span>— Heart</span></div>
+              <p class="pillar-dsc">Using one's gifts for the good of community, nation, and those most in need — the outward expression of all that ANSEC builds within every student.</p>
+            </div>
+            <div class="pillar-num" aria-hidden="true">01</div>
+          </div>
+          <div class="pillar">
+            <div class="pillar-ico">
+              <!-- Mountain / elevation icon — Sacrifice -->
+              <svg viewBox="0 0 20 20" fill="none" stroke="#0071e3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 16l5-8 4 5 3-4 4 7H2z"/></svg>
+            </div>
+            <div>
+              <div class="pillar-ttl">Sacrifice <span>— Will</span></div>
+              <p class="pillar-dsc">The willingness to give of oneself fully — upon the mountain we are perched to be seen, and seen by our willingness to sacrifice for the greater good.</p>
+            </div>
+            <div class="pillar-num" aria-hidden="true">02</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+
+<!-- ══════════════════════════════════════════════
+  §3 — THE ANTHEM
+══════════════════════════════════════════════ -->
+<section id="anthem">
+  <div class="wrap">
+    <div class="anthem-z pad-lg">
+
+      <div class="anthem-hd rv">
+        <div class="section-tag light">Our Voice, Our Heritage</div>
+        <h2 class="anthem-ttl">The School <em>Anthem</em></h2>
+        <p class="anthem-sub2">Sung at every assembly, every prize-giving, and every occasion that calls us to remember who we are and what we stand for as a school and community.</p>
+      </div>
+
+      <!-- Staff decoration -->
+      <div class="staff-deco rv" aria-hidden="true">
+        <svg viewBox="0 0 440 55" xmlns="http://www.w3.org/2000/svg">
+          <line x1="0" y1="11" x2="440" y2="11" stroke="rgba(0,180,255,1)" stroke-width="1.3"/>
+          <line x1="0" y1="22" x2="440" y2="22" stroke="rgba(0,180,255,1)" stroke-width="1.3"/>
+          <line x1="0" y1="33" x2="440" y2="33" stroke="rgba(0,180,255,1)" stroke-width="1.3"/>
+          <line x1="0" y1="44" x2="440" y2="44" stroke="rgba(0,180,255,1)" stroke-width="1.3"/>
+          <line x1="0" y1="55" x2="440" y2="55" stroke="rgba(0,180,255,1)" stroke-width="1.3"/>
+          <path d="M16 2 Q26 -9 36 2 Q50 20 26 35 Q6 50 20 65 Q34 85 50 72" fill="none" stroke="rgba(0,180,255,1)" stroke-width="2.2" stroke-linecap="round"/>
+          <ellipse cx="88"  cy="22" rx="7" ry="5" fill="rgba(0,180,255,.7)" transform="rotate(-15,88,22)"/>
+          <line x1="95" y1="22" x2="95" y2="2" stroke="rgba(0,180,255,.7)" stroke-width="1.4"/>
+          <ellipse cx="128" cy="33" rx="7" ry="5" fill="rgba(0,180,255,.7)" transform="rotate(-15,128,33)"/>
+          <line x1="135" y1="33" x2="135" y2="13" stroke="rgba(0,180,255,.7)" stroke-width="1.4"/>
+          <ellipse cx="168" cy="27" rx="7" ry="5" fill="rgba(0,180,255,.7)" transform="rotate(-15,168,27)"/>
+          <line x1="175" y1="27" x2="175" y2="7" stroke="rgba(0,180,255,.7)" stroke-width="1.4"/>
+          <ellipse cx="208" cy="17" rx="7" ry="5" fill="rgba(0,180,255,.7)" transform="rotate(-15,208,17)"/>
+          <line x1="215" y1="17" x2="215" y2="-3" stroke="rgba(0,180,255,.7)" stroke-width="1.4"/>
+          <line x1="95" y1="2" x2="215" y2="-3" stroke="rgba(0,180,255,.7)" stroke-width="3.5"/>
+          <ellipse cx="258" cy="38" rx="7" ry="5" fill="rgba(0,180,255,.7)" transform="rotate(-15,258,38)"/>
+          <line x1="265" y1="38" x2="265" y2="18" stroke="rgba(0,180,255,.7)" stroke-width="1.4"/>
+          <ellipse cx="298" cy="22" rx="7" ry="5" fill="rgba(0,180,255,.7)" transform="rotate(-15,298,22)"/>
+          <line x1="305" y1="22" x2="305" y2="2" stroke="rgba(0,180,255,.7)" stroke-width="1.4"/>
+          <ellipse cx="338" cy="33" rx="7" ry="5" fill="rgba(0,180,255,.7)" transform="rotate(-15,338,33)"/>
+          <line x1="345" y1="33" x2="345" y2="13" stroke="rgba(0,180,255,.7)" stroke-width="1.4"/>
+          <ellipse cx="378" cy="17" rx="7" ry="5" fill="rgba(0,180,255,.7)" transform="rotate(-15,378,17)"/>
+          <line x1="385" y1="17" x2="385" y2="-3" stroke="rgba(0,180,255,.7)" stroke-width="1.4"/>
+          <line x1="305" y1="2" x2="385" y2="-3" stroke="rgba(0,180,255,.7)" stroke-width="3.5"/>
+          <line x1="68"  y1="9" x2="68"  y2="57" stroke="rgba(0,180,255,.5)" stroke-width="1.3"/>
+          <line x1="236" y1="9" x2="236" y2="57" stroke="rgba(0,180,255,.5)" stroke-width="1.3"/>
+          <line x1="422" y1="9" x2="422" y2="57" stroke="rgba(0,180,255,.5)" stroke-width="1.8"/>
+          <line x1="428" y1="9" x2="428" y2="57" stroke="rgba(0,180,255,.5)" stroke-width="1.8"/>
+        </svg>
+      </div>
+
+      <!-- Verse grid -->
+      <div class="verses">
+
+        <div class="verse rv" style="transition-delay:.04s">
+          <div class="verse-lbl"><div class="v-num">I</div><span class="v-tag">Verse One</span></div>
+          <span class="verse-rule"></span>
+          <div class="lines">
+            <span class="ln">Praise the Lord who built this school for us,</span>
+            <span class="ln">Set in Anum, by the Volta's shore;</span>
+            <span class="ln">Here we learn of God and all His ways,</span>
+            <span class="ln">Here we train for life and for His cause.</span>
+            <span class="ln ind">Lift our voices, sing with joy and praise,</span>
+            <span class="ln ind">ANSEC, our beloved school!</span>
+          </div>
+        </div>
+
+        <div class="verse rv" style="transition-delay:.08s">
+          <div class="verse-lbl"><div class="v-num">II</div><span class="v-tag">Verse Two</span></div>
+          <span class="verse-rule"></span>
+          <div class="lines">
+            <span class="ln">Here we seek for wisdom, truth, and light,</span>
+            <span class="ln">Guided by the Word of God each day;</span>
+            <span class="ln">May our hearts be pure and our hands strong,</span>
+            <span class="ln">As we walk the straight and narrow way.</span>
+            <span class="ln ind">Give us grace to live in peace and love,</span>
+            <span class="ln ind">ANSEC, our guiding star!</span>
+          </div>
+        </div>
+
+        <!-- Chorus — full width -->
+        <div class="chorus rv" style="transition-delay:.14s">
+          <div class="chorus-card">
+            <div class="ch-lbl">Chorus</div>
+            <div class="ch-lines">
+              <span class="ch-ln em">Service and Sacrifice —</span>
+              <span class="ch-ln">These the words we proudly bear;</span>
+              <span class="ch-ln">In our hearts and in our living,</span>
+              <span class="ch-ln">May these virtues ever shine.</span>
+              <span class="ch-ln em">ANSEC! ANSEC! Hear our voices ring,</span>
+              <span class="ch-ln">To our school our praises bring!</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="verse rv" style="transition-delay:.1s">
+          <div class="verse-lbl"><div class="v-num">III</div><span class="v-tag">Verse Three</span></div>
+          <span class="verse-rule"></span>
+          <div class="lines">
+            <span class="ln">When the years have passed and we have gone,</span>
+            <span class="ln">Far beyond these gates we love so well,</span>
+            <span class="ln">May the flame that burned in us burn on,</span>
+            <span class="ln">May the story of our deeds still tell.</span>
+            <span class="ln ind">That we served with honour, faith, and grace,</span>
+            <span class="ln ind">Children of this hallowed place!</span>
+          </div>
+        </div>
+
+        <div class="verse rv" style="transition-delay:.14s">
+          <div class="verse-lbl"><div class="v-num">IV</div><span class="v-tag">Verse Four</span></div>
+          <span class="verse-rule"></span>
+          <div class="lines">
+            <span class="ln">Lord, we bring this school before Your throne,</span>
+            <span class="ln">Bless the teachers, bless the students here;</span>
+            <span class="ln">Let Your peace and wisdom fill each heart,</span>
+            <span class="ln">Let Your Spirit guide through every year.</span>
+            <span class="ln ind">ANSEC stands by faith through storm and sun —</span>
+            <span class="ln ind">God's own work, His will be done!</span>
+          </div>
+        </div>
+
+      </div><!-- /verses -->
+
+      <!-- Audio player (placeholder) -->
+      <div class="player rv" style="transition-delay:.22s">
+        <button class="play-btn" aria-label="Play anthem">
+          <svg viewBox="0 0 18 18" fill="white"><path d="M5 3l11 6-11 6V3z"/></svg>
+        </button>
+        <div class="play-info">
+          <div class="play-ttl">ANSEC School Anthem</div>
+          <div class="play-meta">Full choir arrangement · Est. 1897</div>
+        </div>
+        <div class="waveform" aria-hidden="true">
+          <span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span>
+        </div>
+      </div>
+      <p class="play-note rv" style="transition-delay:.26s">Upload an audio file to the site to activate the player with the full school choir recording.</p>
+
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+
+<!-- ══════════════════════════════════════════════
+  §4 — ANTHEM IN CONTEXT
+══════════════════════════════════════════════ -->
+<section id="ctx">
+  <div class="wrap">
+    <div class="pad-lg">
+      <div class="ctx-grid">
+
+        <!-- Left: illustrated score -->
+        <div class="ctx-img rv-l">
+          <div class="ctx-frame">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 420">
+              <defs>
+                <linearGradient id="scbg" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%"   stop-color="#f8f9fb"/>
+                  <stop offset="100%" stop-color="#edf0f5"/>
+                </linearGradient>
+              </defs>
+              <rect width="560" height="420" fill="url(#scbg)"/>
+              <line x1="40"  y1="0" x2="40"  y2="420" stroke="rgba(0,0,0,.04)" stroke-width="1"/>
+              <line x1="520" y1="0" x2="520" y2="420" stroke="rgba(0,0,0,.04)" stroke-width="1"/>
+              <!-- Title -->
+              <rect x="155" y="22" width="250" height="38" rx="4" fill="rgba(0,113,227,.06)" stroke="rgba(0,113,227,.15)" stroke-width="1"/>
+              <text x="280" y="38" text-anchor="middle" font-size="10" fill="rgba(0,113,227,.55)" font-family="Georgia,serif" font-weight="bold" letter-spacing="2">SCHOOL ANTHEM</text>
+              <text x="280" y="53" text-anchor="middle" font-size="8" fill="rgba(0,113,227,.4)" font-family="Georgia,serif" font-style="italic">Anum Presbyterian Senior High School</text>
+              <!-- Staff 1 -->
+              <g transform="translate(52,86)">
+                <line x1="0" y1="0"  x2="452" y2="0"  stroke="rgba(0,30,80,.22)" stroke-width="1.2"/>
+                <line x1="0" y1="12" x2="452" y2="12" stroke="rgba(0,30,80,.22)" stroke-width="1.2"/>
+                <line x1="0" y1="24" x2="452" y2="24" stroke="rgba(0,30,80,.22)" stroke-width="1.2"/>
+                <line x1="0" y1="36" x2="452" y2="36" stroke="rgba(0,30,80,.22)" stroke-width="1.2"/>
+                <line x1="0" y1="48" x2="452" y2="48" stroke="rgba(0,30,80,.22)" stroke-width="1.2"/>
+                <path d="M10 -10 Q20 -22 30 -10 Q44 8 20 22 Q2 36 16 52 Q30 72 44 56" fill="none" stroke="rgba(0,30,80,.45)" stroke-width="1.8" stroke-linecap="round"/>
+                <text x="54" y="4"  font-size="13" fill="rgba(0,30,80,.35)" font-family="Georgia,serif" font-weight="bold">4</text>
+                <text x="54" y="18" font-size="13" fill="rgba(0,30,80,.35)" font-family="Georgia,serif" font-weight="bold">4</text>
+                <ellipse cx="98"  cy="12" rx="7" ry="5" fill="rgba(0,30,80,.6)" transform="rotate(-15,98,12)"/>
+                <line x1="105" y1="12" x2="105" y2="-9" stroke="rgba(0,30,80,.6)" stroke-width="1.4"/>
+                <ellipse cx="138" cy="24" rx="7" ry="5" fill="rgba(0,30,80,.6)" transform="rotate(-15,138,24)"/>
+                <line x1="145" y1="24" x2="145" y2="3"  stroke="rgba(0,30,80,.6)" stroke-width="1.4"/>
+                <ellipse cx="178" cy="18" rx="7" ry="5" fill="rgba(0,30,80,.6)" transform="rotate(-15,178,18)"/>
+                <line x1="185" y1="18" x2="185" y2="-3" stroke="rgba(0,30,80,.6)" stroke-width="1.4"/>
+                <line x1="105" y1="-9" x2="185" y2="-3" stroke="rgba(0,30,80,.6)" stroke-width="3.5"/>
+                <ellipse cx="218" cy="6"  rx="7" ry="5" fill="rgba(0,30,80,.6)" transform="rotate(-15,218,6)"/>
+                <line x1="225" y1="6"  x2="225" y2="-15" stroke="rgba(0,30,80,.6)" stroke-width="1.4"/>
+                <ellipse cx="258" cy="30" rx="7" ry="5" fill="rgba(0,30,80,.6)" transform="rotate(-15,258,30)"/>
+                <line x1="265" y1="30" x2="265" y2="9"  stroke="rgba(0,30,80,.6)" stroke-width="1.4"/>
+                <ellipse cx="298" cy="18" rx="7" ry="5" fill="rgba(0,30,80,.6)" transform="rotate(-15,298,18)"/>
+                <line x1="305" y1="18" x2="305" y2="-3" stroke="rgba(0,30,80,.6)" stroke-width="1.4"/>
+                <ellipse cx="338" cy="12" rx="7" ry="5" fill="rgba(0,30,80,.6)" transform="rotate(-15,338,12)"/>
+                <line x1="345" y1="12" x2="345" y2="-9" stroke="rgba(0,30,80,.6)" stroke-width="1.4"/>
+                <ellipse cx="378" cy="24" rx="7" ry="5" fill="rgba(0,30,80,.6)" transform="rotate(-15,378,24)"/>
+                <line x1="385" y1="24" x2="385" y2="3"  stroke="rgba(0,30,80,.6)" stroke-width="1.4"/>
+                <line x1="305" y1="-3" x2="385" y2="3"  stroke="rgba(0,30,80,.6)" stroke-width="3.5"/>
+                <line x1="0"   y1="-2" x2="0"   y2="50" stroke="rgba(0,30,80,.4)"  stroke-width="1.3"/>
+                <line x1="88"  y1="-2" x2="88"  y2="50" stroke="rgba(0,30,80,.3)"  stroke-width="1.1"/>
+                <line x1="208" y1="-2" x2="208" y2="50" stroke="rgba(0,30,80,.3)"  stroke-width="1.1"/>
+                <line x1="320" y1="-2" x2="320" y2="50" stroke="rgba(0,30,80,.3)"  stroke-width="1.1"/>
+                <line x1="440" y1="-2" x2="440" y2="50" stroke="rgba(0,30,80,.4)"  stroke-width="1.3"/>
+                <line x1="446" y1="-2" x2="446" y2="50" stroke="rgba(0,30,80,.4)"  stroke-width="1.3"/>
+              </g>
+              <!-- Staff 2 -->
+              <g transform="translate(52,178)">
+                <line x1="0" y1="0"  x2="452" y2="0"  stroke="rgba(0,30,80,.18)" stroke-width="1.2"/>
+                <line x1="0" y1="12" x2="452" y2="12" stroke="rgba(0,30,80,.18)" stroke-width="1.2"/>
+                <line x1="0" y1="24" x2="452" y2="24" stroke="rgba(0,30,80,.18)" stroke-width="1.2"/>
+                <line x1="0" y1="36" x2="452" y2="36" stroke="rgba(0,30,80,.18)" stroke-width="1.2"/>
+                <line x1="0" y1="48" x2="452" y2="48" stroke="rgba(0,30,80,.18)" stroke-width="1.2"/>
+                <ellipse cx="80"  cy="18" rx="7" ry="5" fill="rgba(0,30,80,.5)" transform="rotate(-15,80,18)"/>
+                <line x1="87" y1="18" x2="87" y2="-3" stroke="rgba(0,30,80,.5)" stroke-width="1.4"/>
+                <ellipse cx="120" cy="6"  rx="7" ry="5" fill="rgba(0,30,80,.5)" transform="rotate(-15,120,6)"/>
+                <line x1="127" y1="6" x2="127" y2="-15" stroke="rgba(0,30,80,.5)" stroke-width="1.4"/>
+                <ellipse cx="160" cy="24" rx="7" ry="5" fill="rgba(0,30,80,.5)" transform="rotate(-15,160,24)"/>
+                <line x1="167" y1="24" x2="167" y2="3" stroke="rgba(0,30,80,.5)" stroke-width="1.4"/>
+                <ellipse cx="200" cy="12" rx="7" ry="5" fill="rgba(0,30,80,.5)" transform="rotate(-15,200,12)"/>
+                <line x1="207" y1="12" x2="207" y2="-9" stroke="rgba(0,30,80,.5)" stroke-width="1.4"/>
+                <line x1="87" y1="-3" x2="207" y2="-9" stroke="rgba(0,30,80,.5)" stroke-width="3.5"/>
+                <ellipse cx="258" cy="18" rx="7" ry="5" fill="rgba(0,30,80,.5)" transform="rotate(-15,258,18)"/>
+                <line x1="265" y1="18" x2="265" y2="-3" stroke="rgba(0,30,80,.5)" stroke-width="1.4"/>
+                <ellipse cx="298" cy="30" rx="7" ry="5" fill="rgba(0,30,80,.5)" transform="rotate(-15,298,30)"/>
+                <line x1="305" y1="30" x2="305" y2="9" stroke="rgba(0,30,80,.5)" stroke-width="1.4"/>
+                <ellipse cx="338" cy="6"  rx="7" ry="5" fill="rgba(0,30,80,.5)" transform="rotate(-15,338,6)"/>
+                <line x1="345" y1="6" x2="345" y2="-15" stroke="rgba(0,30,80,.5)" stroke-width="1.4"/>
+                <line x1="0"   y1="-2" x2="0"   y2="50" stroke="rgba(0,30,80,.3)" stroke-width="1.1"/>
+                <line x1="228" y1="-2" x2="228" y2="50" stroke="rgba(0,30,80,.28)" stroke-width="1.1"/>
+                <line x1="440" y1="-2" x2="440" y2="50" stroke="rgba(0,30,80,.3)" stroke-width="1.3"/>
+                <line x1="446" y1="-2" x2="446" y2="50" stroke="rgba(0,30,80,.3)" stroke-width="1.3"/>
+              </g>
+              <!-- Staff 3 -->
+              <g transform="translate(52,268)">
+                <line x1="0" y1="0"  x2="452" y2="0"  stroke="rgba(0,30,80,.14)" stroke-width="1.2"/>
+                <line x1="0" y1="12" x2="452" y2="12" stroke="rgba(0,30,80,.14)" stroke-width="1.2"/>
+                <line x1="0" y1="24" x2="452" y2="24" stroke="rgba(0,30,80,.14)" stroke-width="1.2"/>
+                <line x1="0" y1="36" x2="452" y2="36" stroke="rgba(0,30,80,.14)" stroke-width="1.2"/>
+                <line x1="0" y1="48" x2="452" y2="48" stroke="rgba(0,30,80,.14)" stroke-width="1.2"/>
+                <ellipse cx="88"  cy="24" rx="7" ry="5" fill="rgba(0,30,80,.4)" transform="rotate(-15,88,24)"/>
+                <line x1="95" y1="24" x2="95" y2="3" stroke="rgba(0,30,80,.4)" stroke-width="1.4"/>
+                <ellipse cx="128" cy="12" rx="7" ry="5" fill="rgba(0,30,80,.4)" transform="rotate(-15,128,12)"/>
+                <line x1="135" y1="12" x2="135" y2="-9" stroke="rgba(0,30,80,.4)" stroke-width="1.4"/>
+                <ellipse cx="168" cy="30" rx="7" ry="5" fill="rgba(0,30,80,.4)" transform="rotate(-15,168,30)"/>
+                <line x1="175" y1="30" x2="175" y2="9" stroke="rgba(0,30,80,.4)" stroke-width="1.4"/>
+                <ellipse cx="208" cy="18" rx="7" ry="5" fill="rgba(0,30,80,.4)" transform="rotate(-15,208,18)"/>
+                <line x1="215" y1="18" x2="215" y2="-3" stroke="rgba(0,30,80,.4)" stroke-width="1.4"/>
+                <ellipse cx="268" cy="6"  rx="7" ry="5" fill="rgba(0,30,80,.4)" transform="rotate(-15,268,6)"/>
+                <line x1="275" y1="6" x2="275" y2="-15" stroke="rgba(0,30,80,.4)" stroke-width="1.4"/>
+                <line x1="0"   y1="-2" x2="0"   y2="50" stroke="rgba(0,30,80,.28)" stroke-width="1.1"/>
+                <line x1="238" y1="-2" x2="238" y2="50" stroke="rgba(0,30,80,.24)" stroke-width="1.1"/>
+                <line x1="440" y1="-2" x2="440" y2="50" stroke="rgba(0,30,80,.28)" stroke-width="1.3"/>
+                <line x1="446" y1="-2" x2="446" y2="50" stroke="rgba(0,30,80,.28)" stroke-width="1.3"/>
+              </g>
+              <text x="280" y="402" text-anchor="middle" font-size="8" fill="rgba(0,30,80,.28)" font-family="Georgia,serif" font-style="italic">ANSEC School Anthem — arranged for SATB choir</text>
+              <path d="M40 22 Q55 12 70 22" fill="none" stroke="rgba(0,113,227,.2)" stroke-width="1.2"/>
+              <path d="M490 22 Q505 12 520 22" fill="none" stroke="rgba(0,113,227,.2)" stroke-width="1.2"/>
+            </svg>
+            <div class="ctx-frame-ov"></div>
+          </div>
+          <div class="ctx-tl"></div>
+          <div class="ctx-br"></div>
+          <div class="ctx-badge">
+            <div class="ctx-bico">
+              <svg viewBox="0 0 15 15" fill="none" stroke="#7dd3fc" stroke-width="1.4" stroke-linecap="round"><path d="M5 2.5v7l5-3-5-4z"/><circle cx="7.5" cy="7.5" r="6"/></svg>
+            </div>
+            <div>
+              <div class="ctx-bval">Est. 1897</div>
+              <div class="ctx-blbl">Anthem &amp; Motto</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: text -->
+        <div class="rv-r">
+          <div class="ctx-al">About the Anthem</div>
+          <h2 class="serif">More Than <em>Words</em></h2>
+          <p class="lora-body" style="margin-top:1.2rem">The ANSEC anthem is not merely a ceremonial song. It is a declaration of identity — a statement of what this school believes, what it asks of its students, and what it offers the world through those who pass through its gates.</p>
+          <p class="lora-body">Sung since the school's earliest days, the anthem has accompanied generations of students through prize-givings, speech days, inter-school competitions, and quiet morning assemblies — its words woven into the fabric of each student's formation.</p>
+          <div class="ctx-facts">
+            <div class="ctx-fact">
+              <div class="ctx-ficon"><svg viewBox="0 0 15 15" fill="none" stroke="#0071e3" stroke-width="1.4" stroke-linecap="round"><circle cx="7.5" cy="7.5" r="6"/><path d="M7.5 4v3.5l2.5 1.5"/></svg></div>
+              <div><div class="ctx-fttl">Sung at Every Assembly</div><div class="ctx-fdsc">The anthem opens formal school gatherings, uniting students, staff, and visitors under one shared identity.</div></div>
+            </div>
+            <div class="ctx-fact">
+              <div class="ctx-ficon"><svg viewBox="0 0 15 15" fill="none" stroke="#0071e3" stroke-width="1.4" stroke-linecap="round"><path d="M4 2.5v8l3.5-2.5 3.5 2.5v-8a1 1 0 00-1-1H5a1 1 0 00-1 1z"/></svg></div>
+              <div><div class="ctx-fttl">Rooted in Presbyterian Tradition</div><div class="ctx-fdsc">Reflecting ANSEC's founding, the anthem is grounded in faith, scripture, and a sense of divine calling in education.</div></div>
+            </div>
+            <div class="ctx-fact">
+              <div class="ctx-ficon"><svg viewBox="0 0 15 15" fill="none" stroke="#0071e3" stroke-width="1.4" stroke-linecap="round"><path d="M7.5 2l1.3 3H13l-2.5 2 .9 3-3.2-1.8-3.2 1.8.9-3L3.5 5h4.2z"/></svg></div>
+              <div><div class="ctx-fttl">Embodies the Motto</div><div class="ctx-fdsc">Each verse of the anthem reinforces one of the three motto pillars — Service and Sacrifice — giving the motto a living musical expression.</div></div>
+            </div>
+            <div class="ctx-fact">
+              <div class="ctx-ficon"><svg viewBox="0 0 15 15" fill="none" stroke="#0071e3" stroke-width="1.4" stroke-linecap="round"><path d="M2 12V5l5.5-3.5L13 5v7M5.5 9.5h4v2.5h-4z"/></svg></div>
+              <div><div class="ctx-fttl">A Bond Across Generations</div><div class="ctx-fdsc">Alumni who graduated decades ago can still sing every word — the anthem is one of the most powerful ties binding the ANSEC community across time.</div></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="rule">
+
+
+<!-- ══════════════════════════════════════════════
+  §5 — MOTTO DEEP DIVE
+══════════════════════════════════════════════ -->
+<section id="motto-deep">
+  <div class="wrap">
+    <div class="pad-lg">
+
+      <div class="mhd rv">
+        <div class="section-tag">Two Words, One Purpose</div>
+        <h2 class="serif">Living <em>Service &amp; Sacrifice</em></h2>
+        <p class="sub" style="max-width:500px;margin-inline:auto;margin-top:.7rem">At ANSEC, the motto is not decorative — it is a declaration. "Service and Sacrifice" defines the goal of every lesson taught, every rule upheld, and every life shaped within these walls.</p>
+      </div>
+
+      <!-- Row 1: Service -->
+      <div class="mrow">
+        <div class="mc rv-l">
+          <div class="m-num">Pillar One</div>
+          <h3 class="m-word">Ser<em>vice</em></h3>
+          <p class="m-tag">"The greatest among you shall be your servant." — Matthew 23:11</p>
+          <p class="m-desc">Service is the outward expression of all that ANSEC builds within every student. Every graduate is called to use their gifts not for personal advancement alone, but for the good of family, community, Ghana, and beyond — a calling rooted in ANSEC's Presbyterian heritage.</p>
+          <ul class="m-pts">
+            <li>Community service woven into school life, clubs, and house activities</li>
+            <li>Leadership shaped through the prefect body and house offices</li>
+            <li>Alumni serving across medicine, law, education, ministry, and governance</li>
+            <li>The Presbyterian ethos of servant leadership as the highest calling</li>
+          </ul>
+        </div>
+        <div class="mv rv-r">
+          <div class="mv-circle">
+            <div class="mv-inner">
+              <!-- Hands / servant icon -->
+              <svg viewBox="0 0 36 36" fill="none" stroke="#0071e3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M10 22c0-4.4 3.6-8 8-8s8 3.6 8 8"/>
+                <circle cx="18" cy="11" r="4.5"/>
+                <path d="M6 30c0-3.3 2.7-6 6-6h12c3.3 0 6 2.7 6 6"/>
+              </svg>
+              <span class="mv-lbl">Service</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Row 2: Sacrifice -->
+      <div class="mrow">
+        <div class="mc rv-r">
+          <div class="m-num">Pillar Two</div>
+          <h3 class="m-word"><em>Sacri</em>fice</h3>
+          <p class="m-tag">"Upon the mountain, we are perched to be seen." — ANSEC Motto</p>
+          <p class="m-desc">Sacrifice at ANSEC is the willingness to give fully of oneself — to endure hard study, uphold principle under pressure, and place the community above personal comfort. Perched upon the mountain, ANSEC students are visible, and their character must match their elevation.</p>
+          <ul class="m-pts">
+            <li>Boarding life that builds resilience, patience, and shared responsibility</li>
+            <li>Academic rigour that demands real effort and persistence</li>
+            <li>Athletic and co-curricular programmes that build mental toughness</li>
+            <li>A culture of giving back — to ANSEC and to Ghana</li>
+          </ul>
+        </div>
+        <div class="mv rv-l">
+          <div class="mv-circle">
+            <div class="mv-inner">
+              <!-- Mountain / elevation icon -->
+              <svg viewBox="0 0 36 36" fill="none" stroke="#0071e3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 30L14 14l6 8 4-5 8 13H4z"/>
+                <circle cx="27" cy="9" r="3"/>
+                <path d="M27 6V4"/>
+              </svg>
+              <span class="mv-lbl">Sacrifice</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════
+  §6 — CLOSING
+══════════════════════════════════════════════ -->
+<section id="closing">
+  <div class="wrap">
+    <div class="pad-lg">
+      <div class="cl-grid">
+
+        <div class="rv-l">
+          <div class="cl-lbl">Our Identity</div>
+          <h2 class="serif on-dark">Words That <em>Define</em> a School</h2>
+          <p class="lora-body on-dark" style="margin-top:1.4rem">The anthem and motto of Anum Presbyterian Senior High School are not artefacts of the past. They are living statements — sung every morning, lived every day, carried into every classroom, every playing field, and every life that ANSEC touches.</p>
+          <p class="lora-body on-dark">We invite you to explore what it means to be part of a school community shaped by Service and Sacrifice — and to discover how these two words have produced graduates making a difference across Ghana and beyond.</p>
+          <div class="cl-btns">
+            <a href="../pages/ansec-mission-vision-values.html" class="btn-g">
+              Our Mission &amp; Values
+              <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M3 7h8M8 4l3 3-3 3" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+            <a href="#" class="btn-ol">Meet Our Community</a>
+          </div>
+        </div>
+
+        <div class="rv-r">
+          <div class="cl-card">
+            <div class="cl-ew">School Motto · Est. 1937</div>
+            <div class="cl-words">
+              <div class="cl-sep"></div>
+              <div class="cl-w it">Service</div>
+              <div class="cl-sep"></div>
+              <div class="cl-w">and Sacrifice</div>
+            </div>
+            <div class="cl-src">Anum Presbyterian Senior High School<br>Anum, Eastern Region, Ghana</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<script>
+  (function(){
+    const els = document.querySelectorAll('.rv,.rv-l,.rv-r');
+    const io  = new IntersectionObserver(
+      e => e.forEach(x => { if(x.isIntersecting) x.target.classList.add('in'); }),
+      { threshold:.08, rootMargin:'0px 0px -40px 0px' }
+    );
+    els.forEach(el => io.observe(el));
+  })();
+</script>
+
+  <div id="ansec-footer"></div>
+<script src="/assets/js/ansec-layout.js" defer></script>
+</body>
+</html>
