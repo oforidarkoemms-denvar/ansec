@@ -418,15 +418,19 @@ body.al-locked { overflow: hidden !important; }
     overflow-y: auto; -webkit-overflow-scrolling: touch;
     overscroll-behavior: contain;
     box-shadow: -8px 0 40px var(--al-shadow-hv);
-    padding-top: var(--al-total-h);
+    /* padding-top: var(--al-total-h); */
   }
 
   .al-menu.al-open { transform: translateX(0); }
 
-     @media (max-width: 992px) {
+@media (max-width: 992px) {
+
   .al-menu {
-    padding-top: calc(var(--al-total-h) -25px); /* adjust amount */
+    top: var(--al-total-h);        /* start below header */
+    height: calc(100dvh - var(--al-total-h));
+    padding-top: 0;                /* remove padding hack */
   }
+
 }
 
   /* Overlay: only display inside mobile breakpoint, pointer-events off when hidden */
