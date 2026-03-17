@@ -68,7 +68,7 @@
 /* ═══════════════════════════════════════════════════════════
    BODY OFFSET & LOCK  (unique names — no page uses these)
 ═══════════════════════════════════════════════════════════ */
-/* body.al-offset { padding-top: var(--al-total-h) !important; }  */
+/* body.al-offset { padding-top: var(--al-total-h) !important; } */
 body.al-locked { overflow: hidden !important; }
 
 
@@ -418,11 +418,8 @@ body.al-locked { overflow: hidden !important; }
     overflow-y: auto; -webkit-overflow-scrolling: touch;
     overscroll-behavior: contain;
     box-shadow: -8px 0 40px var(--al-shadow-hv);
-   top: var( --al-topbar-h);        /* start below header */
-    height: calc(100dvh - var(--al-topbar-h));
-    padding-top: 0; 
+    padding-top: (var( --al-topbar-h)-1px);
   }
-
   .al-menu.al-open { transform: translateX(0); }
 
   /* Overlay: only display inside mobile breakpoint, pointer-events off when hidden */
